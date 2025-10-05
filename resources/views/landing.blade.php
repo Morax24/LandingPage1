@@ -1,717 +1,578 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Board Business - Landing Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .dashed-border {
-            border: 2px dashed #a855f7;
-            border-radius: 12px;
-        }
-        @media (min-width: 768px) {
-            .dashed-border {
-                border-width: 3px;
-            }
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GameBoard - Alat Perencanaan Bisnis Interaktif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
 
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
+    .dashed-border {
+      border: 2px dashed #a855f7;
+      border-radius: 12px;
+    }
 
-        #loadingScreen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
+    @media (min-width: 768px) {
+      .dashed-border {
+        border-width: 3px;
+      }
+    }
 
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 6px solid rgba(255, 255, 255, 0.2);
-            border-top: 6px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+    /* Loading Screen Styles */
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
 
-        @media (min-width: 640px) {
-            .loader {
-                width: 80px;
-                height: 80px;
-                border-width: 8px;
-            }
-        }
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f4f6;
+      border-top: 5px solid #8b5cf6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-        .loading-text {
-            color: white;
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
+    .loading-text {
+      font-size: 18px;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
 
-        @media (min-width: 640px) {
-            .loading-text {
-                font-size: 1.5rem;
-                margin-top: 2rem;
-            }
-        }
+    .loading-progress {
+      width: 200px;
+      height: 4px;
+      background-color: #e5e7eb;
+      border-radius: 2px;
+      overflow: hidden;
+    }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+    .loading-progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: #8b5cf6;
+      animation: progress 2s ease-in-out forwards;
+    }
 
-        .loading-progress {
-            width: 160px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
+    @keyframes progress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
 
-        @media (min-width: 640px) {
-            .loading-progress {
-                width: 200px;
-                margin-top: 1.5rem;
-            }
-        }
+    /* Animasi untuk elemen saat muncul */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
 
-        .loading-progress-bar {
-            height: 100%;
-            background: white;
-            border-radius: 2px;
-            animation: progress 2s ease-in-out;
-            transform-origin: left;
-        }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
+    /* Styling untuk card fitur */
+    .feature-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .video-aspect {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            overflow: hidden;
-            border-radius: 0.5rem;
-        }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
 
-        @media (min-width: 768px) {
-            .video-aspect {
-                border-radius: 0.75rem;
-            }
-        }
-
-        .video-aspect > * {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    /* Gradient untuk CTA */
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+  </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Loading Screen -->
-    <div id="loadingScreen">
-        <div class="loader"></div>
-        <div class="loading-text">Loading...</div>
-        <div class="loading-progress">
-            <div class="loading-progress-bar"></div>
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loader"></div>
+    <div class="loading-text">Memuat GameBoard...</div>
+    <div class="loading-progress">
+      <div class="loading-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <div class="text-purple-600 font-bold text-lg lg:text-xl flex items-center">
+            <i class="fas fa-chess-board mr-2"></i>
+            GameBoard
+          </div>
         </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="text-gray-700 hover:text-purple-600 transition font-medium">Beranda</a>
+          <a href="#features" class="text-gray-700 hover:text-purple-600 transition font-medium">Fitur</a>
+          <a href="#demo" class="text-gray-700 hover:text-purple-600 transition font-medium">Demo</a>
+          <a href="#testimonials" class="text-gray-700 hover:text-purple-600 transition font-medium">Testimoni</a>
+          <a href="#contact" class="text-gray-700 hover:text-purple-600 transition font-medium">Kontak</a>
+          <button class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition font-medium shadow-md" aria-label="Mulai Sekarang">
+            Mulai Sekarang
+          </button>
+        </div>
+        <button id="mobileMenuBtn" class="md:hidden text-gray-700 p-2" aria-label="Menu Mobile">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+      <div id="mobileMenu" class="hidden md:hidden pb-4 border-t border-gray-200 mt-2">
+        <div class="flex flex-col space-y-3 pt-4">
+          <a href="#home" class="text-gray-700 hover:text-purple-600 transition py-2 font-medium">Beranda</a>
+          <a href="#features" class="text-gray-700 hover:text-purple-600 transition py-2 font-medium">Fitur</a>
+          <a href="#demo" class="text-gray-700 hover:text-purple-600 transition py-2 font-medium">Demo</a>
+          <a href="#testimonials" class="text-gray-700 hover:text-purple-600 transition py-2 font-medium">Testimoni</a>
+          <a href="#contact" class="text-gray-700 hover:text-purple-600 transition py-2 font-medium">Kontak</a>
+          <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full font-medium shadow-md" aria-label="Mulai Sekarang">
+            Mulai Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <div class="dashed-border p-8 lg:p-12 text-center bg-white shadow-lg">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 fade-in">GameBoard - Alat Perencanaan Bisnis Interaktif</h1>
+      <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8 text-lg fade-in">Bantu wujudkan ide bisnis Anda dengan papan game interaktif yang mudah digunakan. Rencanakan, ukur, dan optimalkan strategi bisnis secara menyenangkan dan efektif.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
+        <button class="bg-blue-900 text-white px-8 py-3 rounded-md hover:bg-blue-800 transition font-medium shadow-md" aria-label="Mulai Berencana">
+          Mulai Sekarang <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+        <button class="bg-white text-blue-900 border border-blue-900 px-8 py-3 rounded-md hover:bg-blue-50 transition font-medium" aria-label="Lihat Demo">
+          <i class="fas fa-play-circle mr-2"></i> Lihat Demo
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 bg-white">
+    <div class="text-center mb-16 fade-in">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Fitur Unggulan GameBoard</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Temukan bagaimana GameBoard dapat membantu Anda merencanakan dan mengelola bisnis dengan cara yang menyenangkan</p>
     </div>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-14 sm:h-16">
-                <div class="text-purple-600 font-bold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-tight max-w-[45%] sm:max-w-none">
-                    IT Operational Education
-                </div>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-3 lg:space-x-6 xl:space-x-8">
-                    <a href="#home" class="text-gray-700 hover:text-purple-600 transition text-sm lg:text-base">Home</a>
-                    <a href="#features" class="text-gray-700 hover:text-purple-600 transition text-sm lg:text-base">Features</a>
-                    <a href="#contact" class="text-gray-700 hover:text-purple-600 transition text-sm lg:text-base">Contact</a>
-                    <button class="bg-green-500 text-white px-4 lg:px-6 py-2 rounded-md hover:bg-green-600 transition text-sm lg:text-base whitespace-nowrap">
-                        Get Started
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobileMenuBtn" class="md:hidden text-gray-700 p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="hidden md:hidden pb-4">
-                <div class="flex flex-col space-y-3">
-                    <a href="#home" class="text-gray-700 hover:text-purple-600 transition py-2 text-sm">Home</a>
-                    <a href="#features" class="text-gray-700 hover:text-purple-600 transition py-2 text-sm">Features</a>
-                    <a href="#contact" class="text-gray-700 hover:text-purple-600 transition py-2 text-sm">Contact</a>
-                    <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition text-sm w-full">
-                        Get Started
-                    </button>
-                </div>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="feature-card bg-gray-50 p-6 rounded-lg border border-gray-200 fade-in">
+        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-chess text-purple-600 text-xl"></i>
         </div>
-    </nav>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Papan Interaktif</h3>
+        <p class="text-gray-600">Kelola proyek bisnis dengan antarmuka seperti papan permainan yang intuitif dan mudah digunakan.</p>
+      </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-16">
-        <div class="dashed-border p-4 sm:p-6 md:p-8 lg:p-12 text-center bg-white">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6 px-2">
-                Game Board Business
-            </h1>
-            <p class="text-gray-600 text-xs sm:text-sm md:text-base max-w-4xl mx-auto leading-relaxed mb-4 sm:mb-6 lg:mb-8 px-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <button class="bg-blue-900 text-white px-5 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-md hover:bg-blue-800 transition text-xs sm:text-sm md:text-base">
-                Get Started
-            </button>
+      <!-- Feature 2 -->
+      <div class="feature-card bg-gray-50 p-6 rounded-lg border border-gray-200 fade-in">
+        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-chart-line text-blue-600 text-xl"></i>
         </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Analitik Real-time</h3>
+        <p class="text-gray-600">Pantau perkembangan bisnis dengan dashboard analitik yang menampilkan data secara real-time.</p>
+      </div>
 
-        <!-- Video Section -->
-        <div class="mt-6 sm:mt-10 lg:mt-12 video-aspect group" id="videoContainer">
-            <!-- Thumbnail -->
-            <div id="videoThumbnail" class="bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 flex items-center justify-center cursor-pointer hover:shadow-xl transition-shadow">
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                <div class="bg-white rounded-full p-4 sm:p-6 lg:p-8 shadow-2xl transform group-hover:scale-110 transition-transform z-10" onclick="playVideo()">
-                    <svg class="w-10 h-10 sm:w-14 sm:h-14 lg:w-20 lg:h-20 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Video Player -->
-            <div id="videoPlayer" class="hidden">
-                <iframe id="youtubeFrame" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+      <!-- Feature 3 -->
+      <div class="feature-card bg-gray-50 p-6 rounded-lg border border-gray-200 fade-in">
+        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-users text-green-600 text-xl"></i>
         </div>
-    </section>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Kolaborasi Tim</h3>
+        <p class="text-gray-600">Bekerja sama dengan tim secara efisien dalam satu platform yang terintegrasi.</p>
+      </div>
 
-    <!-- Social Icons -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-            <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-blue-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-200 hover:scale-110 transition-all">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-purple-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-200 hover:scale-110 transition-all">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-purple-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-green-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-200 hover:scale-110 transition-all">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            </a>
-            <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-blue-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-200 hover:scale-110 transition-all">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-            </a>
-            <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-red-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-200 hover:scale-110 transition-all">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-            <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-blue-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-200 hover:scale-110 transition-all">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-blue-700" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
+      <!-- Feature 4 -->
+      <div class="feature-card bg-gray-50 p-6 rounded-lg border border-gray-200 fade-in">
+        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-tasks text-yellow-600 text-xl"></i>
         </div>
-    </section>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Manajemen Tugas</h3>
+        <p class="text-gray-600">Atur dan lacak tugas dengan sistem kartu yang mudah dipindahkan antar status.</p>
+      </div>
 
-    <!-- Features Section -->
-    <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 px-2">Features</h2>
-            <p class="text-gray-600 text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+      <!-- Feature 5 -->
+      <div class="feature-card bg-gray-50 p-6 rounded-lg border border-gray-200 fade-in">
+        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-bullseye text-red-600 text-xl"></i>
         </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Penetapan Target</h3>
+        <p class="text-gray-600">Tetapkan tujuan bisnis yang jelas dan lacak pencapaiannya dengan sistem poin.</p>
+      </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <!-- Feature 1 -->
-            <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-red-50 rounded-full mx-auto mb-3 sm:mb-4 md:mb-6 flex items-center justify-center">
-                    <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Fast Loading</h3>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-                </p>
-                <a href="#" class="text-green-500 font-medium hover:text-green-600 inline-flex items-center text-xs sm:text-sm md:text-base">
-                    Learn More
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </a>
-            </div>
-
-            <!-- Feature 2 -->
-            <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-green-50 rounded-full mx-auto mb-3 sm:mb-4 md:mb-6 flex items-center justify-center">
-                    <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-                    </svg>
-                </div>
-                <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Responsive Design</h3>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-                </p>
-                <a href="#" class="text-green-500 font-medium hover:text-green-600 inline-flex items-center text-xs sm:text-sm md:text-base">
-                    Learn More
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </a>
-            </div>
-
-            <!-- Feature 3 -->
-            <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center sm:col-span-2 lg:col-span-1">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-blue-50 rounded-full mx-auto mb-3 sm:mb-4 md:mb-6 flex items-center justify-center">
-                    <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                    </svg>
-                </div>
-                <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3">No Code Needed</h3>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-                </p>
-                <a href="#" class="text-green-500 font-medium hover:text-green-600 inline-flex items-center text-xs sm:text-sm md:text-base">
-                    Learn More
-                    <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </a>
-            </div>
+      <!-- Feature 6 -->
+      <div class="feature-card bg-gray-50 p-6 rounded-lg border border-gray-200 fade-in">
+        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-trophy text-indigo-600 text-xl"></i>
         </div>
-    </section>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Sistem Reward</h3>
+        <p class="text-gray-600">Tingkatkan motivasi tim dengan sistem penghargaan yang menyenangkan.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Metrics Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 px-2">
-                Our Metrics Tell the Story
-            </h2>
-            <p class="text-gray-600 text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+  <!-- Demo/Video Section -->
+  <section id="demo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 bg-gray-50">
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="lg:w-1/2 fade-in">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Lihat GameBoard dalam Aksi</h2>
+        <p class="text-gray-600 mb-6">Tonton video demo untuk melihat bagaimana GameBoard dapat mengubah cara Anda merencanakan dan mengelola bisnis.</p>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span class="text-gray-700">Antarmuka yang intuitif dan mudah dipelajari</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span class="text-gray-700">Kolaborasi tim yang efisien</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+            <span class="text-gray-700">Dashboard analitik yang komprehensif</span>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:w-1/2 fade-in">
+        <div class="bg-gray-200 rounded-lg aspect-video flex items-center justify-center relative overflow-hidden shadow-lg">
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 opacity-80"></div>
+          <button class="bg-white text-purple-600 rounded-full w-20 h-20 flex items-center justify-center z-10 shadow-lg hover:scale-105 transition-transform">
+            <i class="fas fa-play text-2xl ml-1"></i>
+          </button>
+          <div class="absolute bottom-4 left-4 text-white font-medium">Demo GameBoard - 3:45</div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16" id="metricsSection">
-            <div class="text-center px-2">
-                <div class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 sm:mb-2">
-                    <span class="counter" data-target="100">0</span>+
-                </div>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base">Active Users</p>
-            </div>
-            <div class="text-center px-2">
-                <div class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 sm:mb-2">
-                    <span class="counter" data-target="931">0</span>k+
-                </div>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base">Total Downloads</p>
-            </div>
-            <div class="text-center px-2">
-                <div class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 sm:mb-2">
-                    <span class="counter" data-target="240">0</span>k+
-                </div>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base">Positive Reviews</p>
-            </div>
-            <div class="text-center px-2">
-                <div class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-1 sm:mb-2">
-                    <span class="counter" data-target="12">0</span>k+
-                </div>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base">Happy Customers</p>
-            </div>
+  <!-- Stats Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 bg-white">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="fade-in">
+        <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-2">500+</div>
+        <div class="text-gray-600">Perusahaan</div>
+      </div>
+      <div class="fade-in">
+        <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">10K+</div>
+        <div class="text-gray-600">Pengguna</div>
+      </div>
+      <div class="fade-in">
+        <div class="text-3xl md:text-4xl font-bold text-green-600 mb-2">95%</div>
+        <div class="text-gray-600">Kepuasan Pengguna</div>
+      </div>
+      <div class="fade-in">
+        <div class="text-3xl md:text-4xl font-bold text-yellow-600 mb-2">40%</div>
+        <div class="text-gray-600">Peningkatan Produktivitas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 bg-gray-50">
+    <div class="text-center mb-16 fade-in">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Apa Kata Pengguna GameBoard</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Dengarkan pengalaman langsung dari para pengguna yang telah merasakan manfaat GameBoard</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="bg-white p-6 rounded-lg shadow-md fade-in">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+            <span class="text-purple-600 font-bold">AS</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900">Ahmad Surya</h4>
+            <p class="text-gray-500 text-sm">CEO, TechStart Inc.</p>
+          </div>
         </div>
-
-        <!-- Testimonials -->
-        <div class="bg-gradient-to-r from-pink-200 via-pink-250 to-pink-200 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12">
-            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-gray-900 mb-2 sm:mb-3 lg:mb-4 px-2">
-                Real Stories from Satisfied Customers
-            </h2>
-            <p class="text-center text-gray-700 mb-6 sm:mb-8 lg:mb-10 text-xs sm:text-sm md:text-base px-2">
-                Stories are powerful way of navigating the world.
-            </p>
-
-            <!-- Carousel Container -->
-            <div class="relative">
-                <div class="overflow-hidden">
-                    <div id="testimonialSlider" class="flex transition-transform duration-500 ease-out">
-                        <!-- Testimonial 1 -->
-                        <div class="flex-shrink-0 w-full px-1 sm:px-2">
-                            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-                                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 md:p-8 shadow-sm">
-                                    <div class="flex items-center mb-3 sm:mb-4 lg:mb-5">
-                                        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-300 rounded-full mr-3 sm:mr-4 flex-shrink-0"></div>
-                                        <div>
-                                            <div class="font-bold text-gray-900 text-sm sm:text-base md:text-lg">Lauren M.</div>
-                                            <div class="text-yellow-400 text-base sm:text-lg md:text-xl">★★★★★</div>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 md:p-8 shadow-sm hidden md:block">
-                                    <div class="flex items-center mb-3 sm:mb-4 lg:mb-5">
-                                        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-300 rounded-full mr-3 sm:mr-4 flex-shrink-0"></div>
-                                        <div>
-                                            <div class="font-bold text-gray-900 text-sm sm:text-base md:text-lg">Nadira</div>
-                                            <div class="text-yellow-400 text-base sm:text-lg md:text-xl">★★★★★</div>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Testimonial 2 -->
-                        <div class="flex-shrink-0 w-full px-1 sm:px-2">
-                            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-                                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 md:p-8 shadow-sm">
-                                    <div class="flex items-center mb-3 sm:mb-4 lg:mb-5">
-                                        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-300 rounded-full mr-3 sm:mr-4 flex-shrink-0"></div>
-                                        <div>
-                                            <div class="font-bold text-gray-900 text-sm sm:text-base md:text-lg">Sarah K.</div>
-                                            <div class="text-yellow-400 text-base sm:text-lg md:text-xl">★★★★★</div>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 md:p-8 shadow-sm hidden md:block">
-                                    <div class="flex items-center mb-3 sm:mb-4 lg:mb-5">
-                                        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-300 rounded-full mr-3 sm:mr-4 flex-shrink-0"></div>
-                                        <div>
-                                            <div class="font-bold text-gray-900 text-sm sm:text-base md:text-lg">Michael R.</div>
-                                            <div class="text-yellow-400 text-base sm:text-lg md:text-xl">★★★★★</div>
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dots Indicator -->
-                <div class="flex justify-center mt-4 sm:mt-6 space-x-2">
-                    <button onclick="goToTestimonial(0)" class="testimonial-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-800 w-6 sm:w-8 md:w-10 transition-all"></button>
-                    <button onclick="goToTestimonial(1)" class="testimonial-dot w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-400 hover:bg-gray-600 transition-all"></button>
-                </div>
-            </div>
+        <p class="text-gray-600 italic">"GameBoard telah mengubah cara kami merencanakan strategi bisnis. Tim menjadi lebih termotivasi dan produktif dengan pendekatan gamifikasi."</p>
+        <div class="flex text-yellow-400 mt-4">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
         </div>
-    </section>
+      </div>
 
-    <!-- Team Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 px-2">Meet our team</h2>
-            <p class="text-gray-600 text-xs sm:text-sm md:text-base px-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <!-- Testimonial 2 -->
+      <div class="bg-white p-6 rounded-lg shadow-md fade-in">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+            <span class="text-blue-600 font-bold">DR</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900">Diana Ratna</h4>
+            <p class="text-gray-500 text-sm">Manajer Proyek, Inovasi Digital</p>
+          </div>
         </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <!-- Team Member 1 -->
-            <div class="bg-white rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-300 rounded-full mx-auto mb-3 sm:mb-4 lg:mb-5"></div>
-                <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-base sm:text-lg md:text-xl">Evelyn S.</h3>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 lg:mb-5 leading-relaxed px-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <div class="flex justify-center space-x-3 sm:space-x-4 md:space-x-6">
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">Twitter</a>
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">LinkedIn</a>
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">Dribble</a>
-                </div>
-            </div>
-            <!-- Team Member 2 -->
-            <div class="bg-white rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-300 rounded-full mx-auto mb-3 sm:mb-4 lg:mb-5"></div>
-                <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-base sm:text-lg md:text-xl">Michaella L.</h3>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 lg:mb-5 leading-relaxed px-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <div class="flex justify-center space-x-3 sm:space-x-4 md:space-x-6">
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">Twitter</a>
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">LinkedIn</a>
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">Dribble</a>
-                </div>
-            </div>
-            <!-- Team Member 3 -->
-            <div class="bg-white rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8 text-center shadow-sm hover:shadow-lg transition-shadow sm:col-span-2 lg:col-span-1">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-300 rounded-full mx-auto mb-3 sm:mb-4 lg:mb-5"></div>
-                <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-base sm:text-lg md:text-xl">Darlene S.</h3>
-                <p class="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 lg:mb-5 leading-relaxed px-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <div class="flex justify-center space-x-3 sm:space-x-4 md:space-x-6">
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">Twitter</a>
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">LinkedIn</a>
-                    <a href="#" class="text-green-500 hover:text-green-600 transition text-xs sm:text-sm md:text-base">Dribble</a>
-                </div>
-            </div>
+        <p class="text-gray-600 italic">"Kolaborasi tim menjadi jauh lebih efektif dengan GameBoard. Sistem reward membuat semua orang termotivasi untuk mencapai target."</p>
+        <div class="flex text-yellow-400 mt-4">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
         </div>
-    </section>
+      </div>
 
-    <!-- CTA Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        <div class="bg-gradient-to-r from-pink-200 via-pink-250 to-pink-200 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 text-center">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6 px-2">
-                Dapatkan Ide Plan Bisnis Anda di GameBoard Bussiness
-            </h2>
-            <p class="text-gray-700 text-xs sm:text-sm md:text-base mb-4 sm:mb-6 lg:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <button class="bg-green-500 text-white px-5 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-md hover:bg-green-600 transition mb-6 sm:mb-8 lg:mb-10 text-xs sm:text-sm md:text-base">
-                Get Started
-            </button>
-
-            <div class="bg-gradient-to-br from-red-400 via-gray-700 to-blue-500 rounded-lg sm:rounded-xl h-40 sm:h-48 md:h-64 lg:h-80"></div>
+      <!-- Testimonial 3 -->
+      <div class="bg-white p-6 rounded-lg shadow-md fade-in">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+            <span class="text-green-600 font-bold">RS</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-900">Rizki Santoso</h4>
+            <p class="text-gray-500 text-sm">Founder, StartupKu</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-        <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 px-2">Contact Person</h2>
-            <p class="text-gray-600 text-xs sm:text-sm md:text-base px-4">
-                For questions and other inquiries, Anda dapat kontak kami untuk info lebih lanjut dan pembahasan lainnya.
-            </p>
+        <p class="text-gray-600 italic">"Sebagai startup, kami perlu alat yang efisien dan terjangkau. GameBoard memberikan semua yang kami butuhkan dengan harga yang masuk akal."</p>
+        <div class="flex text-yellow-400 mt-4">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <form class="space-y-3 sm:space-y-4 md:space-y-6">
-            <div class="grid sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                <input type="text" placeholder="Nama" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-xs sm:text-sm md:text-base">
-                <input type="email" placeholder="Email" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-xs sm:text-sm md:text-base">
-            </div>
-            <input type="tel" placeholder="No Handphone" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-xs sm:text-sm md:text-base">
-            <input type="text" placeholder="Subject" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-xs sm:text-sm md:text-base">
-            <textarea placeholder="Isi Pesan" rows="5" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none text-xs sm:text-sm md:text-base"></textarea>
+  <!-- CTA Section -->
+  <section class="gradient-bg text-white py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold mb-6 fade-in">Siap Mengubah Cara Anda Merencanakan Bisnis?</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto opacity-90 fade-in">Bergabunglah dengan ratusan perusahaan yang telah menggunakan GameBoard untuk meningkatkan produktivitas dan kolaborasi tim.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
+        <button class="bg-white text-purple-600 px-8 py-3 rounded-md hover:bg-gray-100 transition font-medium shadow-md" aria-label="Coba Gratis">
+          Coba Gratis 14 Hari
+        </button>
+        <button class="bg-transparent border border-white text-white px-8 py-3 rounded-md hover:bg-white hover:bg-opacity-10 transition font-medium" aria-label="Hubungi Sales">
+          Hubungi Sales
+        </button>
+      </div>
+    </div>
+  </section>
 
-            <div class="text-center">
-                <p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">Contact us in</p>
-                <div class="flex justify-center flex-wrap gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-8">
-                    <a href="#" class="text-gray-600 hover:text-gray-900 transition transform hover:scale-110">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900 transition transform hover:scale-110">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900 transition transform hover:scale-110">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900 transition transform hover:scale-110">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900 transition transform hover:scale-110">
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/></svg>
-                    </a>
-                </div>
-                <button type="submit" class="bg-green-500 text-white px-8 sm:px-10 md:px-12 py-2.5 sm:py-3 rounded-lg hover:bg-green-600 transition text-xs sm:text-sm md:text-base font-medium">
-                    Submit
-                </button>
+  <!-- Contact Section -->
+  <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 bg-white">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="fade-in">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Hubungi Kami</h2>
+        <p class="text-gray-600 mb-8">Punya pertanyaan tentang GameBoard? Tim kami siap membantu Anda.</p>
+
+        <div class="space-y-4">
+          <div class="flex items-start">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-purple-600"></i>
             </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">Alamat</h4>
+              <p class="text-gray-600">Jl. Teknologi No. 123, Jakarta Selatan</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-phone text-blue-600"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">Telepon</h4>
+              <p class="text-gray-600">+62 21 1234 5678</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-envelope text-green-600"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">Email</h4>
+              <p class="text-gray-600">hello@gameboard.id</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-in">
+        <form class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+          <div class="mb-4">
+            <label for="name" class="block text-gray-700 mb-2">Nama Lengkap</label>
+            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+          </div>
+
+          <div class="mb-4">
+            <label for="email" class="block text-gray-700 mb-2">Email</label>
+            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+          </div>
+
+          <div class="mb-4">
+            <label for="message" class="block text-gray-700 mb-2">Pesan</label>
+            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+          </div>
+
+          <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition font-medium w-full">
+            Kirim Pesan
+          </button>
         </form>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-5 sm:py-6 md:py-8 mt-8 sm:mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
-                <p class="text-gray-400 text-xs sm:text-sm text-center sm:text-left">
-                    © 2025 GameBoard Business. All rights reserved.
-                </p>
-                <div class="flex space-x-4 sm:space-x-5 md:space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:scale-110">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-                    </a>
-                </div>
-            </div>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="text-purple-400 font-bold text-xl flex items-center mb-4">
+            <i class="fas fa-chess-board mr-2"></i>
+            GameBoard
+          </div>
+          <p class="text-gray-400 mb-6 max-w-md">GameBoard adalah alat perencanaan bisnis interaktif yang membantu perusahaan merencanakan, mengelola, dan mengoptimalkan strategi bisnis dengan pendekatan gamifikasi.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
         </div>
-    </footer>
 
-    <script>
-        function playVideo() {
-            const thumbnail = document.getElementById('videoThumbnail');
-            const player = document.getElementById('videoPlayer');
-            const youtubeFrame = document.getElementById('youtubeFrame');
-            const youtubeVideoId = 'zGl2NPd_l5U';
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Tautan Cepat</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-gray-400 hover:text-white transition">Beranda</a></li>
+            <li><a href="#features" class="text-gray-400 hover:text-white transition">Fitur</a></li>
+            <li><a href="#demo" class="text-gray-400 hover:text-white transition">Demo</a></li>
+            <li><a href="#testimonials" class="text-gray-400 hover:text-white transition">Testimoni</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-white transition">Kontak</a></li>
+          </ul>
+        </div>
 
-            thumbnail.classList.add('hidden');
-            player.classList.remove('hidden');
-            youtubeFrame.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`;
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Legal</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Kebijakan Privasi</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Syarat & Ketentuan</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Kebijakan Cookie</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 GameBoard. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      const loadingScreen = document.getElementById('loadingScreen');
+      setTimeout(function() {
+        loadingScreen.style.opacity = '0';
+        setTimeout(function() {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }, 1500);
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Scroll animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const fadeInOnScroll = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
         }
+      });
+    };
 
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
+    window.addEventListener('scroll', fadeInOnScroll);
+    // Trigger once on load
+    fadeInOnScroll();
 
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current);
-                }
-            }, 16);
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
         }
+      });
+    });
 
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px'
-        };
-
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.counter');
-                    counters.forEach(counter => {
-                        if (counter.textContent === '0') {
-                            animateCounter(counter);
-                        }
-                    });
-                }
-            });
-        }, observerOptions);
-
-        let currentTestimonial = 0;
-        const totalTestimonials = 2;
-        let autoSlideInterval;
-
-        function updateTestimonialSlider() {
-            const slider = document.getElementById('testimonialSlider');
-            const dots = document.querySelectorAll('.testimonial-dot');
-
-            slider.style.transform = `translateX(-${currentTestimonial * 100}%)`;
-
-            dots.forEach((dot, index) => {
-                if (index === currentTestimonial) {
-                    dot.classList.add('bg-gray-800', 'w-6', 'sm:w-8', 'md:w-10');
-                    dot.classList.remove('bg-gray-400', 'w-2', 'sm:w-3');
-                } else {
-                    dot.classList.remove('bg-gray-800', 'w-6', 'sm:w-8', 'md:w-10');
-                    dot.classList.add('bg-gray-400', 'w-2', 'sm:w-3');
-                }
-            });
-        }
-
-        function nextTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-            updateTestimonialSlider();
-            resetAutoSlide();
-        }
-
-        function goToTestimonial(index) {
-            currentTestimonial = index;
-            updateTestimonialSlider();
-            resetAutoSlide();
-        }
-
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(() => {
-                nextTestimonial();
-            }, 5000);
-        }
-
-        function resetAutoSlide() {
-            clearInterval(autoSlideInterval);
-            startAutoSlide();
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                loadingScreen.classList.add('hidden');
-            }, 2000);
-
-            startAutoSlide();
-
-            const metricsSection = document.getElementById('metricsSection');
-            if (metricsSection) {
-                counterObserver.observe(metricsSection);
-            }
-
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                });
-
-                const mobileLinks = mobileMenu.querySelectorAll('a');
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        mobileMenu.classList.add('hidden');
-                    });
-                });
-            }
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Form submitted! (This is a demo)');
-            });
-        }
-    </script>
+    // Form submission
+    const contactForm = document.querySelector('form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Terima kasih! Pesan Anda telah berhasil dikirim. Tim kami akan segera menghubungi Anda.');
+        contactForm.reset();
+      });
+    }
+  </script>
 </body>
 </html>
