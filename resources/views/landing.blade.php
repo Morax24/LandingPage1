@@ -15,9 +15,88 @@
             border: 3px dashed #a855f7;
             border-radius: 12px;
         }
+
+        /* Loading Screen Styles */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #loadingScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top: 8px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            animation: progress 2s ease-in-out;
+            transform-origin: left;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    {{-- Loading Screen --}}
+    <div id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">Loading...</div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+    </div>
+
     {{-- Navigation --}}
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,12 +172,6 @@
             <div id="videoPlayer" class="hidden w-full h-full">
                 {{-- Untuk YouTube --}}
                 <iframe id="youtubeFrame" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-                {{-- ATAU Untuk Video Lokal --}}
-                {{-- <video id="localVideo" class="w-full h-full" controls>
-                    <source src="{{ asset('videos/demo.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video> --}}
             </div>
         </div>
     </section>
@@ -213,21 +286,29 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16" id="metricsSection">
             <div class="text-center">
-                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">100+</div>
+                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                    <span class="counter" data-target="100">0</span>+
+                </div>
                 <p class="text-gray-600 text-sm sm:text-base">Active Users</p>
             </div>
             <div class="text-center">
-                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">931k+</div>
+                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                    <span class="counter" data-target="931">0</span>k+
+                </div>
                 <p class="text-gray-600 text-sm sm:text-base">Total Downloads</p>
             </div>
             <div class="text-center">
-                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">240k+</div>
+                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                    <span class="counter" data-target="240">0</span>k+
+                </div>
                 <p class="text-gray-600 text-sm sm:text-base">Positive Reviews</p>
             </div>
             <div class="text-center">
-                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">12k+</div>
+                <div class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+                    <span class="counter" data-target="12">0</span>k+
+                </div>
                 <p class="text-gray-600 text-sm sm:text-base">Happy Customers</p>
             </div>
         </div>
@@ -433,6 +514,43 @@
             youtubeFrame.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`;
         }
 
+        // Counter Animation Function
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60 FPS
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Intersection Observer for counter animation trigger
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        if (counter.textContent === '0') {
+                            animateCounter(counter);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
         // Testimonial Slider
         let currentTestimonial = 0;
         const totalTestimonials = 4;
@@ -484,8 +602,22 @@
             startAutoSlide();
         }
 
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after 2 seconds
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.classList.add('hidden');
+            }, 2000);
+
+            // Start testimonial auto-slide
             startAutoSlide();
+
+            // Observe metrics section for counter animation
+            const metricsSection = document.getElementById('metricsSection');
+            if (metricsSection) {
+                counterObserver.observe(metricsSection);
+            }
 
             // Mobile Menu Toggle
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -506,6 +638,7 @@
             }
         });
 
+        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -519,6 +652,7 @@
             });
         });
 
+        // Form submission handler
         const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', function(e) {
