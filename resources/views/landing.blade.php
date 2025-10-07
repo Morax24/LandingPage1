@@ -15,8 +15,10 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
+        /* Header */
         header {
             background: #fff;
             padding: 1rem 5%;
@@ -24,6 +26,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
@@ -55,6 +60,21 @@
             text-decoration: none;
         }
 
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
         .hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -64,13 +84,15 @@
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
         .hero p {
             color: #666;
             margin-bottom: 2rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .btn-primary {
@@ -82,22 +104,27 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #333;
         }
 
         .hero-image {
-            background: #ddd;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 300px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: #999;
         }
 
+        /* Stats Section */
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             padding: 3rem 5%;
             background: #f5f5f5;
@@ -105,28 +132,33 @@
 
         .stat-card {
             text-align: center;
+            padding: 1rem;
         }
 
         .stat-card h3 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             margin-bottom: 0.5rem;
+            color: #000;
         }
 
         .stat-card p {
             color: #666;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 1.5vw, 0.9rem);
         }
 
+        /* Section Styles */
         .section {
             padding: 4rem 5%;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             text-align: center;
             margin-bottom: 3rem;
+            line-height: 1.3;
         }
 
+        /* Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -138,6 +170,12 @@
             padding: 2rem;
             border-radius: 10px;
             text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .card-icon {
@@ -147,13 +185,15 @@
 
         .card h3 {
             margin-bottom: 1rem;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
         }
 
         .card p {
             color: #666;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 1.5vw, 0.9rem);
         }
 
+        /* Cerita Section */
         .cerita-section {
             background: #fff;
             padding: 3rem 5%;
@@ -163,55 +203,106 @@
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 2rem;
-            margin-bottom: 2rem;
             align-items: center;
         }
 
         .cerita-image {
-            background: #ddd;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             height: 200px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            color: #999;
         }
 
+        /* Benefit List */
         .benefit-list {
             list-style: none;
             padding: 2rem 0;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .benefit-list li {
-            padding: 1rem 0;
+            padding: 1.5rem;
             border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        .benefit-list li:hover {
+            background: #f9f9f9;
         }
 
         .benefit-list li:before {
             content: "●";
             margin-right: 1rem;
             color: #000;
+            font-size: 1.2rem;
         }
 
+        /* Content Grid */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             margin: 3rem 0;
+            align-items: center;
         }
 
         .content-image {
-            background: #ddd;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             height: 250px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            color: #999;
         }
 
+        /* Activity Grid */
+        .parent {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 8px;
+            height: 600px;
+            width: 100%;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .activity-card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-label {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .div1 { grid-area: 1 / 1 / 4 / 4; }
+        .div2 { grid-area: 1 / 4 / 4 / 5; }
+        .div4 { grid-area: 4 / 1 / 6 / 3; }
+        .div5 { grid-area: 4 / 3 / 6 / 5; }
+        .div6 { grid-area: 1 / 5 / 3 / 6; }
+        .div7 { grid-area: 3 / 5 / 6 / 6; }
+
+        /* Wisataya Section */
         .wisataya-section {
             background: #f5f5f5;
             padding: 3rem 5%;
@@ -219,7 +310,7 @@
 
         .wisataya-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -228,6 +319,11 @@
             background: #fff;
             padding: 2rem;
             border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .wisataya-card:hover {
+            transform: translateY(-5px);
         }
 
         .wisataya-card h4 {
@@ -237,11 +333,14 @@
         .wisataya-card .price {
             color: #666;
             margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
         }
 
+        /* Testimonials */
         .testimonials {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin: 3rem 0;
         }
@@ -255,11 +354,12 @@
         .testimonial-card .avatar {
             width: 50px;
             height: 50px;
-            background: #ddd;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             margin-bottom: 1rem;
         }
 
+        /* FAQ Section */
         .faq-section {
             background: #fff;
             padding: 3rem 5%;
@@ -271,8 +371,14 @@
             margin-bottom: 1rem;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
         }
 
+        .faq-item:hover {
+            background: #e8e8e8;
+        }
+
+        /* Forum Section */
         .forum-section {
             padding: 3rem 5%;
         }
@@ -285,16 +391,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
         }
 
+        .forum-category:hover {
+            background: #e8e8e8;
+        }
+
+        /* Newsletter */
         .newsletter {
-            background: #666;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             padding: 3rem 5%;
             text-align: center;
         }
 
         .newsletter h2 {
+            margin-bottom: 1rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .newsletter p {
             margin-bottom: 2rem;
         }
 
@@ -303,12 +421,15 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .newsletter-form input {
             padding: 1rem;
             border: none;
             border-radius: 5px;
+            flex: 1;
             min-width: 250px;
         }
 
@@ -319,8 +440,15 @@
             padding: 1rem 2rem;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s, color 0.3s;
         }
 
+        .btn-secondary:hover {
+            background: #fff;
+            color: #667eea;
+        }
+
+        /* Footer */
         footer {
             background: #333;
             color: #fff;
@@ -329,7 +457,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 3rem;
             margin-bottom: 2rem;
         }
@@ -343,6 +471,11 @@
             text-decoration: none;
             display: block;
             margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-content a:hover {
+            color: #fff;
         }
 
         .footer-bottom {
@@ -352,91 +485,109 @@
             color: #aaa;
         }
 
-        .parent {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(5, 1fr);
-            gap: 8px;
-            height: 600px;
-            width: 100%;
-        }
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero, .content-grid, .cerita-card {
+                grid-template-columns: 1fr;
+            }
 
-        .activity-card {
-            background: #ddd;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #666;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-
-        .activity-card:hover {
-            transform: scale(1.02);
-        }
-
-        .card-label {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .div1 {
-            grid-column: span 3 / span 3;
-            grid-row: span 3 / span 3;
-        }
-
-        .div2 {
-            grid-row: span 3 / span 3;
-            grid-column-start: 4;
-        }
-
-        .div4 {
-            grid-column: span 2 / span 2;
-            grid-row: span 2 / span 2;
-            grid-column-start: 1;
-            grid-row-start: 4;
-        }
-
-        .div5 {
-            grid-column: span 2 / span 2;
-            grid-row: span 2 / span 2;
-            grid-column-start: 3;
-            grid-row-start: 4;
-        }
-
-        .div6 {
-            grid-row: span 2 / span 2;
-            grid-column-start: 5;
-            grid-row-start: 1;
-        }
-
-        .div7 {
-            grid-row: span 3 / span 3;
-            grid-column-start: 5;
-            grid-row-start: 3;
+            .parent {
+                height: 400px;
+            }
         }
 
         @media (max-width: 768px) {
-            .hero, .content-grid, .testimonials, .footer-content {
-                grid-template-columns: 1fr;
+            header {
+                padding: 1rem 4%;
             }
 
-            .stats, .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .wisataya-grid {
-                grid-template-columns: 1fr;
+            .menu-toggle {
+                display: flex;
             }
 
             nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                display: none;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 1rem 4%;
+                width: 100%;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .hero, .content-grid, .cerita-card {
+                gap: 2rem;
+            }
+
+            .section {
+                padding: 3rem 4%;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .parent {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(6, 1fr);
+                height: 500px;
+            }
+
+            .div1 { grid-area: 1 / 1 / 3 / 3; }
+            .div2 { grid-area: 3 / 1 / 5 / 2; }
+            .div4 { grid-area: 3 / 2 / 5 / 3; }
+            .div5 { grid-area: 5 / 1 / 7 / 2; }
+            .div6 { grid-area: 5 / 2 / 6 / 3; }
+            .div7 { grid-area: 6 / 2 / 7 / 3; }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 2rem 4%;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image, .cerita-image, .content-image {
+                height: 200px;
+            }
+
+            .parent {
+                height: 400px;
+            }
+
+            .card, .wisataya-card {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -444,7 +595,12 @@
 <body>
     <header>
         <div class="logo">📚 Belajar Land</div>
-        <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="mainNav">
             <a href="#home">Home</a>
             <a href="#artikel">Artikel</a>
             <a href="#learning">Learning</a>
@@ -452,7 +608,7 @@
         </nav>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="home">
         <div>
             <h1>Belajar Kewirausahaan Dengan Bermain</h1>
             <p>Mari ikut dalam game bersama dengan pemain di seluruh dunia untuk meningkatkan kreatifitas kewirausahaan kamu dalam industri pariwisata indonesia.</p>
@@ -554,19 +710,19 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="artikel">
         <div class="content-grid">
             <div class="content-image">📸</div>
             <div>
-                <h3>Nama</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <h3>Artikel Terbaru</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
         </div>
 
         <div class="content-grid">
             <div>
-                <h3>Nama</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <h3>Tutorial Lengkap</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="content-image">📸</div>
         </div>
@@ -574,15 +730,15 @@
         <div class="content-grid">
             <div class="content-image">📸</div>
             <div>
-                <h3>Nama</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <h3>Panduan Praktis</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
         </div>
 
         <a href="#" class="btn-primary">Pelajari Lainnya</a>
     </section>
 
-    <section class="section">
+    <section class="section" id="learning">
         <h2 class="section-title">Aktivitas Terbaru & Tutorial</h2>
         <p style="text-align: center; color: #666; margin-bottom: 2rem;">Berbagi pengetahuan dan keterampilan dengan instruktur berpengalaman!</p>
         <div class="parent">
@@ -608,7 +764,7 @@
     </section>
 
     <section class="wisataya-section">
-        <h2 class="section-title">Mari Selesaikan Bersatu, Gemini Dimulai dari Sini</h2>
+        <h2 class="section-title">Mari Selesaikan Bersama, Dimulai dari Sini</h2>
         <p style="text-align: center; color: #666; margin-bottom: 2rem;">Kami menawarkan berbagai pilihan wisata untuk Anda</p>
         <div class="wisataya-grid">
             <div class="wisataya-card">
@@ -629,7 +785,7 @@
     </section>
 
     <section class="section">
-        <h2 class="section-title">Apa yang Dikatakan Para Pemaian</h2>
+        <h2 class="section-title">Apa yang Dikatakan Para Pemain</h2>
         <div class="testimonials">
             <div class="testimonial-card">
                 <div class="avatar"></div>
@@ -676,7 +832,7 @@
             <span>→</span>
         </div>
         <div class="forum-category">
-            <span>FORUM</span>
+            <span>Forum Diskusi Umum</span>
             <span>→</span>
         </div>
         <div class="forum-category">
@@ -750,5 +906,29 @@
             <p>&copy; 2025 BelajarLand.Inc. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('mainNav');
+            const menuToggle = document.querySelector('.menu-toggle');
+
+            if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
+                nav.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mainNav').classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
