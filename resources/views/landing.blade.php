@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -28,6 +32,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .logo {
@@ -35,6 +40,7 @@
             align-items: center;
             gap: 0.5rem;
             font-weight: bold;
+            font-size: 1.1rem;
         }
 
         .logo-box {
@@ -42,6 +48,7 @@
             color: #fff;
             padding: 0.3rem 0.5rem;
             font-size: 0.8rem;
+            border-radius: 3px;
         }
 
         nav {
@@ -53,11 +60,20 @@
         nav a {
             text-decoration: none;
             color: #333;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
         }
 
         nav a:hover {
             color: #666;
+        }
+
+        nav a.active {
+            background: #f7e92b;
+            color: #333;
+            font-weight: bold;
         }
 
         .menu-toggle {
@@ -72,17 +88,30 @@
             height: 3px;
             background: #333;
             transition: 0.3s;
+            border-radius: 2px;
         }
 
         .btn-kickstarter {
-            background: #f7e92b;
+            background: transparent;
             color: #333;
             padding: 0.6rem 1.5rem;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            border: none;
+            border: 2px solid #333;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-kickstarter:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        .btn-kickstarter.active {
+            background: #f7e92b;
+            color: #333;
+            border-color: #f7e92b;
         }
 
         /* Hero Section */
@@ -106,6 +135,7 @@
             height: 200px;
             background: #a8d5a8;
             border-radius: 50%;
+            opacity: 0.5;
         }
 
         .hero::before {
@@ -118,6 +148,7 @@
             background: #f7e92b;
             border-radius: 50%;
             z-index: 1;
+            opacity: 0.3;
         }
 
         .hero-content {
@@ -132,9 +163,10 @@
         }
 
         .hero p {
-            color: #666;
+            color: #555;
             margin-bottom: 2rem;
             max-width: 500px;
+            line-height: 1.8;
         }
 
         .btn-primary {
@@ -147,23 +179,17 @@
             text-decoration: none;
             display: inline-block;
             font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .hero-image {
             z-index: 2;
             position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-        }
-
-        .game-board {
-            width: 100%;
-            height: auto;
-            perspective: 1000px;
         }
 
         .board-placeholder {
@@ -188,12 +214,16 @@
 
         .stat-card {
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .stat-card h3 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            color: #667eea;
         }
 
         .stat-card p {
@@ -216,18 +246,19 @@
         }
 
         .story-image {
-            background: #e0e0e0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             height: 300px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 3rem;
+            color: #fff;
+            font-size: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .story-badge {
-            background: #999;
+            background: #667eea;
             color: #fff;
             padding: 0.3rem 1rem;
             border-radius: 20px;
@@ -237,8 +268,13 @@
         }
 
         .story-content h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
+        }
+
+        .story-content p {
+            color: #666;
+            line-height: 1.8;
         }
 
         /* Features Grid */
@@ -250,10 +286,16 @@
         }
 
         .feature-card {
-            background: #e8e8e8;
+            background: #f9f9f9;
             padding: 2rem;
             border-radius: 10px;
             text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .feature-icon {
@@ -268,6 +310,7 @@
         .feature-card p {
             color: #666;
             font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         /* Why Learn Section */
@@ -284,18 +327,19 @@
         }
 
         .why-image {
-            background: #e0e0e0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 400px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 3rem;
+            color: #fff;
+            font-size: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .why-content h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 2rem;
         }
 
@@ -304,22 +348,28 @@
         }
 
         .why-list li {
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             border-bottom: 1px solid #ddd;
             display: flex;
             align-items: start;
             gap: 1rem;
         }
 
+        .why-list li:last-child {
+            border-bottom: none;
+        }
+
         .why-list li::before {
             content: "●";
             font-size: 1.5rem;
             flex-shrink: 0;
+            color: #667eea;
         }
 
         .why-list strong {
             display: block;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         /* Skills Section */
@@ -330,7 +380,13 @@
 
         .section-title {
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
             margin-bottom: 3rem;
         }
 
@@ -341,130 +397,26 @@
         }
 
         .skill-card {
-            background: #e8e8e8;
+            background: #f9f9f9;
             padding: 2rem;
             border-radius: 10px;
             text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        /* Article Section */
-        .article-section {
-            padding: 4rem 5%;
-            background: #f5f5f5;
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .article-badge {
-            background: #999;
-            color: #fff;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 2rem;
-            font-size: 0.85rem;
-        }
-
-        .article-grid {
-            display: grid;
-            gap: 3rem;
-        }
-
-        .article-item {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .article-item:nth-child(even) {
-            grid-template-columns: 2fr 1fr;
-        }
-
-        .article-item:nth-child(even) .article-image {
-            order: 2;
-        }
-
-        .article-image {
-            background: #e0e0e0;
-            height: 250px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 2rem;
-        }
-
-        .article-content h3 {
-            margin-bottom: 1rem;
-        }
-
-        .article-content p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        .btn-learn-more {
-            background: #000;
-            color: #fff;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 2rem;
-            display: inline-block;
-        }
-
-        /* Activity Section */
-        .activity-section {
-            padding: 4rem 5%;
-            background: #a8a8a8;
-            text-align: center;
-        }
-
-        .activity-section h2 {
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .activity-section p {
-            color: #ddd;
-            margin-bottom: 3rem;
-        }
-
-        .activity-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 200px);
-            gap: 1rem;
-        }
-
-        .activity-item {
-            background: #e0e0e0;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 1.2rem;
-        }
-
-        .activity-item.large {
-            grid-row: span 2;
-        }
-
-        .activity-item:first-child {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        /* Wisataya Section */
-        .wisataya-section {
+        /* Pricing Section */
+        .pricing-section {
             padding: 4rem 5%;
             background: #d4f1f4;
         }
 
-        .wisataya-badge {
-            background: #999;
+        .pricing-badge {
+            background: #667eea;
             color: #fff;
             padding: 0.3rem 1rem;
             border-radius: 20px;
@@ -473,57 +425,52 @@
             font-size: 0.85rem;
         }
 
-        .wisataya-title {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .wisataya-subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 3rem;
-        }
-
-        .wisataya-grid {
+        .pricing-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .wisataya-card {
-            background: #e8e8e8;
-            padding: 2rem;
-            border-radius: 10px;
+        .pricing-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
 
-        .wisataya-card h3 {
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card h3 {
             margin-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
 
-        .wisataya-card .price {
-            font-size: 1.3rem;
+        .pricing-card .price {
+            font-size: 1.8rem;
             font-weight: bold;
             margin-bottom: 1rem;
+            color: #667eea;
         }
 
-        .wisataya-card ul {
+        .pricing-card ul {
             list-style: none;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
-        .wisataya-card ul li {
-            padding: 0.3rem 0;
+        .pricing-card ul li {
+            padding: 0.5rem 0;
             color: #666;
         }
 
-        .wisataya-card ul li::before {
-            content: "• ";
+        .pricing-card ul li::before {
+            content: "✓ ";
             margin-right: 0.5rem;
-        }
-
-        .wisataya-card .btn-primary {
-            margin-top: 1rem;
+            color: #667eea;
+            font-weight: bold;
         }
 
         /* Testimonial Section */
@@ -533,7 +480,7 @@
         }
 
         .testimonial-badge {
-            background: #999;
+            background: #667eea;
             color: #fff;
             padding: 0.3rem 1rem;
             border-radius: 20px;
@@ -553,7 +500,12 @@
             background: #fff;
             padding: 2rem;
             border-radius: 10px;
-            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
         }
 
         .testimonial-header {
@@ -567,11 +519,12 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #ddd;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            color: white;
         }
 
         .testimonial-card h4 {
@@ -584,33 +537,23 @@
             line-height: 1.6;
         }
 
-        .testimonial-link {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            margin-top: 1rem;
-        }
-
         /* FAQ Section */
         .faq-section {
             padding: 4rem 5%;
-            background: #f0f0f0;
+            background: #fff;
         }
 
         .faq-title {
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 2rem;
         }
 
         .faq-item {
-            background: #d8d8d8;
-            padding: 1.2rem 2rem;
+            background: #f9f9f9;
+            padding: 1.5rem 2rem;
             margin-bottom: 1rem;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -619,23 +562,23 @@
         }
 
         .faq-item:hover {
-            background: #c8c8c8;
+            background: #f0f0f0;
         }
 
         .faq-item::after {
-            content: "−";
+            content: "+";
             font-size: 1.5rem;
-            color: #999;
+            color: #667eea;
         }
 
-        /* Forum Section */
-        .forum-section {
+        /* Contact Section */
+        .contact-section {
             padding: 4rem 5%;
-            background: #d4f1f4;
+            background: #f9f9f9;
         }
 
-        .forum-badge {
-            background: #999;
+        .contact-badge {
+            background: #667eea;
             color: #fff;
             padding: 0.3rem 1rem;
             border-radius: 20px;
@@ -644,110 +587,111 @@
             font-size: 0.85rem;
         }
 
-        .forum-title {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .forum-subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 2rem;
-        }
-
-        .forum-form {
-            background: #e8e8e8;
-            padding: 2rem;
+        .contact-form {
+            background: #fff;
+            padding: 2.5rem;
             border-radius: 10px;
-            margin-bottom: 3rem;
-        }
-
-        .forum-form p {
-            text-align: center;
-            color: #666;
-            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 2rem auto;
         }
 
         .form-group {
-            background: #fff;
-            padding: 0.3rem 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            border: none;
-            padding: 0.8rem;
+            border: 1px solid #ddd;
+            padding: 1rem;
             font-family: inherit;
             outline: none;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #667eea;
         }
 
         .form-group textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
         .form-submit {
-            text-align: right;
+            text-align: center;
         }
 
         .btn-submit {
-            background: #999;
+            background: #667eea;
             color: #fff;
-            padding: 0.8rem 2rem;
+            padding: 1rem 3rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #5568d3;
         }
 
         /* Newsletter */
         .newsletter {
-            background: #666;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
-            padding: 3rem 5%;
+            padding: 4rem 5%;
             text-align: center;
         }
 
         .newsletter h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
         .newsletter p {
             margin-bottom: 2rem;
-            color: #ddd;
+            color: rgba(255,255,255,0.9);
         }
 
-        .newsletter-form {
+        .newsletter-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            max-width: 600px;
-            margin: 0 auto;
+            flex-wrap: wrap;
         }
 
-        .newsletter-form button {
-            background: #fff;
-            color: #333;
-            padding: 0.8rem 2rem;
+        .newsletter-buttons button {
+            padding: 1rem 2.5rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            transition: transform 0.3s;
         }
 
-        .newsletter-form button:last-child {
+        .newsletter-buttons button:first-child {
+            background: #fff;
+            color: #333;
+        }
+
+        .newsletter-buttons button:last-child {
             background: transparent;
             border: 2px solid #fff;
             color: #fff;
         }
 
+        .newsletter-buttons button:hover {
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         footer {
-            background: #333;
+            background: #2c3e50;
             color: #fff;
             padding: 3rem 5%;
         }
@@ -763,11 +707,17 @@
             margin-bottom: 1rem;
         }
 
+        .footer-content p {
+            color: #bdc3c7;
+            line-height: 1.8;
+        }
+
         .footer-content a {
-            color: #aaa;
+            color: #bdc3c7;
             text-decoration: none;
             display: block;
             margin-bottom: 0.5rem;
+            transition: color 0.3s;
         }
 
         .footer-content a:hover {
@@ -785,10 +735,10 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid #555;
+            border-top: 1px solid #34495e;
             padding-top: 2rem;
             text-align: center;
-            color: #aaa;
+            color: #bdc3c7;
             font-size: 0.9rem;
         }
 
@@ -806,28 +756,6 @@
         @media (max-width: 1024px) {
             .hero, .story-grid, .why-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .article-item {
-                grid-template-columns: 1fr !important;
-            }
-
-            .article-item:nth-child(even) {
-                grid-template-columns: 1fr;
-            }
-
-            .article-item:nth-child(even) .article-image {
-                order: 0;
-            }
-
-            .activity-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(3, 200px);
-            }
-
-            .activity-item:first-child {
-                grid-column: span 2;
-                grid-row: span 1;
             }
 
             .stats {
@@ -875,57 +803,13 @@
                 padding: 3rem 4% 5rem;
             }
 
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-                padding: 2rem 4%;
-                gap: 1.5rem;
-            }
-
-            .stat-card h3 {
-                font-size: 1.5rem;
-            }
-
-            .features-grid, .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .wisataya-grid, .testimonial-grid {
+            .features-grid, .skills-grid, .pricing-grid, .testimonial-grid {
                 grid-template-columns: 1fr;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
-            }
-
-            .story-section, .why-learn, .skills-section, .article-section,
-            .activity-section, .wisataya-section, .testimonial-section,
-            .faq-section, .forum-section {
-                padding: 3rem 4%;
-            }
-
-            .story-image, .why-image, .article-image {
-                height: 200px;
-            }
-
-            .activity-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(6, 150px);
-            }
-
-            .activity-item:first-child {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .newsletter-form button {
-                width: 100%;
             }
 
             .board-placeholder {
@@ -950,63 +834,18 @@
 
             .stats {
                 grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .stat-card {
-                padding: 0.8rem;
-            }
-
-            .story-section, .why-learn, .skills-section, .article-section,
-            .activity-section, .wisataya-section, .testimonial-section,
-            .faq-section, .forum-section {
-                padding: 2rem 4%;
-            }
-
-            .feature-card, .skill-card, .wisataya-card, .testimonial-card {
-                padding: 1.5rem;
-            }
-
-            .story-image, .why-image, .article-image {
-                height: 150px;
-                font-size: 2rem;
-            }
-
-            .activity-grid {
-                grid-template-rows: repeat(6, 120px);
             }
 
             .board-placeholder {
                 height: 200px;
             }
 
-            .faq-item {
-                padding: 1rem 1.5rem;
-                font-size: 0.9rem;
+            .newsletter-buttons {
+                flex-direction: column;
             }
 
-            .forum-form {
-                padding: 1.5rem;
-            }
-
-            .newsletter {
-                padding: 2rem 4%;
-            }
-
-            footer {
-                padding: 2rem 4%;
-            }
-
-            .hero::before {
-                width: 150px;
-                height: 150px;
-                top: -50px;
-                right: -50px;
-            }
-
-            .hero::after {
-                width: 300px;
-                height: 150px;
+            .newsletter-buttons button {
+                width: 100%;
             }
         }
     </style>
@@ -1023,18 +862,18 @@
             <span></span>
         </div>
         <nav id="mainNav">
-            <a href="#story">About</a>
-            <a href="#wisataya">Pricing</a>
-            <a href="#testimonial">Testimonial</a>
-            <a href="#forum" class="btn-kickstarter">Kickstarter</a>
+            <a href="#home" class="nav-link active">About</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#testimonial" class="nav-link">Testimonial</a>
+            <a href="#contact" class="btn-kickstarter nav-link">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
             <h1>Belajar Kewirausahaan Dengan Bermain</h1>
-            <p>Sebuah permainan papan inovatif yang mengubah bimbingan teknis yang komplek menjadi pengalaman belajar yang menarik dan interaktif yang dapat dipraktekkan.</p>
-            <a href="#" class="btn-primary">Membeli Sekarang</a>
+            <p>Sebuah permainan papan inovatif yang mengubah pembelajaran kewirausahaan menjadi pengalaman yang menarik, interaktif, dan dapat dipraktekkan.</p>
+            <a href="#pricing" class="btn-primary">Dapatkan Sekarang</a>
         </div>
         <div class="hero-image">
             <div class="board-placeholder">
@@ -1043,32 +882,32 @@
         </div>
     </section>
 
-    <section class="stats">
+    <section id="home" class="stats">
         <div class="stat-card">
             <h3>85%</h3>
-            <p>Kesuksesan Anak ekspositori yang berpengalaman</p>
+            <p>Tingkat kepuasan pengguna</p>
         </div>
         <div class="stat-card">
             <h3>50+</h3>
-            <p>Sekolah dari pulau yang sudah memiliki Zambia</p>
+            <p>Sekolah mitra di seluruh Indonesia</p>
         </div>
         <div class="stat-card">
-            <h3>80%</h3>
-            <p>Memberikan bimbingan dan pengetahuan kepada siswa</p>
+            <h3>1000+</h3>
+            <p>Siswa telah belajar</p>
         </div>
         <div class="stat-card">
             <h3>87%</h3>
-            <p>Mengadaptasi pembelajaran pembelajaran</p>
+            <p>Peningkatan pemahaman materi</p>
         </div>
     </section>
 
-    <section class="story-section">
+    <section id="about" class="story-section">
         <div class="story-grid">
             <div class="story-image">📖</div>
             <div class="story-content">
-                <span class="story-badge">HighLight</span>
+                <span class="story-badge">Highlight</span>
                 <h2>Cerita di Balik GameBoard</h2>
-                <p>Teubari ajari ini para bersama pembahasan di subang kewirausahaan - dan kehidupan untuk memulai emindahkan kewirausahaan melalui bidang yang yang membuat memproduksi apapun kami mengawakannya mengubah tulus lingkungan dan kepelajaan tetapi terpernyatan di hipermedia</p>
+                <p>Malaya Land diciptakan untuk menjawab tantangan pembelajaran kewirausahaan yang seringkali terasa teoritis dan membosankan. Kami percaya bahwa belajar melalui permainan dapat membuat konsep bisnis lebih mudah dipahami dan diingat. Dengan pendekatan yang interaktif dan menyenangkan, kami menghadirkan pengalaman belajar yang berbeda.</p>
             </div>
         </div>
 
@@ -1076,17 +915,17 @@
             <div class="feature-card">
                 <div class="feature-icon">💡</div>
                 <h3>Inovatif</h3>
-                <p>Inovasi positif yang mengawinkan dan membuat langkah yang bertenaga untuk bisuk lebih dari perusahaan</p>
+                <p>Metode pembelajaran yang menggabungkan teori dan praktik dalam satu pengalaman bermain yang menyenangkan</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
                 <h3>Kolaboratif</h3>
-                <p>Pembelajaran berhasil sudah terpernyatan di Sukungan dengan sukuan berbayar menjatuhan eksiperiis kita</p>
+                <p>Mendorong kerja sama tim dan komunikasi efektif dalam menyelesaikan tantangan bisnis</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🏆</div>
-                <h3>Tepat</h3>
-                <p>Pembelajaran memperkuat yang sudah emengantukan eksiperiis kita dan dapat berkelanjutan penuh sukses</p>
+                <h3>Aplikatif</h3>
+                <p>Setiap permainan dirancang berdasarkan studi kasus nyata dari dunia bisnis dan pariwisata</p>
             </div>
         </div>
     </section>
@@ -1102,19 +941,19 @@
                     <li>
                         <div>
                             <strong>Pengalaman Belajar Interaktif dan Praktis</strong>
-                            <span style="color: #666;">Melalui permainan para belajar membawa kebutuhan eksiperiis kita dengan berjajar dengan praktis dan untuk tahun dari sistem</span>
+                            <span style="color: #666;">Melalui permainan, siswa dapat langsung mempraktikkan konsep bisnis dalam situasi yang menyerupai dunia nyata, membuat pembelajaran lebih bermakna</span>
                         </div>
                     </li>
                     <li>
                         <div>
                             <strong>Real Case Scenario</strong>
-                            <span style="color: #666;">Belajar membuat membahasa keputusan eksokel dengan bahwa bisnis nyata</span>
+                            <span style="color: #666;">Belajar membuat keputusan bisnis berdasarkan studi kasus nyata dari industri pariwisata dan kewirausahaan</span>
                         </div>
                     </li>
                     <li>
                         <div>
                             <strong>Belajar Kolaboratif</strong>
-                            <span style="color: #666;">Bermulahan sebuah kota keliah batasan sudah emmanga dan bahasa bisaya yang dan setiap menjalankan</span>
+                            <span style="color: #666;">Bermain bersama teman mengajarkan pentingnya kerja sama, komunikasi, dan strategi bersama dalam mencapai tujuan bisnis</span>
                         </div>
                     </li>
                 </ul>
@@ -1124,260 +963,181 @@
 
     <section class="skills-section">
         <h2 class="section-title">Keterampilan yang Akan Anda Dapatkan</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 3rem;">Sebuah keterampilan yang bisa eksiperiis mereka sudah pertukaran yang mudah</p>
+        <p class="section-subtitle">Kompetensi penting untuk sukses di dunia bisnis</p>
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="feature-icon">💼</div>
                 <h3>Problem Solving</h3>
-                <p>Lorem diambil dari bidang dan membuat program strategis kita eksiperiis</p>
+                <p>Mengidentifikasi masalah dan mencari solusi kreatif dalam berbagai situasi bisnis</p>
             </div>
             <div class="skill-card">
                 <div class="feature-icon">📊</div>
                 <h3>Kewirausahaan</h3>
-                <p>Bekerja buka embangun dalam kita sudah program strategis kita eksiperiis dan dapat berkelanjutan</p>
+                <p>Memahami dasar-dasar memulai dan mengelola bisnis dari perencanaan hingga eksekusi</p>
             </div>
             <div class="skill-card">
                 <div class="feature-icon">💰</div>
-                <h3>Pengetahuan Keuangan</h3>
-                <p>Pembelajaran yang sudah eksiperiis kita dan dapat berkelanjutan embangun dalam penuh sukses</p>
+                <h3>Literasi Keuangan</h3>
+                <p>Mengelola anggaran, investasi, dan membuat keputusan finansial yang tepat</p>
             </div>
             <div class="skill-card">
                 <div class="feature-icon">🎨</div>
-                <h3>Inovasi</h3>
-                <p>Untuk menjalankan program berkelanjutan eksiperiis untuk belajar dengan bisaya</p>
+                <h3>Berpikir Kreatif</h3>
+                <p>Mengembangkan ide-ide inovatif dan strategi pemasaran yang efektif</p>
             </div>
         </div>
     </section>
 
-    <section class="article-section">
-        <span class="article-badge">Features</span>
-        <div class="article-grid">
-            <div class="article-item">
-                <div class="article-image">Video</div>
-                <div class="article-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-
-            <div class="article-item">
-                <div class="article-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div class="article-image">Image</div>
-            </div>
-
-            <div class="article-item">
-                <div class="article-image">Image</div>
-                <div class="article-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-
-            <div class="article-item">
-                <div class="article-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                </div>
-                <div class="article-image">Image</div>
-            </div>
-        </div>
-        <button class="btn-learn-more">Dapatkan Sekarang</button>
-    </section>
-
-    <section class="activity-section">
-        <h2>Aktivitas Terbaru & Tutorial</h2>
-        <p>Kumpulan aktivitas terlengkap GameBoard & tingkatkan skill mengajarkannya</p>
-        <div class="activity-grid">
-            <div class="activity-item">Video</div>
-            <div class="activity-item">Image</div>
-            <div class="activity-item">Image</div>
-            <div class="activity-item">Image</div>
-            <div class="activity-item">Image</div>
-            <div class="activity-item">Image</div>
-        </div>
-    </section>
-
-    <section class="wisataya-section">
-        <span class="wisataya-badge">Bundling</span>
-        <h2 class="wisataya-title">Main Sekaligus Belajar, Semua Dimulai dari Sini</h2>
-        <p class="wisataya-subtitle">Tingginya pengalaman kewirausahaan lewat board game yang sesuai kebutuhanmu!</p>
-        <div class="wisataya-grid">
-            <div class="wisataya-card">
+    <section id="pricing" class="pricing-section">
+        <span class="pricing-badge">Pricing</span>
+        <h2 class="section-title">Mulai Belajar Sekarang</h2>
+        <p class="section-subtitle">Pilih paket yang sesuai dengan kebutuhan Anda</p>
+        <div class="pricing-grid">
+            <div class="pricing-card">
                 <div class="feature-icon">🏝️</div>
-                <h3>Waluya Land</h3>
+                <h3>Malaya Land</h3>
                 <p class="price">Rp 300.000</p>
-                <p>Permainan bahasa dan lengkapi bisnis aplikasi</p>
+                <p>Paket dasar untuk memulai perjalanan kewirausahaan Anda</p>
                 <ul>
-                    <li>1 set permainan waluya land</li>
-                    <li>Buku panduan</li>
+                    <li>1 set permainan Malaya Land</li>
+                    <li>Buku panduan lengkap</li>
+                    <li>Akses komunitas online</li>
                 </ul>
                 <button class="btn-primary">Dapatkan Sekarang</button>
             </div>
-            <div class="wisataya-card">
+            <div class="pricing-card">
                 <div class="feature-icon">🏢</div>
-                <h3>Waluya Land Bundling</h3>
-                <p class="price">Rp 300.000</p>
-                <p>Permainan bahasa dibawakan bisnis aplikasi</p>
+                <h3>Malaya Land Pro</h3>
+                <p class="price">Rp 500.000</p>
+                <p>Paket lengkap untuk institusi dan kelompok belajar</p>
                 <ul>
-                    <li>1 set permainan waluya land</li>
-                    <li>Buku panduan</li>
+                    <li>1 set permainan Malaya Land</li>
+                    <li>Buku panduan lengkap</li>
+                    <li>Akses komunitas online</li>
+                    <li>Materi pembelajaran tambahan</li>
+                    <li>Sertifikat digital</li>
                 </ul>
                 <button class="btn-primary">Dapatkan Sekarang</button>
             </div>
         </div>
     </section>
 
-    <section class="testimonial-section">
+    <section id="testimonial" class="testimonial-section">
         <span class="testimonial-badge">Testimonial</span>
-        <h2 class="section-title">Apa yang Dikatakan Para Pemain</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 2rem;">Feedback dari pendidikan akan semua</p>
+        <h2 class="section-title">Apa yang Dikatakan Para Pengguna</h2>
+        <p class="section-subtitle">Pengalaman nyata dari pendidik dan pelajar</p>
         <div class="testimonial-grid">
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar">👤</div>
+                    <div class="testimonial-avatar">👩</div>
                     <div>
                         <h4>Sarah Johanes</h4>
-                        <small style="color: #999;">Guru</small>
+                        <small style="color: #999;">Guru SMK</small>
                     </div>
                 </div>
                 <p>"Permainan ini telah membuka mata saya terhadap pembelajaran yang menyenangkan. Siswa menjadi lebih antusias dan mudah memahami konsep kewirausahaan dengan cara yang praktis."</p>
-                <a href="#" class="testimonial-link">Selanjutnya →</a>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar">👤</div>
+                    <div class="testimonial-avatar">👨</div>
                     <div>
                         <h4>Michael Chen</h4>
                         <small style="color: #999;">Mahasiswa</small>
                     </div>
                 </div>
-                <p>"Metode belajar paling asik mendalami cara memulai dan mengelola bisnis pariwisata. Setiap putaran permainan memberikan insight baru yang bermanfaat."</p>
-                <a href="#" class="testimonial-link">Selanjutnya →</a>
+                <p>"Metode belajar paling asik untuk mendalami cara memulai dan mengelola bisnis pariwisata. Setiap putaran permainan memberikan insight baru yang bermanfaat."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar">👤</div>
+                    <div class="testimonial-avatar">👩</div>
                     <div>
                         <h4>Indy Budiarti</h4>
                         <small style="color: #999;">Entrepreneur</small>
                     </div>
                 </div>
                 <p>"Saya bukan saja bermain melainkan juga belajar strategi bisnis yang bisa diterapkan langsung. Game ini cocok untuk siapa saja yang ingin memulai usaha."</p>
-                <a href="#" class="testimonial-link">Selanjutnya →</a>
             </div>
         </div>
     </section>
 
     <section class="faq-section">
-        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <h2 class="faq-title">Pertanyaan yang Sering Diajukan</h2>
         <div class="faq-item">
-            <span>Berkat untuk apa wuluya land ini?</span>
+            <span>Untuk siapa Malaya Land ini dirancang?</span>
         </div>
         <div class="faq-item">
-            <span>Adakah panduan bermain bagi kami?</span>
+            <span>Apakah ada panduan bermain yang disediakan?</span>
         </div>
         <div class="faq-item">
-            <span>Contoh pertanyaan yang ditanyakan oleh Waluya Land ?</span>
+            <span>Berapa lama waktu yang dibutuhkan untuk satu sesi permainan?</span>
         </div>
         <div class="faq-item">
-            <span>Apa manusia level ini?</span>
+            <span>Berapa jumlah pemain yang ideal?</span>
         </div>
         <div class="faq-item">
-            <span>Apakah tersedia untuk semua kalangan?</span>
+            <span>Apakah cocok untuk semua tingkat pendidikan?</span>
         </div>
     </section>
 
-    <section class="forum-section">
-        <span class="forum-badge">Discussian</span>
-        <h2 class="forum-title">Forum Terbuka untuk Tanya, Saran, dan Insight</h2>
-        <p class="forum-subtitle">Punya bila, situasi, atau pertanyaan untuk? Jelaskan pertanyaan langsung pada kami</p>
+    <section id="contact" class="contact-section">
+        <span class="contact-badge">Contact Us</span>
+        <h2 class="section-title">Hubungi Kami</h2>
+        <p class="section-subtitle">Punya pertanyaan? Kami siap membantu Anda</p>
 
-        <div class="forum-form">
-            <p>Punya pertanyaan lain? Jelaskan pertanyaan disini</p>
+        <div class="contact-form">
             <div class="form-group">
-                <input type="text" placeholder="Nama Lengkap">
+                <input type="text" placeholder="Nama Lengkap" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Instansi">
+                <input type="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <textarea placeholder="Pesan/Pertanyaan"></textarea>
+                <input type="text" placeholder="Instansi / Sekolah">
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Pesan atau Pertanyaan Anda" required></textarea>
             </div>
             <div class="form-submit">
-                <button class="btn-submit">Kirim</button>
-            </div>
-        </div>
-
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">👤</div>
-                    <div>
-                        <h4>Sarah Johanes</h4>
-                        <small style="color: #999;">Guru</small>
-                    </div>
-                </div>
-                <p>Saya sangat puas dengan layanan kami Lorem ipsum dolor sit amet consectetur adipiscing elit. Semua kursus bisa mengikuti bimtek bersama dengan para siswa lain.</p>
-                <a href="#" class="testimonial-link">Selanjutnya →</a>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">👤</div>
-                    <div>
-                        <h4>Michael Chen</h4>
-                        <small style="color: #999;">Mahasiswa</small>
-                    </div>
-                </div>
-                <p>Platform inovasi sangat Lorem ipsum dolor sit amet consectetur adipiscing elit. Semua kursus pula bisa mengikuti bimtek bersama dengan.</p>
-                <a href="#" class="testimonial-link">Selanjutnya →</a>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">👤</div>
-                    <div>
-                        <h4>Indy Budiarti</h4>
-                        <small style="color: #999;">Entrepreneur</small>
-                    </div>
-                </div>
-                <p>Sangat teratur dan mudah Lorem ipsum dolor sit amet consectetur adipiscing elit. Semua kursus bisa mengikuti bimtek bersama dengan para siswa lain.</p>
-                <a href="#" class="testimonial-link">Selanjutnya →</a>
+                <button class="btn-submit">Kirim Pesan</button>
             </div>
         </div>
     </section>
 
     <section class="newsletter">
-        <h2>Siap untuk mengubah pengalaman belajar Anda?</h2>
-        <p>Bergabung dengan ratusan siswa dan pendidik yang sudah menggunakan GameBoard untuk meningkatkan keterampilan mereka dengan kami.</p>
-        <div class="newsletter-form">
-            <button>Dapatkan Sekarang</button>
-            <button>Kontak Kami</button>
+        <h2>Siap untuk Mengubah Pengalaman Belajar Anda?</h2>
+        <p>Bergabunglah dengan ratusan siswa dan pendidik yang telah menggunakan Malaya Land untuk meningkatkan pemahaman kewirausahaan mereka.</p>
+        <div class="newsletter-buttons">
+            <button onclick="location.href='#pricing'">Dapatkan Sekarang</button>
+            <button onclick="location.href='#contact'">Hubungi Kami</button>
         </div>
     </section>
 
     <footer>
         <div class="footer-content">
             <div>
-                <h4>📚 Waluya Land</h4>
-                <p>Malaya persembahkan edukasi hebatnya dan memukalkan melalui dasar dan petunjuk yang sudah mengetahui keterampilan mereka dengan kami.</p>
+                <h4>📚 Malaya Land</h4>
+                <p>Malaya Land menghadirkan metode pembelajaran kewirausahaan yang inovatif melalui permainan papan edukatif. Kami berkomitmen untuk membuat pendidikan lebih menarik dan aplikatif.</p>
             </div>
             <div>
-                <h4>Product</h4>
-                <a href="#">Features</a>
-                <a href="#">Pricing</a>
+                <h4>Produk</h4>
+                <a href="#about">Tentang Kami</a>
+                <a href="#pricing">Harga</a>
             </div>
             <div>
-                <h4>Support</h4>
-                <a href="#">Contact Us</a>
+                <h4>Dukungan</h4>
+                <a href="#contact">Hubungi Kami</a>
+                <a href="#faq">FAQ</a>
             </div>
             <div>
-                <h4>Organisasi E-Commerce</h4>
+                <h4>Lokasi</h4>
+                <p style="color: #bdc3c7; font-size: 0.9rem;">Indonesia</p>
                 <div class="footer-flags">
                     <span>🇮🇩</span>
-                    <span>🇵🇹</span>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 GameBoard.Inc. All rights reserved.</p>
+            <p>© 2025 Malaya Land. All rights reserved.</p>
         </div>
     </footer>
 
@@ -1403,6 +1163,67 @@
                 document.getElementById('mainNav').classList.remove('active');
             });
         });
+
+        // Smooth scroll offset for fixed header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active menu indicator based on scroll position
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveMenu() {
+            let current = '';
+            const scrollPosition = window.pageYOffset + 150;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = sectionId;
+                }
+            });
+
+            // Remove all active classes
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to current section link
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href').substring(1);
+                if (href === current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Default to home/about if at top
+            if (scrollPosition < 100) {
+                navLinks[0].classList.add('active');
+            }
+        }
+
+        // Listen to scroll events
+        window.addEventListener('scroll', updateActiveMenu);
+
+        // Initial call
+        updateActiveMenu();
     </script>
 </body>
 </html>
