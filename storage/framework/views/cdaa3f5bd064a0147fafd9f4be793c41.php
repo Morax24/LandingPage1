@@ -1129,47 +1129,77 @@
         </div>
     </section>
 
-    <form action="{{ route('contact.store') }}" method="POST" class="contact-form">
-       @csrf
+    <form action="<?php echo e(route('contact.store')); ?>" method="POST" class="contact-form">
+       <?php echo csrf_field(); ?>
 
-       @if(session('success'))
+       <?php if(session('success')): ?>
        <div class="alert alert-success">
-           {{ session('success') }}
-       </div>
-       @endif
+           <?php echo e(session('success')); ?>
 
-       @if(session('error'))
+       </div>
+       <?php endif; ?>
+
+       <?php if(session('error')): ?>
        <div class="alert alert-danger">
-           {{ session('error') }}
+           <?php echo e(session('error')); ?>
+
        </div>
-       @endif
+       <?php endif; ?>
 
        <div class="form-group">
-           <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
-           @error('name')
-               <span class="error-text">{{ $message }}</span>
-           @enderror
-       </div>
-
-       <div class="form-group">
-           <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-           @error('email')
-               <span class="error-text">{{ $message }}</span>
-           @enderror
-       </div>
-
-       <div class="form-group">
-           <input type="text" name="institution" placeholder="Instansi / Sekolah" value="{{ old('institution') }}">
-           @error('institution')
-               <span class="error-text">{{ $message }}</span>
-           @enderror
+           <input type="text" name="name" placeholder="Nama Lengkap" value="<?php echo e(old('name')); ?>" required>
+           <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+               <span class="error-text"><?php echo e($message); ?></span>
+           <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
        </div>
 
        <div class="form-group">
-           <textarea name="message" placeholder="Pesan atau Pertanyaan Anda" required>{{ old('message') }}</textarea>
-           @error('message')
-               <span class="error-text">{{ $message }}</span>
-           @enderror
+           <input type="email" name="email" placeholder="Email" value="<?php echo e(old('email')); ?>" required>
+           <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+               <span class="error-text"><?php echo e($message); ?></span>
+           <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+       </div>
+
+       <div class="form-group">
+           <input type="text" name="institution" placeholder="Instansi / Sekolah" value="<?php echo e(old('institution')); ?>">
+           <?php $__errorArgs = ['institution'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+               <span class="error-text"><?php echo e($message); ?></span>
+           <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+       </div>
+
+       <div class="form-group">
+           <textarea name="message" placeholder="Pesan atau Pertanyaan Anda" required><?php echo e(old('message')); ?></textarea>
+           <?php $__errorArgs = ['message'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+               <span class="error-text"><?php echo e($message); ?></span>
+           <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
        </div>
 
        <div class="form-submit">
@@ -1301,3 +1331,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\laragon\www\1.-gabut\resources\views/landing.blade.php ENDPATH**/ ?>
