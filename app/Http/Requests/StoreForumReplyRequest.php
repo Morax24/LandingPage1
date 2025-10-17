@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreContactRequest extends FormRequest
+class StoreForumReplyRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,22 +14,22 @@ class StoreContactRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'contact_id' => 'required|exists:contacts,id',
             'name' => 'required|string|max:255|min:3',
             'email' => 'required|email:rfc,dns|max:255',
-            'institution' => 'nullable|string|max:255',
-            'message' => 'required|string|min:10|max:1000',
+            'message' => 'required|string|min:5|max:500',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama lengkap wajib diisi',
-            'name.min' => 'Nama minimal 3 karakter',
+            'name.required' => 'Nama wajib diisi',
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Format email tidak valid',
-            'message.required' => 'Pesan wajib diisi',
-            'message.min' => 'Pesan minimal 10 karakter',
+            'message.required' => 'Komentar wajib diisi',
+            'message.min' => 'Komentar minimal 5 karakter',
+            'message.max' => 'Komentar maksimal 500 karakter',
         ];
     }
 
@@ -38,7 +38,6 @@ class StoreContactRequest extends FormRequest
         $this->merge([
             'name' => trim($this->name ?? ''),
             'email' => trim(strtolower($this->email ?? '')),
-            'institution' => $this->institution ? trim($this->institution) : null,
             'message' => trim($this->message ?? ''),
         ]);
     }

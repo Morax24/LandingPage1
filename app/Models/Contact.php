@@ -113,4 +113,15 @@ class Contact extends Model
             default => 'Tidak Diketahui'
         };
     }
+
+    // Tambahkan di dalam class Contact
+public function replies()
+{
+    return $this->hasMany(ForumReply::class)->where('status', 'approved')->latest();
+}
+
+public function allReplies()
+{
+    return $this->hasMany(ForumReply::class)->latest();
+}
 }

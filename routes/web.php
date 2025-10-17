@@ -4,15 +4,47 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ForumReplyController;
+use App\Http\Controllers\Admin\ForumReplyController as AdminForumReplyController;
+use App\Http\Controllers\Admin\MediaController;
 
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // ... route admin yang sudah ada ...
+
+    // Media Management
+    Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+    Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
+    Route::post('/media', [MediaController::class, 'store'])->name('media.store');
+    Route::get('/media/{id}/edit', [MediaController::class, 'edit'])->name('media.edit');
+    Route::put('/media/{id}', [MediaController::class, 'update'])->name('media.update');
+    Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
+    Route::post('/media/bulk-delete', [MediaController::class, 'bulkDelete'])->name('media.bulk-delete');
+    Route::post('/media/{id}/toggle-active', [MediaController::class, 'toggleActive'])->name('media.toggle-active');
+});
+
+// Forum Reply Routes (Public)
+Route::post('/forum/reply', [ForumReplyController::class, 'store'])->name('forum.reply.store');
+Route::get('/forum/{contactId}/replies', [ForumReplyController::class, 'getReplies'])->name('forum.replies.get');
+
+// Admin Forum Reply Routes
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // ... route admin yang sudah ada ...
+
+    // Forum Replies Management
+    Route::get('/forum-replies', [AdminForumReplyController::class, 'index'])->name('forum-replies.index');
+    Route::post('/forum-replies/{id}/approve', [AdminForumReplyController::class, 'approve'])->name('forum-replies.approve');
+    Route::post('/forum-replies/{id}/reject', [AdminForumReplyController::class, 'reject'])->name('forum-replies.reject');
+    Route::delete('/forum-replies/{id}', [AdminForumReplyController::class, 'destroy'])->name('forum-replies.destroy');
+    Route::post('/forum-replies/bulk-approve', [AdminForumReplyController::class, 'bulkApprove'])->name('forum-replies.bulk-approve');
+    Route::post('/forum-replies/bulk-delete', [AdminForumReplyController::class, 'bulkDelete'])->name('forum-replies.bulk-delete');
+});
 // ============================================
 // FRONTEND ROUTES (PUBLIC)
 // ============================================
 
-// Landing Page
-Route::get('/', function () {
-    return view('landing');
-})->name('home');
+// Landing Page - PAKAI CONTROLLER
+Route::get('/', [ContactController::class, 'index'])->name('home');
 
 // Contact Form - Submit
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

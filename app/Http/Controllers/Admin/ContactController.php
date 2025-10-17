@@ -175,6 +175,29 @@ class ContactController extends Controller
             ->with('success', count($request->ids) . ' pesan berhasil ditolak.');
     }
 
+    public function store(StoreContactRequest $request)
+{
+    try {
+        Contact::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'institution' => $request->input('institution'),
+            'message' => $request->input('message'),
+            'status' => 'pending',
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Terima kasih! Pesan Anda telah terkirim dan akan ditinjau oleh admin.');
+
+    } catch (\Exception $e) {
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('error', 'Maaf, terjadi kesalahan. Silakan coba lagi.');
+    }
+}
+
     /**
      * Bulk delete
      */
