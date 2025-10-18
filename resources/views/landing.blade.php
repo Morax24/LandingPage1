@@ -1313,7 +1313,6 @@
         </div>
     </section>
                     <div>
-                        <strong>Apakah beriaku untuk semua kurikulum?</strong>
                         <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
                             Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum pendidikan (Kurikulum 2013, Kurikulum Merdeka, dll). Materi pembelajaran dapat diadaptasi sesuai dengan kebutuhan dan capaan pembelajaran yang diinginkan.
                         </div>
