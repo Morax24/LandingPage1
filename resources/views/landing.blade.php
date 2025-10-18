@@ -5,74 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waluya Land - Belajar Kewirausahaan</title>
     <style>
-
-        /* FEATURES GRID - 4 slot sama rata */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-.feature-slot {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.feature-slot:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-}
-
-/* AKTIVITAS GRID - 6 slot posisi tetap */
-.activity-grid {
-    display: grid;
-    grid-template-areas:
-        "big small1 small2"
-        "big small3 small4"
-        "big small5 small6";
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-auto-rows: 250px;
-    gap: 1.2rem;
-}
-.activity-slot.large {
-    grid-area: big;
-}
-.activity-slot.small:nth-of-type(2) { grid-area: small1; }
-.activity-slot.small:nth-of-type(3) { grid-area: small2; }
-.activity-slot.small:nth-of-type(4) { grid-area: small3; }
-.activity-slot.small:nth-of-type(5) { grid-area: small4; }
-.activity-slot.small:nth-of-type(6) { grid-area: small5; }
-.activity-slot.small:nth-of-type(7) { grid-area: small6; }
-
-.slot-media {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.placeholder {
-    width: 100%;
-    height: 100%;
-    background: #eaeaea;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #666;
-    font-weight: 600;
-    border-radius: 10px;
-}
-.slot-info {
-    padding: 0.8rem 1rem;
-}
-.slot-info h5 {
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-}
-.slot-info p {
-    color: #666;
-    font-size: 0.9rem;
-}
         * {
             margin: 0;
             padding: 0;
@@ -88,6 +20,119 @@
             line-height: 1.6;
             color: #333;
             overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        section {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* FEATURES GRID - 4 slot sama rata */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-slot {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-slot:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+
+        /* AKTIVITAS GRID - 6 slot posisi tetap */
+        .activity-grid {
+            display: grid;
+            grid-template-areas:
+                "big small1 small2"
+                "big small3 small4"
+                "big small5 small6";
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-auto-rows: 250px;
+            gap: 1.2rem;
+        }
+        .activity-slot.large {
+            grid-area: big;
+        }
+        .activity-slot.small:nth-of-type(2) { grid-area: small1; }
+        .activity-slot.small:nth-of-type(3) { grid-area: small2; }
+        .activity-slot.small:nth-of-type(4) { grid-area: small3; }
+        .activity-slot.small:nth-of-type(5) { grid-area: small4; }
+        .activity-slot.small:nth-of-type(6) { grid-area: small5; }
+        .activity-slot.small:nth-of-type(7) { grid-area: small6; }
+
+        .slot-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .placeholder {
+            width: 100%;
+            height: 100%;
+            background: #eaeaea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        .slot-info {
+            padding: 0.8rem 1rem;
+        }
+        .slot-info h5 {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .slot-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Media Styling untuk Konsistensi */
+        .media-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 66.67%; /* Aspect ratio 3:2 */
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
+
+        .media-container img,
+        .media-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-media {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .activity-media {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
         }
 
         /* Header */
@@ -101,6 +146,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
         }
 
         .logo {
@@ -123,6 +169,7 @@
             display: flex;
             gap: 2rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -132,6 +179,7 @@
             font-weight: 500;
             padding: 0.5rem 1rem;
             border-radius: 5px;
+            white-space: nowrap;
         }
 
         nav a:hover {
@@ -240,18 +288,26 @@
 
         .board-placeholder {
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
-            height: 400px;
+            height: 450px;
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #f0f0f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .board-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 20px;
+            object-fit: contain;
         }
 
         /* Stats Section */
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             padding: 3rem 5%;
             background: #f5f5f5;
@@ -309,12 +365,20 @@
 
         .story-image {
             background: #f0f0f0;
-            height: 300px;
+            height: 350px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .story-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
         .story-content h2 {
@@ -330,7 +394,7 @@
         /* Features Grid */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -368,7 +432,7 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
             padding: 4rem 5%;
         }
@@ -412,7 +476,7 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -480,7 +544,7 @@
 
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -614,7 +678,7 @@
 
         .forum-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -728,6 +792,103 @@
             border: 1px solid #f5c6cb;
         }
 
+        /* Modal/Pop-up Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-icon.success {
+            color: #28a745;
+        }
+
+        .modal-icon.error {
+            color: #dc3545;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .modal-message {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: #f39c12;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .modal-btn:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        /* Why Learn Grid Responsive */
+        .why-learn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 1024px) {
+            .why-learn-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero, .story-grid, .faq-contact-grid {
@@ -735,6 +896,20 @@
             }
             .stats, .skills-grid, .pricing-grid, .testimonial-grid, .forum-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Responsive media sizes */
+            .card-media {
+                height: 240px;
+            }
+            .activity-media {
+                height: 200px;
+            }
+            .board-placeholder {
+                height: 350px;
+            }
+            .story-image {
+                height: 300px;
             }
         }
 
@@ -744,6 +919,26 @@
             }
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+
+            /* Mobile media sizes */
+            #features > div {
+                grid-template-columns: 1fr !important;
+            }
+            #aktivitas > div {
+                grid-template-columns: 1fr !important;
+            }
+            .card-media {
+                height: 220px;
+            }
+            .activity-media {
+                height: 180px;
+            }
+            .board-placeholder {
+                height: 300px;
+            }
+            .story-image {
+                height: 250px;
             }
         }
     </style>
@@ -768,11 +963,11 @@
         <div class="hero-content">
             <h1>Belajar Kewirausahaan Dengan Bermain</h1>
             <p>Sebuah permainan papan inovatif yang mengubah konsep bisnis yang kompleks menjadi pengalaman belajar yang menarik, interaktif bagi siswa dan profesional.</p>
-            <a href="#" class="btn-primary">Dapatkan Sekarang</a>
+            <a href="#pricing" class="btn-primary">Dapatkan Sekarang</a>
         </div>
         <div class="hero-image">
             <div class="board-placeholder">
-                <img src="/api/placeholder/400/400" alt="Board Game" style="max-width: 100%; border-radius: 20px;">
+                <img src="https://via.placeholder.com/400x400/7cb342/ffffff?text=Board+Game" alt="Board Game">
             </div>
         </div>
     </section>
@@ -801,7 +996,7 @@
     <section class="story-section">
         <div class="story-grid">
             <div class="story-image">
-                <img src="/api/placeholder/250/300" alt="Box" style="max-width: 100%; border-radius: 10px;">
+                <img src="https://via.placeholder.com/250x300/d4f1f4/333333?text=Box" alt="Box">
             </div>
             <div class="story-content">
                 <span class="story-badge">Background</span>
@@ -831,7 +1026,7 @@
 
     <!-- Why Learn Section -->
     <section style="padding: 4rem 5%; background: #fff;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="why-learn-grid">
             <div style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                 <span style="font-size: 4rem;">🎓</span>
             </div>
@@ -855,30 +1050,34 @@
 
     <!-- Features Section -->
     <section id="features" style="padding:4rem 5%; background:#f8f9fa;">
-    <h2 class="text-center mb-4">Fitur Unggulan</h2>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;">
-        @for ($i = 0; $i < 4; $i++)
-            @php $item = $featuresMedia[$i] ?? null; @endphp
-            <div class="card shadow-sm" style="border-radius:10px;overflow:hidden;">
-                @if($item)
-                    @if($item->isImage())
-                        <img src="{{ $item->url }}" alt="{{ $item->title }}" style="width:100%;height:250px;object-fit:cover;">
-                    @elseif($item->isVideo())
-                        <video controls style="width:100%;height:250px;object-fit:cover;">
-                            <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
-                        </video>
+        <h2 class="section-title">Fitur Unggulan</h2>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;">
+            @for ($i = 0; $i < 4; $i++)
+                @php $item = $featuresMedia[$i] ?? null; @endphp
+                <div class="card shadow-sm" style="border-radius:12px;overflow:hidden;background:#fff;">
+                    @if($item)
+                        @if($item->isImage())
+                            <img src="{{ $item->url }}" alt="{{ $item->title }}" class="card-media">
+                        @elseif($item->isVideo())
+                            <video controls class="card-media">
+                                <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
+                            </video>
+                        @endif
+                        <div style="padding:1.5rem;">
+                            <h5 style="margin-bottom:0.5rem;font-size:1.1rem;">{{ $item->title }}</h5>
+                            <p style="color:#666;font-size:0.95rem;line-height:1.6;">{{ $item->description }}</p>
+                        </div>
+                    @else
+                        <div class="card-media" style="background:#eee;display:flex;align-items:center;justify-content:center;color:#aaa;font-weight:600;">Slot Kosong</div>
+                        <div style="padding:1.5rem;">
+                            <h5 style="margin-bottom:0.5rem;font-size:1.1rem;">Slot Fitur {{ $i + 1 }}</h5>
+                            <p style="color:#666;font-size:0.95rem;line-height:1.6;">Tambahkan fitur di admin panel</p>
+                        </div>
                     @endif
-                    <div class="p-3">
-                        <h5>{{ $item->title }}</h5>
-                        <p class="text-muted">{{ $item->description }}</p>
-                    </div>
-                @else
-                    <div style="height:250px;background:#eee;display:flex;align-items:center;justify-content:center;color:#aaa;">Slot Kosong</div>
-                @endif
-            </div>
-        @endfor
-    </div>
-</section>
+                </div>
+            @endfor
+        </div>
+    </section>
 
     <!-- Skills Section -->
     <section style="padding: 2rem 0; background: #fff;">
@@ -910,33 +1109,34 @@
 
     <!-- Aktivitas Terbaru & Tutorial Section -->
     <section id="aktivitas" style="padding:4rem 5%;background:#fff;">
-    <h2 class="text-center mb-4">Aktivitas & Tutorial</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
-        @for ($i = 0; $i < 6; $i++)
-            @php $item = $aktivitasMedia[$i] ?? null; @endphp
-            <div class="card shadow-sm" style="border-radius:10px;overflow:hidden;">
-                @if($item)
-                    @if($item->isImage())
-                        <img src="{{ $item->url }}" alt="{{ $item->title }}" style="width:100%;height:200px;object-fit:cover;">
-                    @elseif($item->isVideo())
-                        <video controls style="width:100%;height:200px;object-fit:cover;">
-                            <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
-                        </video>
+        <h2 class="section-title">Aktivitas & Tutorial</h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;">
+            @for ($i = 0; $i < 6; $i++)
+                @php $item = $aktivitasMedia[$i] ?? null; @endphp
+                <div class="card shadow-sm" style="border-radius:12px;overflow:hidden;background:#fff;transition:transform 0.3s ease;">
+                    @if($item)
+                        @if($item->isImage())
+                            <img src="{{ $item->url }}" alt="{{ $item->title }}" class="activity-media">
+                        @elseif($item->isVideo())
+                            <video controls class="activity-media">
+                                <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
+                            </video>
+                        @endif
+                        <div style="padding:1.2rem;">
+                            <h5 style="margin-bottom:0.5rem;font-size:1rem;">{{ $item->title }}</h5>
+                            <p style="color:#666;font-size:0.9rem;line-height:1.5;">{{ $item->description }}</p>
+                        </div>
+                    @else
+                        <div class="activity-media" style="background:#eee;display:flex;align-items:center;justify-content:center;color:#aaa;font-weight:600;">Slot Kosong</div>
+                        <div style="padding:1.2rem;">
+                            <h5 style="margin-bottom:0.5rem;font-size:1rem;">Slot Aktivitas {{ $i + 1 }}</h5>
+                            <p style="color:#666;font-size:0.9rem;line-height:1.5;">Tambahkan aktivitas di admin panel</p>
+                        </div>
                     @endif
-                    <div class="p-3">
-                        <h5>{{ $item->title }}</h5>
-                        <p class="text-muted">{{ $item->description }}</p>
-                    </div>
-                @else
-                    <div style="height:200px;background:#eee;display:flex;align-items:center;justify-content:center;color:#aaa;">Slot Kosong</div>
-                @endif
-            </div>
-        @endfor
-    </div>
-</section>
-
-
-
+                </div>
+            @endfor
+        </div>
+    </section>
 
     <!-- Pricing Section -->
     <section id="pricing" class="pricing-section">
@@ -952,7 +1152,7 @@
                     <li>1 set produk waluya land</li>
                     <li>1 kupon potongan harga</li>
                 </ul>
-                <button class="btn-primary">Dapatkan Sekarang</button>
+                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!" class="btn-primary" target="_blank">Dapatkan Sekarang</a>
             </div>
             <div class="pricing-card">
                 <h3>Waluya Land</h3>
@@ -962,7 +1162,7 @@
                     <li>1 set produk waluya land</li>
                     <li>1 kupon potongan harga</li>
                 </ul>
-                <button class="btn-primary">Dapatkan Sekarang</button>
+                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!" class="btn-primary" target="_blank">Dapatkan Sekarang</a>
             </div>
         </div>
     </section>
@@ -1043,18 +1243,6 @@
                 <form action="{{ route('contact.store') }}" method="POST">
                     @csrf
 
-                    @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-
-                    @if(session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                    @endif
-
                     <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
                     @error('name')
                         <span class="error-text">{{ $message }}</span>
@@ -1124,10 +1312,20 @@
             </div>
         </div>
     </section>
+                    <div>
+                        <strong>Apakah beriaku untuk semua kurikulum?</strong>
+                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                            Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum pendidikan (Kurikulum 2013, Kurikulum Merdeka, dll). Materi pembelajaran dapat diadaptasi sesuai dengan kebutuhan dan capaan pembelajaran yang diinginkan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Forum Section -->
     <section class="forum-section">
-        <span class="testimonial-badge">Testimoni</span>
+        <span class="testimonial-badge">Forum</span>
         <h2 class="section-title">Forum Terbuka untuk Tanya, Saran, dan Insight</h2>
         <p class="section-subtitle">Punya ide, saran, atau pertanyaan untuk kami? ajukan pertanyaan langsung pada tim kami</p>
 
@@ -1188,26 +1386,39 @@
             </div>
             <div class="forum-card">
                 <div class="forum-header">
-                    <div class="forum-avatar">S</div>
+                    <div class="forum-avatar">A</div>
                     <div>
-                        <h4>Sarah Johnson</h4>
-                        <small style="color: #999;">Pendidik Kewirausahaan</small>
+                        <h4>Ahmad Rizki</h4>
+                        <small style="color: #999;">SMK 10 Jakarta</small>
                     </div>
                 </div>
-                <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan. Siswa menjadi lebih tertarik dan memahami konsep dengan jauh lebih baik."</p>
+                <p>"Game ini sangat membantu saya memahami konsep bisnis. Cara penyampaiannya yang interaktif membuat saya lebih mudah mengerti."</p>
                 <div class="forum-footer">
                     <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
                 </div>
             </div>
             <div class="forum-card">
                 <div class="forum-header">
-                    <div class="forum-avatar">M</div>
+                    <div class="forum-avatar">D</div>
                     <div>
-                        <h4>Michael Chen</h4>
-                        <small style="color: #999;">Siswa Pemasaran</small>
+                        <h4>Dina Pratiwi</h4>
+                        <small style="color: #999;">Guru BK</small>
                     </div>
                 </div>
-                <p>"Bermain board game ini membantu saya memahami bagaimana menjadi wirausaha. Game ini menyenangkan dan memberikan insight baru."</p>
+                <p>"Sebagai pendidik, saya sangat merekomendasikan Waluya Land. Siswa jadi lebih antusias belajar kewirausahaan."</p>
+                <div class="forum-footer">
+                    <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
+                </div>
+            </div>
+            <div class="forum-card">
+                <div class="forum-header">
+                    <div class="forum-avatar">R</div>
+                    <div>
+                        <h4>Rudi Hermawan</h4>
+                        <small style="color: #999;">Mahasiswa</small>
+                    </div>
+                </div>
+                <p>"Belajar sambil bermain ternyata lebih efektif. Saya bisa praktek langsung konsep yang dipelajari di kelas."</p>
                 <div class="forum-footer">
                     <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
                 </div>
@@ -1217,31 +1428,16 @@
 
         <div style="text-align: center; margin-top: 3rem;">
             <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Siap untuk mengubah pengalaman belajar Anda?</h3>
-            <p style="color: #666; margin-bottom: 2rem;">Bergabunglah dengan ribuan siswa dan pendidik yang sudah menggunakan GameBoard untuk menguasai keterampilan kewirausahaan</p>
+            <p style="color: #666; margin-bottom: 2rem;">Bergabunglah dengan ribuan siswa dan pendidik yang sudah menggunakan Waluya Land untuk menguasai keterampilan kewirausahaan</p>
             <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
-   class="btn-primary"
-   style="padding: 1.2rem 3rem;"
-   target="_blank">
-   Dapatkan Sekarang
-</a>
-
+               class="btn-primary"
+               style="padding: 1.2rem 3rem;"
+               target="_blank">
+               Dapatkan Sekarang
+            </a>
         </div>
     </section>
 
-    <!-- Newsletter
-<section class="newsletter">
-    <h2>Dapatkan di e-commerce & Komunitas</h2>
-    <div class="ecommerce-links">
-        <a href="https://shopee.co.id" target="_blank" class="ecommerce-logo">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/shopee.svg"
-                 alt="Shopee" style="height: 45px; filter: invert(38%) sepia(86%) saturate(2798%) hue-rotate(354deg) brightness(96%) contrast(93%);">
-        </a>
-        <a href="https://www.tokopedia.com" target="_blank" class="ecommerce-logo">
-            <img src="https://cdn.brandfetch.io/idoruRsDhk/theme/dark/symbol.svg?c=1dxbfHSJFAPEGdCLU4o5B"
-                 alt="Tokopedia" style="height: 45px;">
-        </a>
-    </div>-->
-</section>
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1251,31 +1447,42 @@
             </div>
             <div>
                 <h4>Product</h4>
-                <a href="#about">Features</a>
+                <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
             </div>
             <div>
                 <h4>Support</h4>
                 <a href="#contact">Contact Us</a>
+                <a href="#testimonial">Testimonials</a>
             </div>
             <div>
                 <h4>Dapatkan di e-commerce</h4>
-                <div style="display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 1.5rem;">
-                    <a href="https://shopee.co.id" target="_blank" class="ecommerce-logo">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/shopee.svg"
-                 alt="Shopee" style="height: 45px; filter: invert(38%) sepia(86%) saturate(2798%) hue-rotate(354deg) brightness(96%) contrast(93%);">
-        </a>
-        <a href="https://www.tokopedia.com" target="_blank" class="ecommerce-logo">
-            <img src="https://cdn.brandfetch.io/idoruRsDhk/theme/dark/symbol.svg?c=1dxbfHSJFAPEGdCLU4o5B"
-                 alt="Tokopedia" style="height: 45px;">
-        </a>
+                <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                    <a href="https://shopee.co.id" target="_blank" style="display: block;">
+                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/shopee.svg"
+                             alt="Shopee" style="height: 35px; filter: invert(38%) sepia(86%) saturate(2798%) hue-rotate(354deg) brightness(96%) contrast(93%);">
+                    </a>
+                    <a href="https://www.tokopedia.com" target="_blank" style="display: block;">
+                        <img src="https://cdn.brandfetch.io/idoruRsDhk/theme/dark/symbol.svg?c=1dxbfHSJFAPEGdCLU4o5B"
+                             alt="Tokopedia" style="height: 35px;">
+                    </a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 GameBoard. All rights reserved.</p>
+            <p>© 2025 Waluya Land. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Modal Pop-up untuk Notifikasi -->
+    <div class="modal-overlay" id="notificationModal">
+        <div class="modal-content">
+            <div class="modal-icon success" id="modalIcon">✓</div>
+            <h3 class="modal-title" id="modalTitle">Pesan Terkirim!</h3>
+            <p class="modal-message" id="modalMessage">Terima kasih telah menghubungi kami. Kami akan segera merespons pesan Anda.</p>
+            <button class="modal-btn" onclick="closeModal()">OK</button>
+        </div>
+    </div>
 
     <script>
         // Mobile menu toggle
@@ -1300,6 +1507,65 @@
                 answer.style.display = 'none';
             }
         }
+
+        // Modal functions
+        function showModal(type, title, message) {
+            const modal = document.getElementById('notificationModal');
+            const icon = document.getElementById('modalIcon');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+
+            // Set content
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+
+            // Set icon based on type
+            if (type === 'success') {
+                icon.textContent = '✓';
+                icon.className = 'modal-icon success';
+            } else if (type === 'error') {
+                icon.textContent = '✕';
+                icon.className = 'modal-icon error';
+            }
+
+            // Show modal
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('notificationModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('notificationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Check for session messages on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                showModal('success', 'Pesan Terkirim!', '{{ session('success') }}');
+            @endif
+
+            @if(session('error'))
+                showModal('error', 'Terjadi Kesalahan', '{{ session('error') }}');
+            @endif
+
+            // Add hover effect to cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.08)';
+                });
+            });
+        });
     </script>
 </body>
 </html>

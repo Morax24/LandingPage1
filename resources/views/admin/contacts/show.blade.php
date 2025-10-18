@@ -1,9 +1,3 @@
-<!-- ============================================
-     TAHAP 7: DETAIL CONTACT VIEW
-     ============================================
-     Lokasi: resources/views/admin/contacts/show.blade.php
--->
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -23,9 +17,137 @@
             color: #333;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
+        /* Layout */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            font-size: 1rem;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.15);
+            border-left-color: #fff;
+            color: #fff;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: #fff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .user-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-info p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 0.7rem 1.8rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
             padding: 2rem;
         }
 
@@ -239,17 +361,6 @@
             color: #333;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .action-card {
-                position: static;
-            }
-        }
-
         /* Modal Reject */
         .modal {
             display: none;
@@ -296,138 +407,208 @@
             gap: 1rem;
             justify-content: flex-end;
         }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-card {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-header h2,
+            .sidebar-header p,
+            .menu-item span,
+            .user-info,
+            .sidebar-footer form {
+                display: none;
+            }
+
+            .menu-item {
+                justify-content: center;
+                padding: 1.2rem;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>📧 Detail Pesan Contact</h1>
-            <a href="{{ route('admin.contacts.index') }}" class="btn btn-back">← Kembali</a>
-        </div>
-
-        <!-- Alert Messages -->
-        @if(session('success'))
-        <div class="alert alert-success">
-            ✓ {{ session('success') }}
-        </div>
-        @endif
-
-        @if(session('info'))
-        <div class="alert alert-info">
-            ℹ {{ session('info') }}
-        </div>
-        @endif
-
-        <!-- Content Grid -->
-        <div class="content-grid">
-            <!-- Main Content -->
-            <div>
-                <div class="card">
-                    <h2>Informasi Pengirim</h2>
-
-                    <div class="info-row">
-                        <label>Nama Lengkap</label>
-                        <div class="value">{{ $contact->name }}</div>
-                    </div>
-
-                    <div class="info-row">
-                        <label>Email</label>
-                        <div class="value">
-                            <a href="mailto:{{ $contact->email }}" style="color: #3498db; text-decoration: none;">
-                                {{ $contact->email }}
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <label>Instansi / Sekolah</label>
-                        <div class="value">{{ $contact->institution ?? '-' }}</div>
-                    </div>
-
-                    <div class="info-row">
-                        <label>Status</label>
-                        <div>
-                            <span class="badge badge-{{ $contact->status }}">
-                                {{ $contact->status_text }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <label>Pesan</label>
-                        <div class="message-box">{{ $contact->message }}</div>
-                    </div>
-
-                    @if($contact->approved_by)
-                    <div class="meta-info">
-                        <strong>Ditinjau oleh:</strong> {{ $contact->approver->name ?? 'Admin' }}<br>
-                        <strong>Waktu:</strong> {{ $contact->approved_at->format('d/m/Y H:i') }}
-                    </div>
-                    @endif
-                </div>
-
-                <!-- Admin Notes -->
-                <div class="card notes-section">
-                    <h2>Catatan Admin</h2>
-                    <form action="{{ route('admin.contacts.notes', $contact->id) }}" method="POST">
-                        @csrf
-                        <textarea name="admin_notes" placeholder="Tambahkan catatan internal...">{{ $contact->admin_notes }}</textarea>
-                        <button type="submit" class="btn btn-primary">💾 Simpan Catatan</button>
-                    </form>
-                </div>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 Admin Panel</h2>
+                <p>Malaya Land Management</p>
             </div>
 
-            <!-- Action Sidebar -->
-            <div>
-                <div class="card action-card">
-                    <h2>Aksi</h2>
+            <nav class="sidebar-menu">
+                <a href="{{ route('admin.contacts.index') }}" class="menu-item active">
+                    <span class="menu-icon">📧</span>
+                    <span>Kelola Pesan</span>
+                </a>
+                <a href="{{ route('admin.media.index') }}" class="menu-item">
+                    <span class="menu-icon">🖼️</span>
+                    <span>Media Library</span>
+                </a>
+            </nav>
 
-                    <div class="action-buttons">
-                        @if($contact->isPending())
-                        <!-- Approve Button -->
-                        <form action="{{ route('admin.contacts.approve', $contact->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success" onclick="return confirm('Yakin ingin menyetujui pesan ini?')">
-                                ✓ Setujui Pesan
-                            </button>
-                        </form>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">AM</div>
+                    <div class="user-info">
+                        <h4>Admin Malaya</h4>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            </div>
+        </aside>
 
-                        <!-- Reject Button -->
-                        <button type="button" class="btn btn-warning" onclick="openRejectModal()">
-                            ✕ Tolak Pesan
-                        </button>
-                        @else
-                        <div style="padding: 1rem; background: #f8f9fa; border-radius: 5px; text-align: center; color: #666;">
-                            Pesan sudah ditinjau
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>📧 Detail Pesan Contact</h1>
+                <a href="{{ route('admin.contacts.index') }}" class="btn btn-back">← Kembali</a>
+            </div>
+
+            <!-- Alert Messages -->
+            @if(session('success'))
+            <div class="alert alert-success">
+                ✓ {{ session('success') }}
+            </div>
+            @endif
+
+            @if(session('info'))
+            <div class="alert alert-info">
+                ℹ {{ session('info') }}
+            </div>
+            @endif
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Main Content -->
+                <div>
+                    <div class="card">
+                        <h2>Informasi Pengirim</h2>
+
+                        <div class="info-row">
+                            <label>Nama Lengkap</label>
+                            <div class="value">{{ $contact->name }}</div>
+                        </div>
+
+                        <div class="info-row">
+                            <label>Email</label>
+                            <div class="value">
+                                <a href="mailto:{{ $contact->email }}" style="color: #3498db; text-decoration: none;">
+                                    {{ $contact->email }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <label>Instansi / Sekolah</label>
+                            <div class="value">{{ $contact->institution ?? '-' }}</div>
+                        </div>
+
+                        <div class="info-row">
+                            <label>Status</label>
+                            <div>
+                                <span class="badge badge-{{ $contact->status }}">
+                                    {{ $contact->status_text }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <label>Pesan</label>
+                            <div class="message-box">{{ $contact->message }}</div>
+                        </div>
+
+                        @if($contact->approved_by)
+                        <div class="meta-info">
+                            <strong>Ditinjau oleh:</strong> {{ $contact->approver->name ?? 'Admin' }}<br>
+                            <strong>Waktu:</strong> {{ $contact->approved_at->format('d/m/Y H:i') }}
                         </div>
                         @endif
-
-                        <!-- Delete Button -->
-                        <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus pesan ini?')">
-                                🗑️ Hapus Pesan
-                            </button>
-                        </form>
                     </div>
 
-                    <!-- Meta Information -->
-                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f0f0f0;">
-                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">Informasi Tambahan</h3>
-                        <div style="font-size: 0.85rem; color: #666; line-height: 1.8;">
-                            <strong>Diterima:</strong><br>
-                            {{ $contact->created_at->format('d F Y, H:i') }}<br>
-                            ({{ $contact->created_at->diffForHumans() }})<br><br>
+                    <!-- Admin Notes -->
+                    <div class="card notes-section">
+                        <h2>Catatan Admin</h2>
+                        <form action="{{ route('admin.contacts.notes', $contact->id) }}" method="POST">
+                            @csrf
+                            <textarea name="admin_notes" placeholder="Tambahkan catatan internal...">{{ $contact->admin_notes }}</textarea>
+                            <button type="submit" class="btn btn-primary">💾 Simpan Catatan</button>
+                        </form>
+                    </div>
+                </div>
 
-                            <strong>ID Pesan:</strong><br>
-                            #{{ $contact->id }}
+                <!-- Action Sidebar -->
+                <div>
+                    <div class="card action-card">
+                        <h2>Aksi</h2>
+
+                        <div class="action-buttons">
+                            @if($contact->isPending())
+                            <!-- Approve Button -->
+                            <form action="{{ route('admin.contacts.approve', $contact->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success" onclick="return confirm('Yakin ingin menyetujui pesan ini?')">
+                                    ✓ Setujui Pesan
+                                </button>
+                            </form>
+
+                            <!-- Reject Button -->
+                            <button type="button" class="btn btn-warning" onclick="openRejectModal()">
+                                ✕ Tolak Pesan
+                            </button>
+                            @else
+                            <div style="padding: 1rem; background: #f8f9fa; border-radius: 5px; text-align: center; color: #666;">
+                                Pesan sudah ditinjau
+                            </div>
+                            @endif
+
+                            <!-- Delete Button -->
+                            <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus pesan ini?')">
+                                    🗑️ Hapus Pesan
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Meta Information -->
+                        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f0f0f0;">
+                            <h3 style="font-size: 1rem; margin-bottom: 1rem;">Informasi Tambahan</h3>
+                            <div style="font-size: 0.85rem; color: #666; line-height: 1.8;">
+                                <strong>Diterima:</strong><br>
+                                {{ $contact->created_at->format('d F Y, H:i') }}<br>
+                                ({{ $contact->created_at->diffForHumans() }})<br><br>
+
+                                <strong>ID Pesan:</strong><br>
+                                #{{ $contact->id }}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 
     <!-- Reject Modal -->

@@ -17,14 +17,142 @@
             color: #333;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* Layout */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            font-size: 1rem;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.15);
+            border-left-color: #fff;
+            color: #fff;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: #fff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .user-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-info p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 0.7rem 1.8rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
             padding: 2rem;
         }
 
         /* Header */
-        .admin-header {
+        .page-header {
             background: #fff;
             padding: 1.5rem 2rem;
             border-radius: 10px;
@@ -35,7 +163,7 @@
             align-items: center;
         }
 
-        .admin-header h1 {
+        .page-header h1 {
             font-size: 1.8rem;
             color: #333;
         }
@@ -320,9 +448,37 @@
             border-color: #667eea;
         }
 
-        @media (max-width: 768px) {
+        /* Responsive */
+        @media (max-width: 1024px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-header h2,
+            .sidebar-header p,
+            .menu-item span,
+            .user-info,
+            .sidebar-footer form {
+                display: none;
+            }
+
+            .menu-item {
+                justify-content: center;
+                padding: 1.2rem;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
 
             .media-grid {
@@ -341,141 +497,176 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="admin-header">
-            <h1>📁 Media Library</h1>
-            <div class="header-actions">
-                <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Upload Media</a>
-                <a href="{{ route('admin.contacts.index') }}" class="btn btn-secondary">← Kembali</a>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 Admin Panel</h2>
+                <p>Malaya Land Management</p>
             </div>
-        </div>
 
-        <!-- Alert Messages -->
-        @if(session('success'))
-        <div class="alert alert-success">
-            ✓ {{ session('success') }}
-        </div>
-        @endif
+            <nav class="sidebar-menu">
+                <a href="{{ route('admin.contacts.index') }}" class="menu-item">
+                    <span class="menu-icon">📧</span>
+                    <span>Kelola Pesan</span>
+                </a>
+                <a href="{{ route('admin.media.index') }}" class="menu-item active">
+                    <span class="menu-icon">🖼️</span>
+                    <span>Media Library</span>
+                </a>
+            </nav>
 
-        @if(session('error'))
-        <div class="alert alert-danger">
-            ✗ {{ session('error') }}
-        </div>
-        @endif
-
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>{{ $stats['total'] }}</h3>
-                <p>Total Media</p>
-            </div>
-            <div class="stat-card">
-                <h3>{{ $stats['images'] }}</h3>
-                <p>Images</p>
-            </div>
-            <div class="stat-card">
-                <h3>{{ $stats['videos'] }}</h3>
-                <p>Videos</p>
-            </div>
-            <div class="stat-card">
-                <h3>{{ number_format($stats['total_size'] / 1024 / 1024, 2) }} MB</h3>
-                <p>Total Size</p>
-            </div>
-        </div>
-
-        <!-- Filters -->
-        <div class="filters">
-            <form method="GET" action="{{ route('admin.media.index') }}">
-                <select name="type">
-                    <option value="all" {{ request('type') == 'all' ? 'selected' : '' }}>Semua Type</option>
-                    <option value="image" {{ request('type') == 'image' ? 'selected' : '' }}>Image</option>
-                    <option value="video" {{ request('type') == 'video' ? 'selected' : '' }}>Video</option>
-                </select>
-
-                <select name="section">
-                    <option value="all" {{ request('section') == 'all' ? 'selected' : '' }}>Semua Section</option>
-                    <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
-                    <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
-                    <option value="other" {{ request('section') == 'other' ? 'selected' : '' }}>Other</option>
-                </select>
-
-                <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
-
-                <button type="submit" class="btn btn-primary">Filter</button>
-                <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">Reset</a>
-            </form>
-        </div>
-
-        <!-- Bulk Actions -->
-        <div class="bulk-actions" id="bulkActions">
-            <span id="selectedCount">0 dipilih</span>
-            <button class="btn btn-danger btn-sm" onclick="bulkDelete()">Hapus Terpilih</button>
-        </div>
-
-        <!-- Media Grid -->
-        <div class="media-grid">
-            @forelse($media as $item)
-            <div class="media-item">
-                <div class="media-checkbox">
-                    <input type="checkbox" class="media-check" value="{{ $item->id }}">
-                </div>
-
-                <div class="media-preview">
-                    @if($item->isImage())
-                        <img src="{{ $item->url }}" alt="{{ $item->title }}">
-                    @elseif($item->isVideo())
-                        <video controls>
-                            <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
-                        </video>
-                    @endif
-                </div>
-
-                <div class="media-info">
-                    <div class="media-title" title="{{ $item->title }}">{{ $item->title }}</div>
-
-                    <div class="media-meta">
-                        <span class="media-badge badge-{{ $item->type }}">{{ strtoupper($item->type) }}</span>
-                        <span class="media-badge badge-{{ $item->is_active ? 'active' : 'inactive' }}">
-                            {{ $item->is_active ? 'Active' : 'Inactive' }}
-                        </span>
-                    </div>
-
-                    <div class="media-meta">
-                        Section: <strong>{{ ucfirst($item->section) }}</strong><br>
-                        Size: {{ $item->file_size_formatted }}<br>
-                        Uploaded: {{ $item->created_at->diffForHumans() }}
-                    </div>
-
-                    <div class="media-actions">
-                        <a href="{{ route('admin.media.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                        <form action="{{ route('admin.media.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus media ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
-
-                        <form action="{{ route('admin.media.toggle-active', $item->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="btn btn-secondary btn-sm">
-                                {{ $item->is_active ? 'Nonaktifkan' : 'Aktifkan' }}
-                            </button>
-                        </form>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">AM</div>
+                    <div class="user-info">
+                        <h4>Admin Malaya</h4>
+                        <p>Administrator</p>
                     </div>
                 </div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
             </div>
-            @empty
-            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #999;">
-                Belum ada media. <a href="{{ route('admin.media.create') }}">Upload sekarang</a>
-            </div>
-            @endforelse
-        </div>
+        </aside>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            {{ $media->links() }}
-        </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="page-header">
+                <h1>📁 Media Library</h1>
+                <div class="header-actions">
+                    <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Upload Media</a>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            @if(session('success'))
+            <div class="alert alert-success">
+                ✓ {{ session('success') }}
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="alert alert-danger">
+                ✗ {{ session('error') }}
+            </div>
+            @endif
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>{{ $stats['total'] }}</h3>
+                    <p>Total Media</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ $stats['images'] }}</h3>
+                    <p>Images</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ $stats['videos'] }}</h3>
+                    <p>Videos</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ number_format($stats['total_size'] / 1024 / 1024, 2) }} MB</h3>
+                    <p>Total Size</p>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <form method="GET" action="{{ route('admin.media.index') }}">
+                    <select name="type">
+                        <option value="all" {{ request('type') == 'all' ? 'selected' : '' }}>Semua Type</option>
+                        <option value="image" {{ request('type') == 'image' ? 'selected' : '' }}>Image</option>
+                        <option value="video" {{ request('type') == 'video' ? 'selected' : '' }}>Video</option>
+                    </select>
+
+                    <select name="section">
+                        <option value="all" {{ request('section') == 'all' ? 'selected' : '' }}>Semua Section</option>
+                        <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
+                        <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
+                        <option value="other" {{ request('section') == 'other' ? 'selected' : '' }}>Other</option>
+                    </select>
+
+                    <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
+
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">Reset</a>
+                </form>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="bulk-actions" id="bulkActions">
+                <span id="selectedCount">0 dipilih</span>
+                <button class="btn btn-danger btn-sm" onclick="bulkDelete()">Hapus Terpilih</button>
+            </div>
+
+            <!-- Media Grid -->
+            <div class="media-grid">
+                @forelse($media as $item)
+                <div class="media-item">
+                    <div class="media-checkbox">
+                        <input type="checkbox" class="media-check" value="{{ $item->id }}">
+                    </div>
+
+                    <div class="media-preview">
+                        @if($item->isImage())
+                            <img src="{{ $item->url }}" alt="{{ $item->title }}">
+                        @elseif($item->isVideo())
+                            <video controls>
+                                <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
+                            </video>
+                        @endif
+                    </div>
+
+                    <div class="media-info">
+                        <div class="media-title" title="{{ $item->title }}">{{ $item->title }}</div>
+
+                        <div class="media-meta">
+                            <span class="media-badge badge-{{ $item->type }}">{{ strtoupper($item->type) }}</span>
+                            <span class="media-badge badge-{{ $item->is_active ? 'active' : 'inactive' }}">
+                                {{ $item->is_active ? 'Active' : 'Inactive' }}
+                            </span>
+                        </div>
+
+                        <div class="media-meta">
+                            Section: <strong>{{ ucfirst($item->section) }}</strong><br>
+                            Size: {{ $item->file_size_formatted }}<br>
+                            Uploaded: {{ $item->created_at->diffForHumans() }}
+                        </div>
+
+                        <div class="media-actions">
+                            <a href="{{ route('admin.media.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                            <form action="{{ route('admin.media.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus media ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                            </form>
+
+                            <form action="{{ route('admin.media.toggle-active', $item->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-secondary btn-sm">
+                                    {{ $item->is_active ? 'Nonaktifkan' : 'Aktifkan' }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #999;">
+                    Belum ada media. <a href="{{ route('admin.media.create') }}">Upload sekarang</a>
+                </div>
+                @endforelse
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                {{ $media->links() }}
+            </div>
+        </main>
     </div>
 
     <script>

@@ -17,10 +17,143 @@
             color: #333;
         }
 
+        /* Layout */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            font-size: 1rem;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.15);
+            border-left-color: #fff;
+            color: #fff;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: #fff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .user-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-info p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 0.7rem 1.8rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 2rem;
+        }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
         }
 
         .admin-header {
@@ -208,9 +341,31 @@
             border-top: 1px solid #eee;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar-header h2,
+            .sidebar-header p,
+            .menu-item span,
+            .user-info,
+            .sidebar-footer form {
+                display: none;
+            }
+
+            .menu-item {
+                justify-content: center;
+                padding: 1.2rem;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+
             .container {
-                padding: 1rem;
+                padding: 0;
             }
 
             .form-actions {
@@ -224,104 +379,142 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="admin-header">
-            <h1>📤 Upload Media</h1>
-            <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">← Kembali</a>
-        </div>
-
-        <!-- Alert -->
-        @if(session('error'))
-        <div class="alert alert-danger">
-            ✗ {{ session('error') }}
-        </div>
-        @endif
-
-        <!-- Upload Form -->
-        <form action="{{ route('admin.media.store') }}" method="POST" enctype="multipart/form-data" class="upload-form">
-            @csrf
-
-            <!-- Type Selection -->
-            <div class="form-group">
-                <label for="type">Tipe Media *</label>
-                <select name="type" id="type" required onchange="updateFileInfo()">
-                    <option value="">-- Pilih Tipe --</option>
-                    <option value="image" {{ old('type') == 'image' ? 'selected' : '' }}>Image</option>
-                    <option value="video" {{ old('type') == 'video' ? 'selected' : '' }}>Video</option>
-                </select>
-                @error('type')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
-                <small class="form-help" id="typeHelp"></small>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 Admin Panel</h2>
+                <p>Malaya Land Management</p>
             </div>
 
-            <!-- File Upload -->
-            <div class="form-group">
-                <label>File *</label>
-                <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('fileInput').click()">
-                    <div class="file-upload-icon">📁</div>
-                    <div class="file-upload-text">Klik atau drag & drop file ke sini</div>
-                    <small class="form-help" id="fileHelp">Pilih tipe media terlebih dahulu</small>
+            <nav class="sidebar-menu">
+                <a href="{{ route('admin.contacts.index') }}" class="menu-item">
+                    <span class="menu-icon">📧</span>
+                    <span>Kelola Pesan</span>
+                </a>
+                <a href="{{ route('admin.media.index') }}" class="menu-item active">
+                    <span class="menu-icon">🖼️</span>
+                    <span>Media Library</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">AM</div>
+                    <div class="user-info">
+                        <h4>Admin Malaya</h4>
+                        <p>Administrator</p>
+                    </div>
                 </div>
-                <input type="file" name="file" id="fileInput" accept="" onchange="handleFileSelect(event)">
-                @error('file')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            </div>
+        </aside>
 
-                <!-- File Preview -->
-                <div class="file-preview" id="filePreview">
-                    <div class="preview-container" id="previewContainer"></div>
-                    <div class="file-info" id="fileInfo"></div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Header -->
+                <div class="admin-header">
+                    <h1>📤 Upload Media</h1>
+                    <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">← Kembali</a>
                 </div>
-            </div>
 
-            <!-- Title -->
-            <div class="form-group">
-                <label for="title">Judul *</label>
-                <input type="text" name="title" id="title" required value="{{ old('title') }}" placeholder="Masukkan judul media">
-                @error('title')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
-            </div>
+                <!-- Alert -->
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    ✗ {{ session('error') }}
+                </div>
+                @endif
 
-            <!-- Description -->
-            <div class="form-group">
-                <label for="description">Deskripsi</label>
-                <textarea name="description" id="description" placeholder="Deskripsi media (opsional)">{{ old('description') }}</textarea>
-                @error('description')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
-            </div>
+                <!-- Upload Form -->
+                <form action="{{ route('admin.media.store') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+                    @csrf
 
-            <!-- Section -->
-            <div class="form-group">
-                <label for="section">Section *</label>
-                <select name="section" id="section" required>
-                    <option value="">-- Pilih Section --</option>
-                    <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features</option>
-                    <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
-                    <option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option>
-                </select>
-                @error('section')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
-                <small class="form-help">Pilih di section mana media ini akan ditampilkan</small>
-            </div>
+                    <!-- Type Selection -->
+                    <div class="form-group">
+                        <label for="type">Tipe Media *</label>
+                        <select name="type" id="type" required onchange="updateFileInfo()">
+                            <option value="">-- Pilih Tipe --</option>
+                            <option value="image" {{ old('type') == 'image' ? 'selected' : '' }}>Image</option>
+                            <option value="video" {{ old('type') == 'video' ? 'selected' : '' }}>Video</option>
+                        </select>
+                        @error('type')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+                        <small class="form-help" id="typeHelp"></small>
+                    </div>
 
-            <!-- Order -->
-            <div class="form-group">
-                <label for="order">Urutan (Order)</label>
-                <input type="number" name="order" id="order" min="0" value="{{ old('order', 0) }}" placeholder="0">
-                <small class="form-help">Angka lebih kecil akan muncul lebih dulu</small>
-            </div>
+                    <!-- File Upload -->
+                    <div class="form-group">
+                        <label>File *</label>
+                        <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('fileInput').click()">
+                            <div class="file-upload-icon">📁</div>
+                            <div class="file-upload-text">Klik atau drag & drop file ke sini</div>
+                            <small class="form-help" id="fileHelp">Pilih tipe media terlebih dahulu</small>
+                        </div>
+                        <input type="file" name="file" id="fileInput" accept="" onchange="handleFileSelect(event)">
+                        @error('file')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
 
-            <!-- Form Actions -->
-            <div class="form-actions">
-                <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">Batal</a>
-                <button type="submit" class="btn btn-primary">Upload Media</button>
+                        <!-- File Preview -->
+                        <div class="file-preview" id="filePreview">
+                            <div class="preview-container" id="previewContainer"></div>
+                            <div class="file-info" id="fileInfo"></div>
+                        </div>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="title">Judul *</label>
+                        <input type="text" name="title" id="title" required value="{{ old('title') }}" placeholder="Masukkan judul media">
+                        @error('title')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Deskripsi</label>
+                        <textarea name="description" id="description" placeholder="Deskripsi media (opsional)">{{ old('description') }}</textarea>
+                        @error('description')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Section -->
+                    <div class="form-group">
+                        <label for="section">Section *</label>
+                        <select name="section" id="section" required>
+                            <option value="">-- Pilih Section --</option>
+                            <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features</option>
+                            <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
+                            <option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option>
+                        </select>
+                        @error('section')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+                        <small class="form-help">Pilih di section mana media ini akan ditampilkan</small>
+                    </div>
+
+                    <!-- Order -->
+                    <div class="form-group">
+                        <label for="order">Urutan (Order)</label>
+                        <input type="number" name="order" id="order" min="0" value="{{ old('order', 0) }}" placeholder="0">
+                        <small class="form-help">Angka lebih kecil akan muncul lebih dulu</small>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">Batal</a>
+                        <button type="submit" class="btn btn-primary">Upload Media</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </main>
     </div>
 
     <script>
