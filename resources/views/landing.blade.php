@@ -146,7 +146,6 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex-wrap: wrap;
         }
 
         .logo {
@@ -155,6 +154,7 @@
             gap: 0.5rem;
             font-weight: bold;
             font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
         .logo-box {
@@ -165,11 +165,42 @@
             border-radius: 3px;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
         nav {
             display: flex;
             gap: 2rem;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         nav a {
@@ -206,6 +237,44 @@
 
         .btn-kickstarter:hover {
             background: #e67e22;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #d4f1f4;
+                flex-direction: column;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                align-items: stretch;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            nav.active {
+                max-height: 500px;
+            }
+
+            nav a {
+                padding: 1rem 5%;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+                white-space: normal;
+                text-align: left;
+                margin: 0;
+            }
+
+            nav a:last-child {
+                border-bottom: none;
+            }
         }
 
         /* Hero Section */
@@ -950,7 +1019,12 @@
             <span class="logo-box">■</span>
             <span>WALUYA LAND</span>
         </div>
-        <nav>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="navMenu">
             <a href="#home">About</a>
             <a href="#pricing">Pricing</a>
             <a href="#testimonial">Testimonial</a>
@@ -1312,15 +1386,6 @@
             </div>
         </div>
     </section>
-                    <div>
-                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
-                            Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum pendidikan (Kurikulum 2013, Kurikulum Merdeka, dll). Materi pembelajaran dapat diadaptasi sesuai dengan kebutuhan dan capaan pembelajaran yang diinginkan.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Forum Section -->
     <section class="forum-section">
@@ -1484,6 +1549,23 @@
     </div>
 
     <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when link is clicked
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
         // Mobile menu toggle
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

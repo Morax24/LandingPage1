@@ -587,7 +587,7 @@
                         <option value="all" {{ request('section') == 'all' ? 'selected' : '' }}>Semua Section</option>
                         <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
                         <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
-                        <option value="other" {{ request('section') == 'other' ? 'selected' : '' }}>Other</option>
+                        <!--<option value="other" {{ request('section') == 'other' ? 'selected' : '' }}>Other</option>-->
                     </select>
 
                     <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
@@ -648,7 +648,7 @@
 
                             <form action="{{ route('admin.media.toggle-active', $item->id) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-secondary btn-sm">
+                                <button type="submit" class="btn btn-{{ $item->is_active ? 'secondary' : 'success' }} btn-sm">
                                     {{ $item->is_active ? 'Nonaktifkan' : 'Aktifkan' }}
                                 </button>
                             </form>

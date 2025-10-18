@@ -492,7 +492,7 @@
                             <option value="">-- Pilih Section --</option>
                             <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features</option>
                             <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
-                            <option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option>
+                            <!--<option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option>-->
                         </select>
                         @error('section')
                             <span class="error-text">{{ $message }}</span>

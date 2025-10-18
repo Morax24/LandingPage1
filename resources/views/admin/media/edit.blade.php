@@ -430,7 +430,7 @@
                         <select name="section" id="section" required>
                             <option value="features" {{ old('section', $media->section) == 'features' ? 'selected' : '' }}>Features</option>
                             <option value="aktivitas" {{ old('section', $media->section) == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
-                            <option value="other" {{ old('section', $media->section) == 'other' ? 'selected' : '' }}>Other</option>
+                            <!--<option value="other" {{ old('section', $media->section) == 'other' ? 'selected' : '' }}>Other</option>-->
                         </select>
                         @error('section')
                             <span class="error-text">{{ $message }}</span>
