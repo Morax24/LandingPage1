@@ -38,7 +38,7 @@ class StoreMediaRequest extends FormRequest
                     }
                 },
             ],
-            'section' => 'required|in:features,aktivitas,other',
+            'section' => 'required|in:features,aktivitas,hero,story,other',
             'order' => 'nullable|integer|min:0',
         ];
     }

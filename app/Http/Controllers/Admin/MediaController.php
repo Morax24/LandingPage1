@@ -116,7 +116,7 @@ class MediaController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'section' => 'required|in:features,aktivitas,other',
+            'section' => 'required|in:features,aktivitas,hero,story,other',
             'order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
         ]);

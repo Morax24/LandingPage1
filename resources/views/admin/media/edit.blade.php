@@ -428,21 +428,23 @@
                     <div class="form-group">
                         <label for="section">Section *</label>
                         <select name="section" id="section" required>
-                            <option value="features" {{ old('section', $media->section) == 'features' ? 'selected' : '' }}>Features</option>
-                            <option value="aktivitas" {{ old('section', $media->section) == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
-                            <!--<option value="other" {{ old('section', $media->section) == 'other' ? 'selected' : '' }}>Other</option>-->
-                        </select>
+                        <option value="hero" {{ old('section', $media->section) == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
+                        <option value="story" {{ old('section', $media->section) == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
+                        <option value="features" {{ old('section', $media->section) == 'features' ? 'selected' : '' }}>Features</option>
+                        <option value="aktivitas" {{ old('section', $media->section) == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
+                        <!-- <option value="other" {{ old('section', $media->section) == 'other' ? 'selected' : '' }}>Other</option> -->
+                    </select>
                         @error('section')
                             <span class="error-text">{{ $message }}</span>
                         @enderror
                     </div>
 
-                    <!-- Order -->
+                    <!-- Order
                     <div class="form-group">
                         <label for="order">Urutan (Order)</label>
                         <input type="number" name="order" id="order" min="0" value="{{ old('order', $media->order) }}">
                         <small class="form-help">Angka lebih kecil akan muncul lebih dulu</small>
-                    </div>
+                    </div> -->
 
                     <!-- Active Status -->
                     <div class="form-group">

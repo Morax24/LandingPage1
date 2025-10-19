@@ -1041,8 +1041,21 @@
         </div>
         <div class="hero-image">
             <div class="board-placeholder">
-                <img src="https://via.placeholder.com/400x400/7cb342/ffffff?text=Board+Game" alt="Board Game">
-            </div>
+    @php
+        $heroMedia = $heroMedia ?? null;
+    @endphp
+    @if($heroMedia)
+        @if($heroMedia->isImage())
+            <img src="{{ $heroMedia->url }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
+        @elseif($heroMedia->isVideo())
+            <video controls autoplay muted loop>
+                <source src="{{ $heroMedia->url }}" type="{{ $heroMedia->mime_type }}">
+            </video>
+        @endif
+    @else
+        <img src="https://via.placeholder.com/400x400/7cb342/ffffff?text=Board+Game" alt="Board Game">
+    @endif
+</div>
         </div>
     </section>
 
@@ -1070,8 +1083,19 @@
     <section class="story-section">
         <div class="story-grid">
             <div class="story-image">
+            @php $storyMedia = $storyMedia ?? null; @endphp
+            @if($storyMedia)
+                @if($storyMedia->isImage())
+                    <img src="{{ $storyMedia->url }}" alt="{{ $storyMedia->title ?? 'Story' }}">
+                @elseif($storyMedia->isVideo())
+                    <video controls>
+                        <source src="{{ $storyMedia->url }}" type="{{ $storyMedia->mime_type }}">
+                    </video>
+                @endif
+            @else
                 <img src="https://via.placeholder.com/250x300/d4f1f4/333333?text=Box" alt="Box">
-            </div>
+            @endif
+        </div>
             <div class="story-content">
                 <span class="story-badge">Background</span>
                 <h2>Cerita di Balik GameBoard</h2>

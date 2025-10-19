@@ -584,10 +584,11 @@
                     </select>
 
                     <select name="section">
-                        <option value="all" {{ request('section') == 'all' ? 'selected' : '' }}>Semua Section</option>
-                        <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
-                        <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
-                        <!--<option value="other" {{ request('section') == 'other' ? 'selected' : '' }}>Other</option> -->
+                        <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
+                        <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
+                        <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features (4 slots)</option>
+                        <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial (6 slots)</option>
+                        <!-- <option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option> -->
                     </select>
 
                     <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
