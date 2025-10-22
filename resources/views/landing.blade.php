@@ -1282,7 +1282,7 @@
                 </div>
                 <p>"{{ $testimonial->message }}"</p>
                 <div style="margin-top: 1rem; text-align: center;">
-                    <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
+                    <!--<a href="#contact" class="forum-comment-btn">💬 0 comment</a>-->
                 </div>
             </div>
             @empty
@@ -1322,7 +1322,7 @@
                 </div>
                 <p>"Saya berharap saya memiliki permainan ini saat pertama kali belajar bisnis. Permainan ini memecah konsep yang sulit menjadi mudah dipahami dalam dunia nyata dan pembelajaran."</p>
                 <div style="margin-top: 1rem; text-align: center;">
-                    <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
+                    <!--<a href="#contact" class="forum-comment-btn">💬 0 comment</a>-->
                 </div>
             </div>
             @endforelse
@@ -1429,7 +1429,7 @@
                 </div>
                 <p>"{{ Str::limit($testimonial->message, 150) }}"</p>
                 <div class="forum-footer">
-                    <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
+                    <!--<a href="#contact" class="forum-comment-btn">💬 0 comment</a>-->
                 </div>
             </div>
             @empty
