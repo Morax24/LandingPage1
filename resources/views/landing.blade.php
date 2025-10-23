@@ -1299,7 +1299,7 @@
                     <a href="#contact" class="forum-comment-btn">💬 0 comment</a>
                 </div>
             </div>
-            <div class="testimonial-card">
+            <!-- <div class="testimonial-card">
                 <div class="testimonial-header">
                     <div class="testimonial-avatar">M</div>
                     <div>
@@ -1322,9 +1322,9 @@
                 </div>
                 <p>"Saya berharap saya memiliki permainan ini saat pertama kali belajar bisnis. Permainan ini memecah konsep yang sulit menjadi mudah dipahami dalam dunia nyata dan pembelajaran."</p>
                 <div style="margin-top: 1rem; text-align: center;">
-                    <!--<a href="#contact" class="forum-comment-btn">💬 0 comment</a>-->
+                    //<a href="#contact" class="forum-comment-btn">💬 0 comment</a>
                 </div>
-            </div>
+            </div> -->
             @endforelse
         </div>
     </section>
