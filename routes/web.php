@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumReplyController;
 use App\Http\Controllers\Admin\ForumReplyController as AdminForumReplyController;
 use App\Http\Controllers\Admin\MediaController;
-
+use App\Http\Controllers\LandingController;
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     // ... route admin yang sudah ada ...
@@ -44,7 +44,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 // ============================================
 
 // Landing Page - PAKAI CONTROLLER
-Route::get('/', [ContactController::class, 'index'])->name('home');
+Route::get('/', [LandingController::class, 'index'])->name('home');
 
 // Contact Form - Submit
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

@@ -713,10 +713,10 @@
 
                     <div class="media-preview">
                         @if($item->isImage())
-                            <img src="{{ $item->url }}" alt="{{ $item->title }}">
+                            <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
                         @elseif($item->isVideo())
                             <video controls>
-                                <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
+                                <source src="{{ $item->file_path }}" type="{{ $item->mime_type }}">
                             </video>
                         @endif
                     </div>

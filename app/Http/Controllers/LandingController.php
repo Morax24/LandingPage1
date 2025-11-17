@@ -27,52 +27,53 @@ class LandingController extends Controller
             ->get();
 
         $heroMedia = Media::where('section', 'hero')
-        ->where('is_active', 1)
-        ->orderBy('order')
-        ->first();
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->first();
 
-    $storyMedia = Media::where('section', 'story')
-        ->where('is_active', 1)
-        ->orderBy('order')
-        ->first();
+        $storyMedia = Media::where('section', 'story')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->first();
 
-    $whyLearnMedia = Media::where('section', 'why_learn')
-        ->where('is_active', 1)
-        ->orderBy('order')
-        ->first();
+        $whyLearnMedias = Media::where('section', 'whylearn')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->take(2)
+            ->get();
 
-    $featuresMedia = Media::where('section', 'features')
-        ->where('is_active', 1)
-        ->orderBy('order')
-        ->take(4)
-        ->get();
+        $featuresMedia = Media::where('section', 'features')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->take(4)
+            ->get();
 
-    $aktivitasMedia = Media::where('section', 'aktivitas')
-        ->where('is_active', 1)
-        ->orderBy('order')
-        ->take(6)
-        ->get();
+        $aktivitasMedia = Media::where('section', 'aktivitas')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->take(6)
+            ->get();
 
-    $testimonials = Contact::where('status', 'approved')
-        ->latest()
-        ->get();
+        $testimonials = Contact::where('status', 'approved')
+            ->latest()
+            ->get();
 
-    $stats = [
-        'satisfaction' => 85,
-        'schools' => 50,
-        'students' => 80,
-        'understanding' => 87
-    ];
+        $stats = [
+            'satisfaction' => 85,
+            'schools' => 50,
+            'students' => 80,
+            'understanding' => 87
+        ];
 
         // Return view with all data
         return view('landing', compact(
             'heroMedia',
-        'storyMedia',
-        'whyLearnMedia',
-        'featuresMedia',
-        'aktivitasMedia',
-        'testimonials',
-        'stats'
+            'storyMedia',
+            'whyLearnMedias',
+            'featuresMedia',
+            'aktivitasMedia',
+            'testimonials',
+            'stats'
         ));
     }
 }
