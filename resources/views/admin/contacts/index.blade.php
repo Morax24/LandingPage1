@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background: #E8F4F8;
             color: #333;
         }
 
@@ -26,7 +26,7 @@
         /* Sidebar */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            background: #5FB574;
             color: #fff;
             padding: 0;
             position: fixed;
@@ -37,19 +37,31 @@
 
         .sidebar-header {
             padding: 2rem 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
         .sidebar-header h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-square {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .sidebar-header p {
             font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
+            margin-left: 38px;
         }
 
         .sidebar-menu {
@@ -70,13 +82,13 @@
 
         .menu-item:hover {
             background: rgba(255,255,255,0.15);
-            border-left-color: #fff;
+            border-left-color: #F9D56E;
             color: #fff;
         }
 
         .menu-item.active {
             background: rgba(255,255,255,0.2);
-            border-left-color: #fff;
+            border-left-color: #F9D56E;
             color: #fff;
             font-weight: 600;
         }
@@ -92,8 +104,8 @@
             bottom: 0;
             width: 100%;
             padding: 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
 
         .user-profile {
@@ -107,12 +119,13 @@
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: #F9D56E;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
+            color: #5FB574;
             border: 2px solid rgba(255,255,255,0.5);
         }
 
@@ -123,7 +136,7 @@
 
         .user-info p {
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.8);
         }
 
         /* Main Content */
@@ -137,8 +150,8 @@
         .page-header {
             background: #fff;
             padding: 1.5rem 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
@@ -151,11 +164,11 @@
         }
 
         .btn-logout {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #FF8A5B;
             color: #fff;
             padding: 0.7rem 1.8rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
@@ -165,7 +178,7 @@
 
         .btn-logout:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+            box-shadow: 0 4px 12px rgba(255,138,91,0.4);
         }
 
         /* Stats Cards */
@@ -178,33 +191,41 @@
 
         .stat-card {
             background: #fff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
         }
 
         .stat-card h3 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
-        .stat-card.total h3 { color: #3498db; }
-        .stat-card.pending h3 { color: #f39c12; }
-        .stat-card.approved h3 { color: #27ae60; }
-        .stat-card.rejected h3 { color: #e74c3c; }
+        .stat-card.total h3 { color: #5FB574; }
+        .stat-card.pending h3 { color: #F9D56E; }
+        .stat-card.approved h3 { color: #5FB574; }
+        .stat-card.rejected h3 { color: #FF8A5B; }
 
         .stat-card p {
             color: #666;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         /* Filters */
         .filters {
             background: #fff;
             padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 2rem;
         }
 
@@ -217,10 +238,17 @@
 
         .filters select,
         .filters input {
-            padding: 0.6rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.7rem 1rem;
+            border: 2px solid #E8F4F8;
+            border-radius: 10px;
             font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .filters select:focus,
+        .filters input:focus {
+            outline: none;
+            border-color: #5FB574;
         }
 
         .filters input[type="text"] {
@@ -229,45 +257,52 @@
         }
 
         .btn {
-            padding: 0.6rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             display: inline-block;
+            transition: all 0.3s;
         }
 
         .btn-primary {
-            background: #3498db;
+            background: #5FB574;
             color: #fff;
         }
 
+        .btn-primary:hover {
+            background: #4FA564;
+            transform: translateY(-2px);
+        }
+
         .btn-success {
-            background: #27ae60;
+            background: #5FB574;
             color: #fff;
         }
 
         .btn-danger {
-            background: #e74c3c;
+            background: #FF8A5B;
             color: #fff;
         }
 
         .btn-warning {
-            background: #f39c12;
-            color: #fff;
+            background: #F9D56E;
+            color: #333;
         }
 
         .btn:hover {
-            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         /* Bulk Actions */
         .bulk-actions {
             background: #fff;
             padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 1rem;
             display: none;
         }
@@ -279,14 +314,15 @@
         }
 
         .bulk-actions span {
-            font-weight: 500;
+            font-weight: 600;
+            color: #5FB574;
         }
 
         /* Table */
         .table-container {
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
@@ -296,46 +332,46 @@
         }
 
         thead {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #5FB574 0%, #4FA564 100%);
+            color: #fff;
         }
 
         th {
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             text-align: left;
             font-weight: 600;
-            color: #555;
-            border-bottom: 2px solid #e9ecef;
+            border-bottom: none;
         }
 
         td {
             padding: 1rem;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: #F7FCF9;
         }
 
         .badge {
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .badge-pending {
-            background: #fff3cd;
-            color: #856404;
+            background: #FFF4E6;
+            color: #C29239;
         }
 
         .badge-approved {
-            background: #d4edda;
-            color: #155724;
+            background: #E8F5EC;
+            color: #4FA564;
         }
 
         .badge-rejected {
-            background: #f8d7da;
-            color: #721c24;
+            background: #FFE8E1;
+            color: #D96F4A;
         }
 
         .action-buttons {
@@ -344,21 +380,23 @@
         }
 
         .btn-sm {
-            padding: 0.4rem 0.8rem;
+            padding: 0.5rem 1rem;
             font-size: 0.85rem;
+            border-radius: 8px;
         }
 
         /* Alert Messages */
         .alert {
             padding: 1rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 12px;
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #E8F5EC;
+            color: #4FA564;
+            border: 2px solid #5FB574;
         }
 
         /* Responsive */
@@ -373,7 +411,7 @@
                 width: 80px;
             }
 
-            .sidebar-header h2,
+            .sidebar-header h2 span:not(.logo-square),
             .sidebar-header p,
             .menu-item span,
             .user-info,
@@ -409,8 +447,8 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2>🏢 Admin Panel</h2>
-                <p>Malaya Land Management</p>
+                <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
+                <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">

@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background: #E8F4F8;
             color: #333;
         }
 
@@ -26,7 +26,7 @@
         /* Sidebar */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            background: #5FB574;
             color: #fff;
             padding: 0;
             position: fixed;
@@ -37,19 +37,31 @@
 
         .sidebar-header {
             padding: 2rem 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
         .sidebar-header h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-square {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .sidebar-header p {
             font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
+            margin-left: 38px;
         }
 
         .sidebar-menu {
@@ -70,13 +82,13 @@
 
         .menu-item:hover {
             background: rgba(255,255,255,0.15);
-            border-left-color: #fff;
+            border-left-color: #F9D56E;
             color: #fff;
         }
 
         .menu-item.active {
             background: rgba(255,255,255,0.2);
-            border-left-color: #fff;
+            border-left-color: #F9D56E;
             color: #fff;
             font-weight: 600;
         }
@@ -92,8 +104,8 @@
             bottom: 0;
             width: 100%;
             padding: 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
 
         .user-profile {
@@ -107,12 +119,13 @@
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: #F9D56E;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
+            color: #5FB574;
             border: 2px solid rgba(255,255,255,0.5);
         }
 
@@ -123,15 +136,15 @@
 
         .user-info p {
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.8);
         }
 
         .btn-logout {
-            background: rgba(255,255,255,0.2);
+            background: #FF8A5B;
             color: #fff;
             padding: 0.7rem 1.8rem;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 8px;
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
@@ -141,7 +154,8 @@
         }
 
         .btn-logout:hover {
-            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,138,91,0.4);
         }
 
         /* Main Content */
@@ -155,8 +169,8 @@
         .header {
             background: #fff;
             padding: 1.5rem 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
@@ -164,18 +178,19 @@
         }
 
         .header h1 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #333;
         }
 
         .btn {
-            padding: 0.6rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             display: inline-block;
+            transition: all 0.3s;
         }
 
         .btn-back {
@@ -183,47 +198,69 @@
             color: #fff;
         }
 
+        .btn-back:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
         .btn-primary {
-            background: #3498db;
+            background: #5FB574;
             color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #4FA564;
+            transform: translateY(-2px);
         }
 
         .btn-success {
-            background: #27ae60;
+            background: #5FB574;
             color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #4FA564;
+            transform: translateY(-2px);
         }
 
         .btn-danger {
-            background: #e74c3c;
+            background: #FF8A5B;
             color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #E67A4B;
+            transform: translateY(-2px);
         }
 
         .btn-warning {
-            background: #f39c12;
-            color: #fff;
+            background: #F9D56E;
+            color: #333;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .btn-warning:hover {
+            background: #E9C55E;
+            transform: translateY(-2px);
         }
 
         /* Alert */
         .alert {
             padding: 1rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 12px;
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #E8F5EC;
+            color: #4FA564;
+            border: 2px solid #5FB574;
         }
 
         .alert-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            background: #E8F4F8;
+            color: #5FB574;
+            border: 2px solid #5FB574;
         }
 
         /* Main Content */
@@ -235,16 +272,22 @@
 
         .card {
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
         }
 
         .card h2 {
             font-size: 1.3rem;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid #E8F4F8;
+            color: #5FB574;
         }
 
         .info-row {
@@ -260,42 +303,44 @@
         }
 
         .info-row .value {
-            padding: 0.8rem;
-            background: #f8f9fa;
-            border-radius: 5px;
+            padding: 1rem;
+            background: #F7FCF9;
+            border-radius: 10px;
             font-size: 0.95rem;
+            border: 1px solid #E8F4F8;
         }
 
         .message-box {
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 5px;
+            padding: 1.2rem;
+            background: #F7FCF9;
+            border-radius: 10px;
             line-height: 1.8;
             min-height: 150px;
             white-space: pre-wrap;
+            border: 1px solid #E8F4F8;
         }
 
         .badge {
-            padding: 0.4rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 20px;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
             display: inline-block;
         }
 
         .badge-pending {
-            background: #fff3cd;
-            color: #856404;
+            background: #FFF4E6;
+            color: #C29239;
         }
 
         .badge-approved {
-            background: #d4edda;
-            color: #155724;
+            background: #E8F5EC;
+            color: #4FA564;
         }
 
         .badge-rejected {
-            background: #f8d7da;
-            color: #721c24;
+            background: #FFE8E1;
+            color: #D96F4A;
         }
 
         /* Action Card */
@@ -327,37 +372,69 @@
         /* Notes Section */
         .notes-section {
             margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #f0f0f0;
         }
 
         .notes-section textarea {
             width: 100%;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 1.2rem;
+            border: 2px solid #E8F4F8;
+            border-radius: 10px;
             font-family: inherit;
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
             margin-bottom: 1rem;
+            transition: all 0.3s;
         }
 
         .notes-section textarea:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: #5FB574;
+            background: #F7FCF9;
         }
 
         /* Meta Info */
         .meta-info {
-            background: #f8f9fa;
+            background: #F7FCF9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.8;
+            border: 1px solid #E8F4F8;
+        }
+
+        .meta-info strong {
+            color: #5FB574;
+        }
+
+        .info-box {
             padding: 1rem;
-            border-radius: 5px;
+            background: #F7FCF9;
+            border-radius: 10px;
+            text-align: center;
+            color: #666;
+            border: 1px solid #E8F4F8;
+        }
+
+        .meta-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #E8F4F8;
+        }
+
+        .meta-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #5FB574;
+        }
+
+        .meta-section .meta-text {
             font-size: 0.85rem;
             color: #666;
             line-height: 1.8;
         }
 
-        .meta-info strong {
+        .meta-section .meta-text strong {
             color: #333;
         }
 
@@ -381,25 +458,40 @@
 
         .modal-content {
             background: #fff;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 2rem;
             max-width: 500px;
             width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         .modal-content h3 {
             margin-bottom: 1rem;
+            color: #5FB574;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
         }
 
         .modal-content textarea {
             width: 100%;
             padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #E8F4F8;
+            border-radius: 10px;
             font-family: inherit;
             min-height: 100px;
             resize: vertical;
             margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: #5FB574;
         }
 
         .modal-buttons {
@@ -424,7 +516,7 @@
                 width: 80px;
             }
 
-            .sidebar-header h2,
+            .sidebar-header h2 span:not(.logo-square),
             .sidebar-header p,
             .menu-item span,
             .user-info,
@@ -440,6 +532,12 @@
             .main-content {
                 margin-left: 80px;
             }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -448,8 +546,8 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2>🏢 Admin Panel</h2>
-                <p>Malaya Land Management</p>
+                <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
+                <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">
@@ -514,7 +612,7 @@
                         <div class="info-row">
                             <label>Email</label>
                             <div class="value">
-                                <a href="mailto:{{ $contact->email }}" style="color: #3498db; text-decoration: none;">
+                                <a href="mailto:{{ $contact->email }}" style="color: #5FB574; text-decoration: none; font-weight: 600;">
                                     {{ $contact->email }}
                                 </a>
                             </div>
@@ -578,7 +676,7 @@
                                 ✕ Tolak Pesan
                             </button>
                             @else
-                            <div style="padding: 1rem; background: #f8f9fa; border-radius: 5px; text-align: center; color: #666;">
+                            <div class="info-box">
                                 Pesan sudah ditinjau
                             </div>
                             @endif
@@ -594,9 +692,9 @@
                         </div>
 
                         <!-- Meta Information -->
-                        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f0f0f0;">
-                            <h3 style="font-size: 1rem; margin-bottom: 1rem;">Informasi Tambahan</h3>
-                            <div style="font-size: 0.85rem; color: #666; line-height: 1.8;">
+                        <div class="meta-section">
+                            <h3>Informasi Tambahan</h3>
+                            <div class="meta-text">
                                 <strong>Diterima:</strong><br>
                                 {{ $contact->created_at->format('d F Y, H:i') }}<br>
                                 ({{ $contact->created_at->diffForHumans() }})<br><br>
@@ -617,9 +715,7 @@
             <h3>Tolak Pesan</h3>
             <form action="{{ route('admin.contacts.reject', $contact->id) }}" method="POST">
                 @csrf
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
-                    Alasan penolakan (opsional):
-                </label>
+                <label>Alasan penolakan (opsional):</label>
                 <textarea name="admin_notes" placeholder="Masukkan alasan penolakan..."></textarea>
 
                 <div class="modal-buttons">
