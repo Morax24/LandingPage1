@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,8 @@
             overflow-x: hidden;
         }
 
-        img, video {
+        img,
+        video {
             max-width: 100%;
             height: auto;
             display: block;
@@ -34,16 +36,18 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
+
         .feature-slot {
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .feature-slot:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
         }
 
         /* AKTIVITAS GRID - 6 slot posisi tetap */
@@ -57,15 +61,34 @@
             grid-auto-rows: 250px;
             gap: 1.2rem;
         }
+
         .activity-slot.large {
             grid-area: big;
         }
-        .activity-slot.small:nth-of-type(2) { grid-area: small1; }
-        .activity-slot.small:nth-of-type(3) { grid-area: small2; }
-        .activity-slot.small:nth-of-type(4) { grid-area: small3; }
-        .activity-slot.small:nth-of-type(5) { grid-area: small4; }
-        .activity-slot.small:nth-of-type(6) { grid-area: small5; }
-        .activity-slot.small:nth-of-type(7) { grid-area: small6; }
+
+        .activity-slot.small:nth-of-type(2) {
+            grid-area: small1;
+        }
+
+        .activity-slot.small:nth-of-type(3) {
+            grid-area: small2;
+        }
+
+        .activity-slot.small:nth-of-type(4) {
+            grid-area: small3;
+        }
+
+        .activity-slot.small:nth-of-type(5) {
+            grid-area: small4;
+        }
+
+        .activity-slot.small:nth-of-type(6) {
+            grid-area: small5;
+        }
+
+        .activity-slot.small:nth-of-type(7) {
+            grid-area: small6;
+        }
 
         .slot-media {
             width: 100%;
@@ -73,13 +96,16 @@
             object-fit: cover;
             border-radius: 10px;
         }
+
         .slot-info {
             padding: 0.8rem 1rem;
         }
+
         .slot-info h5 {
             font-weight: 600;
             margin-bottom: 0.3rem;
         }
+
         .slot-info p {
             color: #666;
             font-size: 0.9rem;
@@ -89,7 +115,8 @@
         .media-container {
             position: relative;
             width: 100%;
-            padding-bottom: 66.67%; /* Aspect ratio 3:2 */
+            padding-bottom: 66.67%;
+            /* Aspect ratio 3:2 */
             overflow: hidden;
             border-radius: 10px;
             background: #f0f0f0;
@@ -118,6 +145,7 @@
             object-fit: cover;
             border-radius: 10px 10px 0 0;
         }
+
         header {
             background: #d4f1f4;
             padding: 1rem 5%;
@@ -127,7 +155,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -275,7 +303,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .hero-image {
@@ -287,7 +315,7 @@
             width: 100%;
             background: #f0f0f0;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
@@ -311,15 +339,17 @@
             text-align: center;
             padding: 1.5rem;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .stat-card:nth-child(1), .stat-card:nth-child(3) {
+        .stat-card:nth-child(1),
+        .stat-card:nth-child(3) {
             background: #7cb342;
             color: #fff;
         }
 
-        .stat-card:nth-child(2), .stat-card:nth-child(4) {
+        .stat-card:nth-child(2),
+        .stat-card:nth-child(4) {
             background: #f7e92b;
             color: #333;
         }
@@ -356,7 +386,7 @@
         .story-image {
             background: #f0f0f0;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
@@ -439,12 +469,14 @@
             transition: transform 0.3s;
         }
 
-        .skill-card:nth-child(1), .skill-card:nth-child(3) {
+        .skill-card:nth-child(1),
+        .skill-card:nth-child(3) {
             background: #7cb342;
             color: #fff;
         }
 
-        .skill-card:nth-child(2), .skill-card:nth-child(4) {
+        .skill-card:nth-child(2),
+        .skill-card:nth-child(4) {
             background: #f7e92b;
             color: #333;
         }
@@ -464,13 +496,13 @@
             background: #fff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s;
         }
 
         .media-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
         }
 
         .media-wrapper {
@@ -514,7 +546,7 @@
             background: #fff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s;
         }
 
@@ -649,7 +681,7 @@
             background: #fff;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
         }
 
@@ -769,7 +801,7 @@
             background: #fff;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .forum-header {
@@ -816,7 +848,7 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             padding-top: 2rem;
             text-align: center;
             font-size: 0.9rem;
@@ -847,7 +879,7 @@
             max-width: 400px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         .modal-icon {
@@ -891,12 +923,18 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .hero, .story-grid, .faq-contact-grid, .why-learn-grid {
+
+            .hero,
+            .story-grid,
+            .faq-contact-grid,
+            .why-learn-grid {
                 grid-template-columns: 1fr;
             }
+
             .media-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
             .activity-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -918,7 +956,7 @@
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
 
             nav.active {
@@ -927,24 +965,33 @@
 
             nav a {
                 padding: 1rem 5%;
-                border-bottom: 1px solid rgba(0,0,0,0.1);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             }
 
-            .stats, .skills-grid, .pricing-grid, .testimonial-grid, .forum-grid {
+            .stats,
+            .skills-grid,
+            .pricing-grid,
+            .testimonial-grid,
+            .forum-grid {
                 grid-template-columns: 1fr;
             }
+
             .footer-content {
                 grid-template-columns: 1fr;
             }
-            .media-grid, .activity-grid {
+
+            .media-grid,
+            .activity-grid {
                 grid-template-columns: 1fr;
             }
+
             .hero {
                 padding: 2rem 5% 4rem;
             }
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -967,7 +1014,8 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Belajar Kewirausahaan Dengan Bermain</h1>
-            <p>Sebuah permainan papan inovatif yang mengubah konsep bisnis yang kompleks menjadi pengalaman belajar yang menarik, interaktif bagi siswa dan profesional.</p>
+            <p>Sebuah permainan papan inovatif yang mengubah konsep bisnis yang kompleks menjadi pengalaman belajar yang
+                menarik, interaktif bagi siswa dan profesional.</p>
             <a href="#pricing" class="btn-primary">Dapatkan Sekarang</a>
         </div>
         <div class="hero-image">
@@ -975,8 +1023,8 @@
                 @php
                     $heroMedia = $heroMedia ?? null;
                 @endphp
-                @if($heroMedia)
-                    @if($heroMedia->isImage())
+                @if ($heroMedia)
+                    @if ($heroMedia->isImage())
                         <img src="{{ $heroMedia->file_path }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
                     @elseif($heroMedia->isVideo())
                         <video controls autoplay muted loop>
@@ -1010,89 +1058,122 @@
     </section>
 
     <!-- Story Section - UPDATED -->
-<section class="story-section">
-    <div class="story-grid">
-        <div class="story-image">
-            @php $storyMedia = $storyMedia ?? null; @endphp
-            @if($storyMedia)
-                @if($storyMedia->isImage())
-                    <img src="{{ asset($storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}">
-                @elseif($storyMedia->isVideo())
-                    <video controls>
-                        <source src="{{ asset($storyMedia->file_path) }}" type="{{ $storyMedia->mime_type }}">
-                    </video>
+    <section class="story-section">
+        <div class="story-grid">
+            <div class="story-image">
+                @php $storyMedia = $storyMedia ?? null; @endphp
+                @if ($storyMedia)
+                    @if ($storyMedia->isImage())
+                        <img src="{{ asset($storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}">
+                    @elseif($storyMedia->isVideo())
+                        <video controls>
+                            <source src="{{ asset($storyMedia->file_path) }}" type="{{ $storyMedia->mime_type }}">
+                        </video>
+                    @endif
+                @else
+                    <img src="https://via.placeholder.com/350x350/d4f1f4/333333?text=Story+Image" alt="Story">
                 @endif
-            @else
-                <img src="https://via.placeholder.com/350x350/d4f1f4/333333?text=Story+Image" alt="Story">
-            @endif
-        </div>
-        <div class="story-content">
-            <span class="story-badge">Background</span>
-            <h2>Cerita di Balik GameBoard</h2>
-            <p>Terlatir dari ide para tenaga pendidikan didalam kewirausahaan dalam kehidupan untuk memulai pendidikan kewirausahaan ini lebih menarik, interaktif dan praktis sebagai alat pembelajaran melalui permainan papan kami menyajikan kesempatan antara teori pelajaran dan implementasi di lapangan</p>
-        </div>
-    </div>
-
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">💡</div>
-            <h3>problem</h3>
-            <p>Dapat membantu siswa menyebarkan kebutuhan untuk pembelajaran interaktif dalam pendidikan bisnis.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">👥</div>
-            <h3>problem</h3>
-            <p>Diverifikasi sulit dapat dengan melalukan kerja tim antar industri secara efejtive</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🎯</div>
-            <h3>problem</h3>
-            <p>Dorong para mengambil proyek kewirausahaan dalam membuat konsep bisnis yang kompleks menjadi mudah dipahami dan menyenangkan bagi semua peserta didik</p>
-        </div>
-    </div>
-</section>
-
-@foreach($whyLearnMedias as $index => $media)
-    @if($index == 0)
-        <!-- Section 1 -->
-        <section style="padding: 4rem 5%; background: #fff;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
-                <div style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                    @if($media->isImage())
-                        <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}" style="width:100%; height:100%; object-fit:cover;">
-                    @elseif($media->isVideo())
-                        <video controls style="width:100%; height:100%; object-fit:cover;">
-                            <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
-                        </video>
-                    @endif
-                </div>
-                <div>
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
-                    <!-- konten section 1 -->
-                </div>
             </div>
-        </section>
-    @elseif($index == 1)
-        <!-- Section 2 -->
-        <section style="padding: 4rem 5%; background: #fff;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
-                <div style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                    @if($media->isImage())
-                        <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}" style="width:100%; height:100%; object-fit:cover;">
-                    @elseif($media->isVideo())
-                        <video controls style="width:100%; height:100%; object-fit:cover;">
-                            <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
-                        </video>
-                    @endif
-                </div>
-                <div>
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
-                    <!-- konten section 2 -->
-                </div>
+            <div class="story-content">
+                <span class="story-badge">Background</span>
+                <h2>Cerita di Balik GameBoard</h2>
+                <p>Terlatir dari ide para tenaga pendidikan didalam kewirausahaan dalam kehidupan untuk memulai
+                    pendidikan kewirausahaan ini lebih menarik, interaktif dan praktis sebagai alat pembelajaran melalui
+                    permainan papan kami menyajikan kesempatan antara teori pelajaran dan implementasi di lapangan</p>
             </div>
-        </section>
-    @endif
-@endforeach
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3>problem</h3>
+                <p>Dapat membantu siswa menyebarkan kebutuhan untuk pembelajaran interaktif dalam pendidikan bisnis.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>problem</h3>
+                <p>Diverifikasi sulit dapat dengan melalukan kerja tim antar industri secara efejtive</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>problem</h3>
+                <p>Dorong para mengambil proyek kewirausahaan dalam membuat konsep bisnis yang kompleks menjadi mudah
+                    dipahami dan menyenangkan bagi semua peserta didik</p>
+            </div>
+        </div>
+    </section>
+
+    @foreach ($whyLearnMedias as $index => $media)
+        @if ($index == 0)
+            <!-- Section 1 -->
+            <section style="padding: 4rem 5%; background: #fff;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div
+                        style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        @if ($media->isImage())
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}"
+                                style="width:100%; height:100%; object-fit:cover;">
+                        @elseif($media->isVideo())
+                            <video controls style="width:100%; height:100%; object-fit:cover;">
+                                <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
+                            </video>
+                        @endif
+                    </div>
+                    <div>
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui
+                            Permainan Papan?</h2>
+                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">①
+                                Pengalaman Belajar Interaktif dan Praktis</strong>
+                            <p style="color: #666;">Melalui pengalaman keputusan dan presentasi bisnis dengan feedback
+                                langsung</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">②
+                                Real-Case Scenario</strong>
+                            <p style="color: #666;">Koleksi tantangan berdasarkan situasi bisnis nyata</p>
+                        </div>
+                        <div> <strong style="display: block; margin-bottom: 0.5rem;">③ Belajar Kolaboratif</strong>
+                            <p style="color: #666;">Bermain dengan strategi tim akan bersama dan bekerja sama dengan
+                                orang lain.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @elseif($index == 1)
+            <!-- Section 2 -->
+            <section style="padding: 4rem 5%; background: #fff;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div
+                        style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        @if ($media->isImage())
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}"
+                                style="width:100%; height:100%; object-fit:cover;">
+                        @elseif($media->isVideo())
+                            <video controls style="width:100%; height:100%; object-fit:cover;">
+                                <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
+                            </video>
+                        @endif
+                    </div>
+                    <div>
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui
+                            Permainan Papan?</h2>
+                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">①
+                                Pengalaman Belajar Interaktif dan Praktis</strong>
+                            <p style="color: #666;">Melalui pengalaman keputusan dan presentasi bisnis dengan feedback
+                                langsung</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">②
+                                Real-Case Scenario</strong>
+                            <p style="color: #666;">Koleksi tantangan berdasarkan situasi bisnis nyata</p>
+                        </div>
+                        <div> <strong style="display: block; margin-bottom: 0.5rem;">③ Belajar Kolaboratif</strong>
+                            <p style="color: #666;">Bermain dengan strategi tim akan bersama dan bekerja sama dengan
+                                orang lain.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+    @endforeach
 
     <section id="features" style="padding:4rem 5%; background:#f8f9fa;">
         <h2 class="section-title">Fitur Unggulan</h2>
@@ -1100,9 +1181,9 @@
             @for ($i = 0; $i < 4; $i++)
                 @php $item = $featuresMedia[$i] ?? null; @endphp
                 <div class="media-card">
-                    @if($item)
+                    @if ($item)
                         <div class="media-wrapper">
-                            @if($item->isImage())
+                            @if ($item->isImage())
                                 <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
                             @elseif($item->isVideo())
                                 <video controls>
@@ -1161,9 +1242,9 @@
             @for ($i = 0; $i < 6; $i++)
                 @php $item = $aktivitasMedia[$i] ?? null; @endphp
                 <div class="activity-card">
-                    @if($item)
+                    @if ($item)
                         <div class="activity-wrapper">
-                            @if($item->isImage())
+                            @if ($item->isImage())
                                 <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
                             @elseif($item->isVideo())
                                 <video controls>
@@ -1202,7 +1283,8 @@
                     <li>1 set produk waluya land</li>
                     <li>1 kupon potongan harga</li>
                 </ul>
-                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!" class="btn-primary" target="_blank">Dapatkan Sekarang</a>
+                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
+                    class="btn-primary" target="_blank">Dapatkan Sekarang</a>
             </div>
             <div class="pricing-card">
                 <h3>Waluya Land</h3>
@@ -1212,7 +1294,8 @@
                     <li>1 set produk waluya land</li>
                     <li>1 kupon potongan harga</li>
                 </ul>
-                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!" class="btn-primary" target="_blank">Dapatkan Sekarang</a>
+                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
+                    class="btn-primary" target="_blank">Dapatkan Sekarang</a>
             </div>
         </div>
     </section>
@@ -1223,27 +1306,28 @@
         <p class="section-subtitle">Feedback dan manfaat dari siswa</p>
         <div class="testimonial-grid">
             @forelse($testimonials ?? [] as $testimonial)
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
-                    <div>
-                        <h4>{{ $testimonial->name }}</h4>
-                        <small style="color: #999;">{{ $testimonial->institution ?? 'Pengguna' }}</small>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
+                        <div>
+                            <h4>{{ $testimonial->name }}</h4>
+                            <small style="color: #999;">{{ $testimonial->institution ?? 'Pengguna' }}</small>
+                        </div>
                     </div>
+                    <p>"{{ $testimonial->message }}"</p>
                 </div>
-                <p>"{{ $testimonial->message }}"</p>
-            </div>
             @empty
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">S</div>
-                    <div>
-                        <h4>Sarah Johnson</h4>
-                        <small style="color: #999;">Pendidik Kewirausahaan</small>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">S</div>
+                        <div>
+                            <h4>Sarah Johnson</h4>
+                            <small style="color: #999;">Pendidik Kewirausahaan</small>
+                        </div>
                     </div>
+                    <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan. Siswa menjadi lebih tertarik dan
+                        memahami konsep dengan jauh lebih baik."</p>
                 </div>
-                <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan. Siswa menjadi lebih tertarik dan memahami konsep dengan jauh lebih baik."</p>
-            </div>
             @endforelse
         </div>
     </section>
@@ -1255,7 +1339,8 @@
                 <p style="margin-bottom: 1.5rem; color: #666;">Punya pertanyaan lain? silahkan cantumkan disini!</p>
                 <form action="{{ route('contact.store') }}" method="POST">
                     @csrf
-                    <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
+                    <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}"
+                        required>
                     @error('name')
                         <span class="error-text">{{ $message }}</span>
                     @enderror
@@ -1265,7 +1350,8 @@
                         <span class="error-text">{{ $message }}</span>
                     @enderror
 
-                    <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
+                    <input type="text" name="institution" placeholder="Instansi"
+                        value="{{ old('institution') }}">
                     @error('institution')
                         <span class="error-text">{{ $message }}</span>
                     @enderror
@@ -1283,40 +1369,50 @@
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
                         <strong>Beriaku untuk siapa saja waluya land ini?</strong>
-                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
-                            Waluya Land dirancang untuk siswa SMA/SMK, mahasiswa, dan siapa saja yang ingin belajar kewirausahaan dengan cara yang menyenangkan dan interaktif.
+                        <div class="faq-answer"
+                            style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                            Waluya Land dirancang untuk siswa SMA/SMK, mahasiswa, dan siapa saja yang ingin belajar
+                            kewirausahaan dengan cara yang menyenangkan dan interaktif.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
                         <strong>Adakah panduan bermain bagi kami?</strong>
-                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
-                            Ya, setiap paket Waluya Land dilengkapi dengan buku panduan lengkap yang menjelaskan aturan permainan dan cara bermain.
+                        <div class="faq-answer"
+                            style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                            Ya, setiap paket Waluya Land dilengkapi dengan buku panduan lengkap yang menjelaskan aturan
+                            permainan dan cara bermain.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
                         <strong>Capaian pelajaran apa yang terpenuhi?</strong>
-                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
-                            Waluya Land membantu mencapai kompetensi pemahaman kewirausahaan, problem solving, kerja tim, dan pengambilan keputusan bisnis.
+                        <div class="faq-answer"
+                            style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                            Waluya Land membantu mencapai kompetensi pemahaman kewirausahaan, problem solving, kerja
+                            tim, dan pengambilan keputusan bisnis.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
                         <strong>Apa waluya land ini?</strong>
-                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
-                            Waluya Land adalah board game edukatif yang mengajarkan konsep kewirausahaan dan bisnis melalui permainan interaktif.
+                        <div class="faq-answer"
+                            style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                            Waluya Land adalah board game edukatif yang mengajarkan konsep kewirausahaan dan bisnis
+                            melalui permainan interaktif.
                         </div>
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
                         <strong>Apakah berlaku untuk semua kurikulum?</strong>
-                        <div class="faq-answer" style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
-                            Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum pendidikan.
+                        <div class="faq-answer"
+                            style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                            Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum
+                            pendidikan.
                         </div>
                     </div>
                 </div>
@@ -1327,37 +1423,40 @@
     <section class="forum-section">
         <span class="story-badge">Forum</span>
         <h2 class="section-title">Forum Terbuka untuk Tanya, Saran, dan Insight</h2>
-        <p class="section-subtitle">Punya ide, saran, atau pertanyaan untuk kami? ajukan pertanyaan langsung pada tim kami</p>
+        <p class="section-subtitle">Punya ide, saran, atau pertanyaan untuk kami? ajukan pertanyaan langsung pada tim
+            kami</p>
         <div class="forum-grid">
             @forelse(($testimonials ?? collect())->take(6) as $testimonial)
-            <div class="forum-card">
-                <div class="forum-header">
-                    <div class="forum-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
-                    <div>
-                        <h4>{{ $testimonial->name }}</h4>
-                        <small style="color: #999;">{{ $testimonial->institution ?? 'Pengguna' }}</small>
+                <div class="forum-card">
+                    <div class="forum-header">
+                        <div class="forum-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
+                        <div>
+                            <h4>{{ $testimonial->name }}</h4>
+                            <small style="color: #999;">{{ $testimonial->institution ?? 'Pengguna' }}</small>
+                        </div>
                     </div>
+                    <p>"{{ Str::limit($testimonial->message, 150) }}"</p>
                 </div>
-                <p>"{{ Str::limit($testimonial->message, 150) }}"</p>
-            </div>
             @empty
-            <div class="forum-card">
-                <div class="forum-header">
-                    <div class="forum-avatar">S</div>
-                    <div>
-                        <h4>Sarah Johnson</h4>
-                        <small style="color: #999;">Pendidik Kewirausahaan</small>
+                <div class="forum-card">
+                    <div class="forum-header">
+                        <div class="forum-avatar">S</div>
+                        <div>
+                            <h4>Sarah Johnson</h4>
+                            <small style="color: #999;">Pendidik Kewirausahaan</small>
+                        </div>
                     </div>
+                    <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan."</p>
                 </div>
-                <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan."</p>
-            </div>
             @endforelse
         </div>
 
         <div style="text-align: center; margin-top: 3rem;">
             <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Siap untuk mengubah pengalaman belajar Anda?</h3>
-            <p style="color: #666; margin-bottom: 2rem;">Bergabunglah dengan ribuan siswa dan pendidik yang sudah menggunakan Waluya Land</p>
-            <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!" class="btn-primary" style="padding: 1.2rem 3rem;" target="_blank">Dapatkan Sekarang</a>
+            <p style="color: #666; margin-bottom: 2rem;">Bergabunglah dengan ribuan siswa dan pendidik yang sudah
+                menggunakan Waluya Land</p>
+            <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
+                class="btn-primary" style="padding: 1.2rem 3rem;" target="_blank">Dapatkan Sekarang</a>
         </div>
     </section>
 
@@ -1381,10 +1480,13 @@
                 <h4>Dapatkan di e-commerce</h4>
                 <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
                     <a href="https://shopee.co.id" target="_blank">
-                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/shopee.svg" alt="Shopee" style="height: 35px; filter: invert(38%) sepia(86%) saturate(2798%) hue-rotate(354deg) brightness(96%) contrast(93%);">
+                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/shopee.svg"
+                            alt="Shopee"
+                            style="height: 35px; filter: invert(38%) sepia(86%) saturate(2798%) hue-rotate(354deg) brightness(96%) contrast(93%);">
                     </a>
                     <a href="https://www.tokopedia.com" target="_blank">
-                        <img src="https://cdn.brandfetch.io/idoruRsDhk/theme/dark/symbol.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Tokopedia" style="height: 35px;">
+                        <img src="https://cdn.brandfetch.io/idoruRsDhk/theme/dark/symbol.svg?c=1dxbfHSJFAPEGdCLU4o5B"
+                            alt="Tokopedia" style="height: 35px;">
                     </a>
                 </div>
             </div>
@@ -1420,11 +1522,13 @@
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
@@ -1470,14 +1574,15 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            @if(session('success'))
-                showModal('success', 'Pesan Terkirim!', '{{ session("success") }}');
+            @if (session('success'))
+                showModal('success', 'Pesan Terkirim!', '{{ session('success') }}');
             @endif
 
-            @if(session('error'))
-                showModal('error', 'Terjadi Kesalahan', '{{ session("error") }}');
+            @if (session('error'))
+                showModal('error', 'Terjadi Kesalahan', '{{ session('error') }}');
             @endif
         });
     </script>
 </body>
+
 </html>
