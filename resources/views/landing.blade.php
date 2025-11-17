@@ -30,122 +30,7 @@
             display: block;
         }
 
-        /* FEATURES GRID - 4 slot sama rata */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-slot {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-slot:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-        }
-
-        /* AKTIVITAS GRID - 6 slot posisi tetap */
-        .activity-grid-layout {
-            display: grid;
-            grid-template-areas:
-                "big small1 small2"
-                "big small3 small4"
-                "big small5 small6";
-            grid-template-columns: 2fr 1fr 1fr;
-            grid-auto-rows: 250px;
-            gap: 1.2rem;
-        }
-
-        .activity-slot.large {
-            grid-area: big;
-        }
-
-        .activity-slot.small:nth-of-type(2) {
-            grid-area: small1;
-        }
-
-        .activity-slot.small:nth-of-type(3) {
-            grid-area: small2;
-        }
-
-        .activity-slot.small:nth-of-type(4) {
-            grid-area: small3;
-        }
-
-        .activity-slot.small:nth-of-type(5) {
-            grid-area: small4;
-        }
-
-        .activity-slot.small:nth-of-type(6) {
-            grid-area: small5;
-        }
-
-        .activity-slot.small:nth-of-type(7) {
-            grid-area: small6;
-        }
-
-        .slot-media {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .slot-info {
-            padding: 0.8rem 1rem;
-        }
-
-        .slot-info h5 {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .slot-info p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* Media Styling untuk Konsistensi */
-        .media-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 66.67%;
-            /* Aspect ratio 3:2 */
-            overflow: hidden;
-            border-radius: 10px;
-            background: #f0f0f0;
-        }
-
-        .media-container img,
-        .media-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-media {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .activity-media {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 10px 10px 0 0;
-        }
-
+        /* HEADER */
         header {
             background: #d4f1f4;
             padding: 1rem 5%;
@@ -182,6 +67,7 @@
             background: none;
             border: none;
             padding: 5px;
+            z-index: 1001;
         }
 
         .hamburger span {
@@ -235,7 +121,7 @@
             background: #e67e22;
         }
 
-        /* Hero Section */
+        /* HERO SECTION */
         .hero {
             background: linear-gradient(to bottom, #d4f1f4 0%, #d4f1f4 60%, #a8d5a8 100%);
             padding: 4rem 5% 8rem;
@@ -278,7 +164,7 @@
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
             margin-bottom: 1rem;
             line-height: 1.2;
         }
@@ -287,6 +173,7 @@
             color: #555;
             margin-bottom: 2rem;
             line-height: 1.8;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .btn-primary {
@@ -299,6 +186,7 @@
             display: inline-block;
             font-weight: bold;
             transition: transform 0.3s;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .btn-primary:hover {
@@ -326,7 +214,7 @@
             display: block;
         }
 
-        /* Stats Section */
+        /* STATS SECTION */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -355,11 +243,15 @@
         }
 
         .stat-card h3 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             margin-bottom: 0.5rem;
         }
 
-        /* Story Section */
+        .stat-card p {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+
+        /* STORY SECTION */
         .story-section {
             padding: 4rem 5%;
             background: #d4f1f4;
@@ -398,20 +290,21 @@
         }
 
         .story-content h2 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             margin-bottom: 1rem;
         }
 
         .story-content p {
             color: #666;
             line-height: 1.8;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
-        /* Features Grid */
+        /* FEATURES GRID */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 3rem;
         }
 
@@ -429,14 +322,23 @@
         }
 
         .feature-icon {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             margin-bottom: 1rem;
         }
 
-        /* Section Styles */
+        .feature-card h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        /* SECTION STYLES */
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             margin-bottom: 1rem;
         }
 
@@ -444,9 +346,16 @@
             text-align: center;
             color: #666;
             margin-bottom: 3rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            padding: 0 1rem;
         }
 
-        /* Why Learn Grid */
+        /* WHY LEARN SECTIONS */
+        .why-learn-section {
+            padding: 4rem 5%;
+            background: #fff;
+        }
+
         .why-learn-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -454,42 +363,49 @@
             align-items: center;
         }
 
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            padding: 4rem 5%;
-        }
-
-        .skill-card {
-            padding: 2rem;
+        .why-learn-media {
+            background: #f0f0f0;
+            height: 300px;
             border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        .skill-card:nth-child(1),
-        .skill-card:nth-child(3) {
-            background: #7cb342;
-            color: #fff;
+        .why-learn-media img,
+        .why-learn-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .skill-card:nth-child(2),
-        .skill-card:nth-child(4) {
-            background: #f7e92b;
-            color: #333;
+        .why-learn-content h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 1rem;
         }
 
-        .skill-card:hover {
-            transform: translateY(-5px);
+        .why-learn-item {
+            margin-bottom: 1.5rem;
         }
 
-        /* Media Cards */
+        .why-learn-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+        }
+
+        .why-learn-item p {
+            color: #666;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        /* MEDIA GRID */
         .media-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            padding: 4rem 5%;
         }
 
         .media-card {
@@ -526,20 +442,61 @@
 
         .media-content h5 {
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
         }
 
         .media-content p {
             color: #666;
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
             line-height: 1.6;
         }
 
-        /* Activity Grid */
+        /* SKILLS GRID */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 5%;
+        }
+
+        .skill-card {
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:nth-child(1),
+        .skill-card:nth-child(3) {
+            background: #7cb342;
+            color: #fff;
+        }
+
+        .skill-card:nth-child(2),
+        .skill-card:nth-child(4) {
+            background: #f7e92b;
+            color: #333;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-card p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        /* ACTIVITY GRID */
         .activity-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            padding: 4rem 5%;
         }
 
         .activity-card {
@@ -575,16 +532,16 @@
 
         .activity-content h5 {
             margin-bottom: 0.5rem;
-            font-size: 1rem;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
         }
 
         .activity-content p {
             color: #666;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 2vw, 0.9rem);
             line-height: 1.5;
         }
 
-        /* Placeholder */
+        /* PLACEHOLDER */
         .placeholder {
             width: 100%;
             aspect-ratio: 16/9;
@@ -594,9 +551,10 @@
             justify-content: center;
             color: #aaa;
             font-weight: 600;
+            font-size: clamp(0.85rem, 2vw, 1rem);
         }
 
-        /* Pricing Section */
+        /* PRICING SECTION */
         .pricing-section {
             padding: 4rem 5%;
             background: #fff;
@@ -614,7 +572,7 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -641,13 +599,17 @@
 
         .pricing-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
 
         .pricing-card .price {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
             font-weight: bold;
             margin-bottom: 1rem;
+        }
+
+        .pricing-card p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .pricing-card ul {
@@ -657,6 +619,7 @@
 
         .pricing-card ul li {
             padding: 0.5rem 0;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
         }
 
         .pricing-card ul li::before {
@@ -664,7 +627,7 @@
             margin-right: 0.5rem;
         }
 
-        /* Testimonial Section */
+        /* TESTIMONIAL SECTION */
         .testimonial-section {
             padding: 4rem 5%;
             background: #d4f1f4;
@@ -705,9 +668,19 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
-        /* FAQ Section */
+        .testimonial-card h4 {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        }
+
+        .testimonial-card p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            line-height: 1.6;
+        }
+
+        /* FAQ SECTION */
         .faq-contact-section {
             padding: 4rem 5%;
             background: #d4f1f4;
@@ -733,6 +706,7 @@
             padding: 0.8rem;
             margin-bottom: 1rem;
             border-radius: 5px;
+            font-size: clamp(0.85rem, 2vw, 1rem);
         }
 
         .faq-contact-form textarea {
@@ -749,6 +723,7 @@
             cursor: pointer;
             font-weight: bold;
             width: 100%;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .faq-accordion {
@@ -762,6 +737,10 @@
             padding: 1.5rem 2rem;
             border-radius: 8px;
             cursor: pointer;
+        }
+
+        .faq-item strong {
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .faq-item::after {
@@ -778,13 +757,14 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
         }
 
         .faq-item.active .faq-answer {
             max-height: 500px;
         }
 
-        /* Forum Section */
+        /* FORUM SECTION */
         .forum-section {
             padding: 4rem 5%;
             background: #d4f1f4;
@@ -820,9 +800,35 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
-        /* Footer */
+        .forum-card h4 {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        }
+
+        .forum-card p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            line-height: 1.6;
+        }
+
+        .forum-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .forum-cta h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            margin-bottom: 1rem;
+        }
+
+        .forum-cta p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        /* FOOTER */
         footer {
             background: #f7e92b;
             color: #333;
@@ -831,13 +837,18 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
             margin-bottom: 2rem;
         }
 
         .footer-content h4 {
             margin-bottom: 1rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .footer-content p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
         }
 
         .footer-content a {
@@ -845,16 +856,17 @@
             text-decoration: none;
             display: block;
             margin-bottom: 0.5rem;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
         }
 
         .footer-bottom {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
             padding-top: 2rem;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
         }
 
-        /* Modal */
+        /* MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -866,6 +878,7 @@
             z-index: 9999;
             justify-content: center;
             align-items: center;
+            padding: 1rem;
         }
 
         .modal-overlay.show {
@@ -883,7 +896,7 @@
         }
 
         .modal-icon {
-            font-size: 4rem;
+            font-size: clamp(3rem, 8vw, 4rem);
             margin-bottom: 1rem;
         }
 
@@ -896,13 +909,14 @@
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             margin-bottom: 0.5rem;
         }
 
         .modal-message {
             color: #666;
             margin-bottom: 1.5rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .modal-btn {
@@ -913,6 +927,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .error-text {
@@ -921,9 +936,8 @@
             margin-top: 0.5rem;
         }
 
-        /* Responsive */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
-
             .hero,
             .story-grid,
             .faq-contact-grid,
@@ -931,16 +945,20 @@
                 grid-template-columns: 1fr;
             }
 
-            .media-grid {
-                grid-template-columns: 1fr 1fr;
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .activity-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
+            header {
+                padding: 1rem 3%;
+            }
+
             .hamburger {
                 display: flex;
             }
@@ -966,27 +984,123 @@
             nav a {
                 padding: 1rem 5%;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                width: 100%;
+            }
+
+            .hero {
+                padding: 2rem 3% 4rem;
+                gap: 2rem;
             }
 
             .stats,
             .skills-grid,
             .pricing-grid,
             .testimonial-grid,
-            .forum-grid {
+            .forum-grid,
+            .media-grid,
+            .activity-grid {
                 grid-template-columns: 1fr;
+                padding: 2rem 3%;
+            }
+
+            .story-section,
+            .why-learn-section,
+            .faq-contact-section,
+            .forum-section,
+            .pricing-section,
+            .testimonial-section {
+                padding: 2rem 3%;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
             }
 
-            .media-grid,
-            .activity-grid {
-                grid-template-columns: 1fr;
+            .why-learn-media {
+                height: 250px;
+            }
+
+            .feature-card,
+            .skill-card {
+                padding: 1.5rem;
+            }
+
+            .pricing-card {
+                padding: 2rem;
+            }
+
+            .faq-item {
+                padding: 1rem 1.5rem;
+            }
+
+            .story-grid {
+                gap: 2rem;
+            }
+
+            .why-learn-grid {
+                gap: 2rem;
+            }
+
+            .faq-contact-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 0.8rem 3%;
+            }
+
+            .logo {
+                font-size: 1rem;
             }
 
             .hero {
-                padding: 2rem 5% 4rem;
+                padding: 1.5rem 3% 3rem;
+            }
+
+            .stats {
+                gap: 1rem;
+                padding: 2rem 3%;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .story-section,
+            .why-learn-section {
+                padding: 2rem 3%;
+            }
+
+            .features-grid {
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .media-grid,
+            .activity-grid {
+                gap: 1.5rem;
+            }
+
+            .testimonial-card,
+            .forum-card {
+                padding: 1.5rem;
+}
+
+            .faq-contact-form {
+                padding: 1.5rem;
+            }
+
+            .pricing-card {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -1057,7 +1171,6 @@
         </div>
     </section>
 
-    <!-- Story Section - UPDATED -->
     <section class="story-section">
         <div class="story-grid">
             <div class="story-image">
@@ -1105,69 +1218,59 @@
 
     @foreach ($whyLearnMedias as $index => $media)
         @if ($index == 0)
-            <!-- Section 1 -->
-            <section style="padding: 4rem 5%; background: #fff;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
-                    <div
-                        style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <section class="why-learn-section">
+                <div class="why-learn-grid">
+                    <div class="why-learn-media">
                         @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}"
-                                style="width:100%; height:100%; object-fit:cover;">
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}">
                         @elseif($media->isVideo())
-                            <video controls style="width:100%; height:100%; object-fit:cover;">
+                            <video controls>
                                 <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
                             </video>
                         @endif
                     </div>
-                    <div>
-                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui
-                            Permainan Papan?</h2>
-                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">①
-                                Pengalaman Belajar Interaktif dan Praktis</strong>
-                            <p style="color: #666;">Melalui pengalaman keputusan dan presentasi bisnis dengan feedback
-                                langsung</p>
+                    <div class="why-learn-content">
+                        <h2>Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
+                        <div class="why-learn-item">
+                            <strong>① Pengalaman Belajar Interaktif dan Praktis</strong>
+                            <p>Melalui pengalaman keputusan dan presentasi bisnis dengan feedback langsung</p>
                         </div>
-                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">②
-                                Real-Case Scenario</strong>
-                            <p style="color: #666;">Koleksi tantangan berdasarkan situasi bisnis nyata</p>
+                        <div class="why-learn-item">
+                            <strong>② Real-Case Scenario</strong>
+                            <p>Koleksi tantangan berdasarkan situasi bisnis nyata</p>
                         </div>
-                        <div> <strong style="display: block; margin-bottom: 0.5rem;">③ Belajar Kolaboratif</strong>
-                            <p style="color: #666;">Bermain dengan strategi tim akan bersama dan bekerja sama dengan
-                                orang lain.</p>
+                        <div class="why-learn-item">
+                            <strong>③ Belajar Kolaboratif</strong>
+                            <p>Bermain dengan strategi tim akan bersama dan bekerja sama dengan orang lain.</p>
                         </div>
                     </div>
                 </div>
             </section>
         @elseif($index == 1)
-            <!-- Section 2 -->
-            <section style="padding: 4rem 5%; background: #fff;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
-                    <div
-                        style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <section class="why-learn-section">
+                <div class="why-learn-grid">
+                    <div class="why-learn-media">
                         @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}"
-                                style="width:100%; height:100%; object-fit:cover;">
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}">
                         @elseif($media->isVideo())
-                            <video controls style="width:100%; height:100%; object-fit:cover;">
+                            <video controls>
                                 <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
                             </video>
                         @endif
                     </div>
-                    <div>
-                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui
-                            Permainan Papan?</h2>
-                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">①
-                                Pengalaman Belajar Interaktif dan Praktis</strong>
-                            <p style="color: #666;">Melalui pengalaman keputusan dan presentasi bisnis dengan feedback
-                                langsung</p>
+                    <div class="why-learn-content">
+                        <h2>Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
+                        <div class="why-learn-item">
+                            <strong>① Pengalaman Belajar Interaktif dan Praktis</strong>
+                            <p>Melalui pengalaman keputusan dan presentasi bisnis dengan feedback langsung</p>
                         </div>
-                        <div style="margin-bottom: 1.5rem;"> <strong style="display: block; margin-bottom: 0.5rem;">②
-                                Real-Case Scenario</strong>
-                            <p style="color: #666;">Koleksi tantangan berdasarkan situasi bisnis nyata</p>
+                        <div class="why-learn-item">
+                            <strong>② Real-Case Scenario</strong>
+                            <p>Koleksi tantangan berdasarkan situasi bisnis nyata</p>
                         </div>
-                        <div> <strong style="display: block; margin-bottom: 0.5rem;">③ Belajar Kolaboratif</strong>
-                            <p style="color: #666;">Bermain dengan strategi tim akan bersama dan bekerja sama dengan
-                                orang lain.</p>
+                        <div class="why-learn-item">
+                            <strong>③ Belajar Kolaboratif</strong>
+                            <p>Bermain dengan strategi tim akan bersama dan bekerja sama dengan orang lain.</p>
                         </div>
                     </div>
                 </div>
@@ -1451,10 +1554,9 @@
             @endforelse
         </div>
 
-        <div style="text-align: center; margin-top: 3rem;">
-            <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Siap untuk mengubah pengalaman belajar Anda?</h3>
-            <p style="color: #666; margin-bottom: 2rem;">Bergabunglah dengan ribuan siswa dan pendidik yang sudah
-                menggunakan Waluya Land</p>
+        <div class="forum-cta">
+            <h3>Siap untuk mengubah pengalaman belajar Anda?</h3>
+            <p>Bergabunglah dengan ribuan siswa dan pendidik yang sudah menggunakan Waluya Land</p>
             <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
                 class="btn-primary" style="padding: 1.2rem 3rem;" target="_blank">Dapatkan Sekarang</a>
         </div>
