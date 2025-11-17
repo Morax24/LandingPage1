@@ -977,10 +977,10 @@
                 @endphp
                 @if($heroMedia)
                     @if($heroMedia->isImage())
-                        <img src="{{ $heroMedia->url }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
+                        <img src="{{ $heroMedia->file_path }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
                     @elseif($heroMedia->isVideo())
                         <video controls autoplay muted loop>
-                            <source src="{{ $heroMedia->url }}" type="{{ $heroMedia->mime_type }}">
+                            <source src="{{ $heroMedia->file_path }}" type="{{ $heroMedia->mime_type }}">
                         </video>
                     @endif
                 @else
@@ -1016,10 +1016,10 @@
             @php $storyMedia = $storyMedia ?? null; @endphp
             @if($storyMedia)
                 @if($storyMedia->isImage())
-                    <img src="{{ asset('storage/' . $storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}">
+                    <img src="{{ asset($storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}">
                 @elseif($storyMedia->isVideo())
                     <video controls>
-                        <source src="{{ asset('storage/' . $storyMedia->file_path) }}" type="{{ $storyMedia->mime_type }}">
+                        <source src="{{ asset($storyMedia->file_path) }}" type="{{ $storyMedia->mime_type }}">
                     </video>
                 @endif
             @else
@@ -1052,65 +1052,47 @@
     </div>
 </section>
 
-<!-- Why Learn Section - UPDATED -->
-<section style="padding: 4rem 5%; background: #fff;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="why-learn-grid">
-        <div style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-            @php $whyLearnMedia = $whyLearnMedia ?? null; @endphp
-            @if($whyLearnMedia)
-                @if($whyLearnMedia->isImage())
-                    <img src="{{ asset('storage/' . $whyLearnMedia->file_path) }}"
-                         alt="{{ $whyLearnMedia->title ?? 'Why Learn' }}"
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                @elseif($whyLearnMedia->isVideo())
-                    <video controls style="width: 100%; height: 100%; object-fit: cover;">
-                        <source src="{{ asset('storage/' . $whyLearnMedia->file_path) }}" type="{{ $whyLearnMedia->mime_type }}">
-                    </video>
-                @endif
-            @else
-                <span style="font-size: 4rem;">🎓</span>
-            @endif
-        </div>
-        <div>
-            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
-            <div style="margin-bottom: 1.5rem;">
-                <strong style="display: block; margin-bottom: 0.5rem;">① Pengalaman Belajar Interaktif dan Praktis</strong>
-                <p style="color: #666;">Melalui pengalaman keputusan dan presentasi bisnis dengan feedback langsung</p>
-            </div>
-            <div style="margin-bottom: 1.5rem;">
-                <strong style="display: block; margin-bottom: 0.5rem;">② Real-Case Scenario</strong>
-                <p style="color: #666;">Koleksi tantangan berdasarkan situasi bisnis nyata</p>
-            </div>
-            <div>
-                <strong style="display: block; margin-bottom: 0.5rem;">③ Belajar Kolaboratif</strong>
-                <p style="color: #666;">Bermain dengan strategi tim akan bersama dan bekerja sama dengan orang lain.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <section style="padding: 4rem 5%; background: #fff;">
-        <div class="why-learn-grid">
-            <div style="background: #f0f0f0; min-height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                <span style="font-size: 4rem;">🎓</span>
-            </div>
-            <div>
-                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
-                <div style="margin-bottom: 1.5rem;">
-                    <strong style="display: block; margin-bottom: 0.5rem;">① Pengalaman Belajar Interaktif dan Praktis</strong>
-                    <p style="color: #666;">Melalui pengalaman keputusan dan presentasi bisnis dengan feedback langsung</p>
-                </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <strong style="display: block; margin-bottom: 0.5rem;">② Real-Case Scenario</strong>
-                    <p style="color: #666;">Koleksi tantangan berdasarkan situasi bisnis nyata</p>
+@foreach($whyLearnMedias as $index => $media)
+    @if($index == 0)
+        <!-- Section 1 -->
+        <section style="padding: 4rem 5%; background: #fff;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                <div style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    @if($media->isImage())
+                        <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}" style="width:100%; height:100%; object-fit:cover;">
+                    @elseif($media->isVideo())
+                        <video controls style="width:100%; height:100%; object-fit:cover;">
+                            <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
+                        </video>
+                    @endif
                 </div>
                 <div>
-                    <strong style="display: block; margin-bottom: 0.5rem;">③ Belajar Kolaboratif</strong>
-                    <p style="color: #666;">Bermain dengan strategi tim akan bersama dan bekerja sama dengan orang lain.</p>
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
+                    <!-- konten section 1 -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @elseif($index == 1)
+        <!-- Section 2 -->
+        <section style="padding: 4rem 5%; background: #fff;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                <div style="background: #f0f0f0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    @if($media->isImage())
+                        <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}" style="width:100%; height:100%; object-fit:cover;">
+                    @elseif($media->isVideo())
+                        <video controls style="width:100%; height:100%; object-fit:cover;">
+                            <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
+                        </video>
+                    @endif
+                </div>
+                <div>
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
+                    <!-- konten section 2 -->
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
 
     <section id="features" style="padding:4rem 5%; background:#f8f9fa;">
         <h2 class="section-title">Fitur Unggulan</h2>
@@ -1121,10 +1103,10 @@
                     @if($item)
                         <div class="media-wrapper">
                             @if($item->isImage())
-                                <img src="{{ $item->url }}" alt="{{ $item->title }}">
+                                <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
                             @elseif($item->isVideo())
                                 <video controls>
-                                    <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
+                                    <source src="{{ $item->file_path }}" type="{{ $item->mime_type }}">
                                 </video>
                             @endif
                         </div>
@@ -1182,10 +1164,10 @@
                     @if($item)
                         <div class="activity-wrapper">
                             @if($item->isImage())
-                                <img src="{{ $item->url }}" alt="{{ $item->title }}">
+                                <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
                             @elseif($item->isVideo())
                                 <video controls>
-                                    <source src="{{ $item->url }}" type="{{ $item->mime_type }}">
+                                    <source src="{{ $item->file_path }}" type="{{ $item->mime_type }}">
                                 </video>
                             @endif
                         </div>

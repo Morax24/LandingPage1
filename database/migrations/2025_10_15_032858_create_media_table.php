@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('file_name');
             $table->string('mime_type');
             $table->integer('file_size'); // in bytes
-            $table->enum('section', ['features', 'aktivitas', 'other'])->default('other');
+            $table->enum('section', ['features', 'aktivitas', 'whylearn', 'hero', 'story', 'other'])->default('other');
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('uploaded_by');

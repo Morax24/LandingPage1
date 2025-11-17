@@ -9,9 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Repository\UploadRepository;
+
 
 class MediaController extends Controller
 {
+
+    protected $upload;
+
+    public function __construct()
+    {
+        $this->upload = new UploadRepository();
+    }
+
     /**
      * Display media library
      */
@@ -66,12 +76,18 @@ class MediaController extends Controller
     {
         try {
             $file = $request->file('file');
+            $mimeType = $file->getMimeType();
+            $fileSize = $file->getSize();
+            // $this->upload->save($request->file('foto_cover'));
 
             // Generate unique filename
-            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+            // $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
 
             // Store file
-            $path = $file->storeAs('media/' . $request->type . 's', $filename, 'public');
+            // $path = $file->storeAs('media/' . $request->type . 's', $filename, 'public');
+            $path =  $this->upload->save($file);
+            // return $path;
+            $filename = Str::after($path, 'media/');
 
             // Create media record
             $media = Media::create([
@@ -80,8 +96,8 @@ class MediaController extends Controller
                 'type' => $request->type,
                 'file_path' => $path,
                 'file_name' => $filename,
-                'mime_type' => $file->getMimeType(),
-                'file_size' => $file->getSize(),
+                'mime_type' => $mimeType,
+                'file_size' => $fileSize,
                 'section' => $request->section,
                 'order' => $request->order ?? 0,
                 'uploaded_by' => Auth::id(),
@@ -144,9 +160,10 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
 
         // Delete file from storage
-        if (Storage::disk('public')->exists($media->file_path)) {
-            Storage::disk('public')->delete($media->file_path);
-        }
+        // if (Storage::disk('public')->exists($media->file_path)) {
+        //     Storage::disk('public')->delete($media->file_path);
+        // }
+        
 
         $media->delete();
 

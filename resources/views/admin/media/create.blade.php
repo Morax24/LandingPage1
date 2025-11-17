@@ -493,6 +493,7 @@
                         <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
                         <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
                         <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features (4 slots)</option>
+                        <option value="whylearn" {{ old('section') == 'whylearn' ? 'selected' : '' }}>WhyLearn (2 slots)</option>
                         <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial (6 slots)</option>
                         <!-- <option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option> -->
                     </select>
