@@ -725,7 +725,7 @@
             line-height: 1.6;
         }
 
-        /* FAQ SECTION */
+        /* FAQ SECTION - UPDATED */
         .faq-contact-section {
             padding: 4rem 5%;
             background: #d4f1f4;
@@ -782,6 +782,11 @@
             padding: 1.5rem 2rem;
             border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: #f8f9fa;
         }
 
         .faq-item strong {
@@ -792,6 +797,7 @@
             content: "▼";
             float: right;
             transition: transform 0.3s;
+            font-size: 0.8rem;
         }
 
         .faq-item.active::after {
@@ -807,6 +813,37 @@
 
         .faq-item.active .faq-answer {
             max-height: 500px;
+        }
+
+        /* Mobile Layout - Tampil di bawah 768px */
+        .faq-contact-mobile {
+            display: block;
+        }
+
+        .faq-contact-desktop {
+            display: none;
+        }
+
+        .faq-contact-form-mobile {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .faq-contact-form-mobile input,
+        .faq-contact-form-mobile textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+
+        .faq-contact-form-mobile textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         /* FORUM SECTION */
@@ -985,7 +1022,6 @@
         @media (max-width: 1024px) {
             .hero,
             .story-grid,
-            .faq-contact-grid,
             .why-learn-grid {
                 grid-template-columns: 1fr;
             }
@@ -1084,10 +1120,6 @@
                 gap: 2rem;
             }
 
-            .faq-contact-grid {
-                gap: 2rem;
-            }
-
             /* Grid responsive untuk mobile */
             .grid {
                 grid-template-columns: 1fr;
@@ -1111,6 +1143,15 @@
             .item-3 { grid-row: 4 / span 1; }
             .item-4 { grid-row: 5 / span 1; }
             .item-5 { grid-row: 6 / span 1; }
+
+            /* Desktop Layout - Tampil di atas 768px */
+            .faq-contact-mobile {
+                display: none;
+            }
+
+            .faq-contact-desktop {
+                display: block;
+            }
         }
 
         @media (min-width: 768px) {
@@ -1157,6 +1198,15 @@
                 grid-column: 5 / span 2;
                 grid-row: 5 / span 2;
             }
+
+            /* Mobile Layout - Tampil di bawah 768px */
+            .faq-contact-mobile {
+                display: none;
+            }
+
+            .faq-contact-desktop {
+                display: block;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1199,7 +1249,8 @@
                 padding: 1.5rem;
             }
 
-            .faq-contact-form {
+            .faq-contact-form,
+            .faq-contact-form-mobile {
                 padding: 1.5rem;
             }
 
@@ -1214,6 +1265,15 @@
             /* Grid mobile lebih kecil */
             .grid {
                 grid-template-rows: repeat(6, 250px);
+            }
+
+            /* Mobile Layout - Tampil di bawah 768px */
+            .faq-contact-mobile {
+                display: block;
+            }
+
+            .faq-contact-desktop {
+                display: none;
             }
         }
     </style>
@@ -1562,43 +1622,16 @@
         </div>
     </section>
 
+    <!-- BAGIAN FAQ DENGAN LAYOUT RESPONSIF -->
     <section id="contact" class="faq-contact-section">
         <h2 class="section-title">Frequently Asked Questions</h2>
-        <div class="faq-contact-grid">
-            <div class="faq-contact-form">
-                <p style="margin-bottom: 1.5rem; color: #666;">Punya pertanyaan lain? silahkan cantumkan disini!</p>
-                <form action="{{ route('contact.store') }}" method="POST">
-                    @csrf
-                    <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}"
-                        required>
-                    @error('name')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
 
-                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-                    @error('email')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
-
-                    <input type="text" name="institution" placeholder="Instansi"
-                        value="{{ old('institution') }}">
-                    @error('institution')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
-
-                    <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
-                    @error('message')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
-
-                    <button type="submit" class="btn-submit-faq">Kirim</button>
-                </form>
-            </div>
-
+        <!-- Mobile Layout (satu kolom) -->
+        <div class="faq-contact-mobile">
             <div class="faq-accordion">
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
-                        <strong>Beriaku untuk siapa saja waluya land ini?</strong>
+                        <strong>Berlaku untuk siapa saja waluya land ini?</strong>
                         <div class="faq-answer"
                             style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
                             Waluya Land dirancang untuk siswa SMA/SMK, mahasiswa, dan siapa saja yang ingin belajar
@@ -1618,7 +1651,7 @@
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
-                        <strong>Capaian pelajaran apa yang terpenuhi?</strong>
+                        <strong>Capaian pelajaran apa yang terpenuhi oleh Waluya Land?</strong>
                         <div class="faq-answer"
                             style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
                             Waluya Land membantu mencapai kompetensi pemahaman kewirausahaan, problem solving, kerja
@@ -1638,11 +1671,120 @@
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div>
-                        <strong>Apakah berlaku untuk semua kurikulum?</strong>
+                        <strong>Apakah berlaku untuk semua kejuruan?</strong>
                         <div class="faq-answer"
                             style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
                             Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum
-                            pendidikan.
+                            pendidikan dan kejuruan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-contact-form-mobile">
+                <p style="margin-bottom: 1.5rem; color: #666; text-align: center;">Punya pertanyaan lain? silahkan cantumkan disini</p>
+                <form action="{{ route('contact.store') }}" method="POST">
+                    @csrf
+                    <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
+                    @error('name')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
+                    <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
+                    @error('institution')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
+                    <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
+                    @error('message')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
+                    <button type="submit" class="btn-submit-faq">Kirim</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Desktop Layout (2 kolom - tetap seperti sebelumnya) -->
+        <div class="faq-contact-desktop">
+            <div class="faq-contact-grid">
+                <div class="faq-contact-form">
+                    <p style="margin-bottom: 1.5rem; color: #666;">Punya pertanyaan lain? silahkan cantumkan disini!</p>
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
+                        @error('name')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
+                        @error('institution')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
+                        @error('message')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <button type="submit" class="btn-submit-faq">Kirim</button>
+                    </form>
+                </div>
+
+                <div class="faq-accordion">
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div>
+                            <strong>Berlaku untuk siapa saja waluya land ini?</strong>
+                            <div class="faq-answer"
+                                style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                                Waluya Land dirancang untuk siswa SMA/SMK, mahasiswa, dan siapa saja yang ingin belajar
+                                kewirausahaan dengan cara yang menyenangkan dan interaktif.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div>
+                            <strong>Adakah panduan bermain bagi kami?</strong>
+                            <div class="faq-answer"
+                                style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                                Ya, setiap paket Waluya Land dilengkapi dengan buku panduan lengkap yang menjelaskan aturan
+                                permainan dan cara bermain.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div>
+                            <strong>Capaian pelajaran apa yang terpenuhi oleh Waluya Land?</strong>
+                            <div class="faq-answer"
+                                style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                                Waluya Land membantu mencapai kompetensi pemahaman kewirausahaan, problem solving, kerja
+                                tim, dan pengambilan keputusan bisnis.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div>
+                            <strong>Apa waluya land ini?</strong>
+                            <div class="faq-answer"
+                                style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                                Waluya Land adalah board game edukatif yang mengajarkan konsep kewirausahaan dan bisnis
+                                melalui permainan interaktif.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div>
+                            <strong>Apakah berlaku untuk semua kejuruan?</strong>
+                            <div class="faq-answer"
+                                style="display: none; margin-top: 0.5rem; color: #666; font-weight: normal;">
+                                Ya, Waluya Land dirancang fleksibel dan dapat disesuaikan dengan berbagai kurikulum
+                                pendidikan dan kejuruan.
+                            </div>
                         </div>
                     </div>
                 </div>
