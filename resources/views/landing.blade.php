@@ -294,6 +294,11 @@
             margin-bottom: 1rem;
         }
 
+        .story-content h3 {
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            margin-bottom: 1rem;
+        }
+
         .story-content p {
             color: #666;
             line-height: 1.8;
@@ -400,57 +405,6 @@
             font-size: clamp(0.85rem, 2vw, 0.95rem);
         }
 
-        /* MEDIA GRID */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 4rem 5%;
-        }
-
-        .media-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-        }
-
-        .media-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-        }
-
-        .media-wrapper {
-            width: 100%;
-            background: #f5f5f5;
-            overflow: hidden;
-        }
-
-        .media-wrapper img,
-        .media-wrapper video {
-            width: 100%;
-            height: auto;
-            display: block;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-        }
-
-        .media-content {
-            padding: 1.5rem;
-        }
-
-        .media-content h5 {
-            margin-bottom: 0.5rem;
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
-        }
-
-        .media-content p {
-            color: #666;
-            font-size: clamp(0.85rem, 2vw, 0.95rem);
-            line-height: 1.6;
-        }
-
         /* SKILLS GRID */
         .skills-grid {
             display: grid;
@@ -491,60 +445,10 @@
             font-size: clamp(0.85rem, 2vw, 0.95rem);
         }
 
-        /* ACTIVITY GRID */
-        .activity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 4rem 5%;
-        }
-
-        .activity-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-        }
-
-        .activity-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .activity-wrapper {
-            width: 100%;
-            background: #f5f5f5;
-            overflow: hidden;
-        }
-
-        .activity-wrapper img,
-        .activity-wrapper video {
-            width: 100%;
-            height: auto;
-            display: block;
-            aspect-ratio: 3/2;
-            object-fit: cover;
-        }
-
-        .activity-content {
-            padding: 1.2rem;
-        }
-
-        .activity-content h5 {
-            margin-bottom: 0.5rem;
-            font-size: clamp(0.95rem, 2.5vw, 1rem);
-        }
-
-        .activity-content p {
-            color: #666;
-            font-size: clamp(0.85rem, 2vw, 0.9rem);
-            line-height: 1.5;
-        }
-
         /* PLACEHOLDER */
         .placeholder {
             width: 100%;
-            aspect-ratio: 16/9;
+            height: 100%;
             background: #eaeaea;
             display: flex;
             align-items: center;
@@ -552,6 +456,147 @@
             color: #aaa;
             font-weight: 600;
             font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+
+        /* NEW FEATURES GRID - ZIGZAG LAYOUT */
+        .features-zigzag {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .feature-media-box {
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-media-box img,
+        .feature-media-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .feature-text-box {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+        }
+
+        .feature-text-box h3 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-text-box p {
+            color: #666;
+            line-height: 1.8;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        /* Desktop Layout - Zigzag */
+        @media (min-width: 768px) {
+            .feature-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+
+            .feature-row:nth-child(even) .feature-media-box {
+                order: 2;
+            }
+
+            .feature-row:nth-child(even) .feature-text-box {
+                order: 1;
+            }
+
+            .feature-media-box {
+                min-height: 400px;
+            }
+        }
+
+        /* NEW GRID LAYOUT FOR AKTIVITAS */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 8px;
+            margin-top: 2rem;
+        }
+
+        .item {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .item img,
+        .item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mobile-only {
+            display: block;
+        }
+
+        .desktop-only {
+            display: none;
+        }
+
+        .item-0 {
+            grid-column: 1 / span 4;
+            grid-row: 1 / span 4;
+        }
+
+        .item-1 {
+            grid-column: 5 / span 2;
+            grid-row: 1 / span 2;
+        }
+
+        .item-2 {
+            grid-column: 5 / span 2;
+            grid-row: 3 / span 2;
+        }
+
+        .item-3 {
+            grid-column: 1 / span 2;
+            grid-row: 5 / span 2;
+        }
+
+        .item-4 {
+            grid-column: 3 / span 2;
+            grid-row: 5 / span 2;
+        }
+
+        .item-5 {
+            grid-column: 5 / span 2;
+            grid-row: 5 / span 2;
         }
 
         /* PRICING SECTION */
@@ -996,9 +1041,7 @@
             .skills-grid,
             .pricing-grid,
             .testimonial-grid,
-            .forum-grid,
-            .media-grid,
-            .activity-grid {
+            .forum-grid {
                 grid-template-columns: 1fr;
                 padding: 2rem 3%;
             }
@@ -1044,6 +1087,76 @@
             .faq-contact-grid {
                 gap: 2rem;
             }
+
+            /* Grid responsive untuk mobile */
+            .grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(6, 300px);
+                gap: 12px;
+            }
+
+            .item-0,
+            .item-1,
+            .item-2,
+            .item-3,
+            .item-4,
+            .item-5 {
+                grid-column: 1 / span 1;
+                grid-row: auto;
+            }
+
+            .item-0 { grid-row: 1 / span 1; }
+            .item-1 { grid-row: 2 / span 1; }
+            .item-2 { grid-row: 3 / span 1; }
+            .item-3 { grid-row: 4 / span 1; }
+            .item-4 { grid-row: 5 / span 1; }
+            .item-5 { grid-row: 6 / span 1; }
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: repeat(6, 1fr);
+                gap: 16px;
+            }
+
+            .mobile-only {
+                display: none;
+            }
+
+            .desktop-only {
+                display: block;
+            }
+
+            .item-0 {
+                grid-column: 1 / span 4;
+                grid-row: 1 / span 4;
+            }
+
+            .item-1 {
+                grid-column: 5 / span 2;
+                grid-row: 1 / span 2;
+            }
+
+            .item-2 {
+                grid-column: 5 / span 2;
+                grid-row: 3 / span 2;
+            }
+
+            .item-3 {
+                grid-column: 1 / span 2;
+                grid-row: 5 / span 2;
+            }
+
+            .item-4 {
+                grid-column: 3 / span 2;
+                grid-row: 5 / span 2;
+            }
+
+            .item-5 {
+                grid-column: 5 / span 2;
+                grid-row: 5 / span 2;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1081,15 +1194,10 @@
                 padding: 1.5rem;
             }
 
-            .media-grid,
-            .activity-grid {
-                gap: 1.5rem;
-            }
-
             .testimonial-card,
             .forum-card {
                 padding: 1.5rem;
-}
+            }
 
             .faq-contact-form {
                 padding: 1.5rem;
@@ -1101,6 +1209,11 @@
 
             .modal-content {
                 padding: 1.5rem;
+            }
+
+            /* Grid mobile lebih kecil */
+            .grid {
+                grid-template-rows: repeat(6, 250px);
             }
         }
     </style>
@@ -1139,10 +1252,10 @@
                 @endphp
                 @if ($heroMedia)
                     @if ($heroMedia->isImage())
-                        <img src="{{ $heroMedia->file_path }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
+                        <img src="{{ asset($heroMedia->file_path) }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
                     @elseif($heroMedia->isVideo())
                         <video controls autoplay muted loop>
-                            <source src="{{ $heroMedia->file_path }}" type="{{ $heroMedia->mime_type }}">
+                            <source src="{{ asset($heroMedia->file_path) }}" type="{{ $heroMedia->mime_type }}">
                         </video>
                     @endif
                 @else
@@ -1216,7 +1329,7 @@
         </div>
     </section>
 
-    @foreach ($whyLearnMedias as $index => $media)
+    @foreach ($whyLearnMedias ?? [] as $index => $media)
         @if ($index == 0)
             <section class="why-learn-section">
                 <div class="why-learn-grid">
@@ -1247,68 +1360,74 @@
                 </div>
             </section>
         @elseif($index == 1)
-            <section class="why-learn-section">
+            <section class="why-learn-section" style="background:#f8f9fa;">
                 <div class="why-learn-grid">
+                    <div class="why-learn-content">
+                        <h2>Keterampilan yang Akan Anda Dapatkan</h2>
+                        <p style="color:#666; margin-bottom:2rem;">Main keterampilan kewirausahaan yang sukses melalui permainan yang menarik</p>
+                    </div>
                     <div class="why-learn-media">
                         @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}">
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Skills' }}">
                         @elseif($media->isVideo())
                             <video controls>
                                 <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
                             </video>
                         @endif
                     </div>
-                    <div class="why-learn-content">
-                        <h2>Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
-                        <div class="why-learn-item">
-                            <strong>① Pengalaman Belajar Interaktif dan Praktis</strong>
-                            <p>Melalui pengalaman keputusan dan presentasi bisnis dengan feedback langsung</p>
-                        </div>
-                        <div class="why-learn-item">
-                            <strong>② Real-Case Scenario</strong>
-                            <p>Koleksi tantangan berdasarkan situasi bisnis nyata</p>
-                        </div>
-                        <div class="why-learn-item">
-                            <strong>③ Belajar Kolaboratif</strong>
-                            <p>Bermain dengan strategi tim akan bersama dan bekerja sama dengan orang lain.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         @endif
     @endforeach
 
-    <section id="features" style="padding:4rem 5%; background:#f8f9fa;">
+    <!-- BAGIAN FITUR UNGGULAN DENGAN LAYOUT ZIGZAG -->
+    <section id="features" style="padding:4rem 5%; background:#d4f1f4;">
+        <span class="story-badge">Features</span>
         <h2 class="section-title">Fitur Unggulan</h2>
-        <div class="media-grid">
-            @for ($i = 0; $i < 4; $i++)
-                @php $item = $featuresMedia[$i] ?? null; @endphp
-                <div class="media-card">
-                    @if ($item)
-                        <div class="media-wrapper">
-                            @if ($item->isImage())
-                                <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
-                            @elseif($item->isVideo())
-                                <video controls>
-                                    <source src="{{ $item->file_path }}" type="{{ $item->mime_type }}">
-                                </video>
-                            @endif
-                        </div>
-                        <div class="media-content">
-                            <h5>{{ $item->title }}</h5>
-                            <p>{{ $item->description }}</p>
-                        </div>
-                    @else
-                        <div class="media-wrapper">
-                            <div class="placeholder">Slot Kosong</div>
-                        </div>
-                        <div class="media-content">
-                            <h5>Slot Fitur {{ $i + 1 }}</h5>
-                            <p>Tambahkan fitur di admin panel</p>
-                        </div>
-                    @endif
+
+        <div class="features-zigzag">
+            @php
+                $featuresMedia = $featuresMedia ?? collect();
+            @endphp
+
+            @foreach($featuresMedia->take(4) as $index => $item)
+                <div class="feature-row">
+                    <div class="feature-media-box">
+                        @if ($item->isVideo())
+                            <video controls style="width:100%; height:100%; object-fit:cover;">
+                                <source src="{{ asset($item->file_path) }}" type="{{ $item->mime_type }}">
+                            </video>
+                        @elseif($item->isImage())
+                            <img src="{{ asset($item->file_path) }}" alt="{{ $item->title }}" style="width:100%; height:100%; object-fit:cover;">
+                        @else
+                            <div class="placeholder">Feature {{ $index + 1 }}</div>
+                        @endif
+                    </div>
+                    <div class="feature-text-box">
+                        <h3>{{ $item->title ?? 'Fitur Unggulan ' . ($index + 1) }}</h3>
+                        <p>{{ $item->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}</p>
+                    </div>
                 </div>
-            @endfor
+            @endforeach
+
+            <!-- Fallback jika tidak ada data -->
+            @if($featuresMedia->count() == 0)
+                @for($i = 0; $i < 4; $i++)
+                    <div class="feature-row">
+                        <div class="feature-media-box">
+                            <div class="placeholder">Feature {{ $i + 1 }}</div>
+                        </div>
+                        <div class="feature-text-box">
+                            <h3>Fitur Unggulan {{ $i + 1 }}</h3>
+                            <p>Deskripsi fitur {{ $i + 1 }} akan ditampilkan di sini.</p>
+                        </div>
+                    </div>
+                @endfor
+            @endif
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#pricing" class="btn-primary">Dapatkan Sekarang</a>
         </div>
     </section>
 
@@ -1339,37 +1458,45 @@
         </div>
     </section>
 
+    <!-- BAGIAN AKTIVITAS DENGAN GRID LAYOUT BARU -->
     <section id="aktivitas" style="padding:4rem 5%;background:#fff;">
-        <h2 class="section-title">Aktivitas & Tutorial</h2>
-        <div class="activity-grid">
-            @for ($i = 0; $i < 6; $i++)
-                @php $item = $aktivitasMedia[$i] ?? null; @endphp
-                <div class="activity-card">
-                    @if ($item)
-                        <div class="activity-wrapper">
-                            @if ($item->isImage())
-                                <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
-                            @elseif($item->isVideo())
-                                <video controls>
-                                    <source src="{{ $item->file_path }}" type="{{ $item->mime_type }}">
-                                </video>
-                            @endif
-                        </div>
-                        <div class="activity-content">
-                            <h5>{{ $item->title }}</h5>
-                            <p>{{ $item->description }}</p>
-                        </div>
+        <h2 class="section-title">Aktivitas Terbaru & Tutorial</h2>
+        <p class="section-subtitle">Kumpulan aktivitas bermain GameBoard & bagaimana kita menggunakannya</p>
+
+        <div class="grid">
+            @php
+                $aktivitasMedia = $aktivitasMedia ?? collect();
+            @endphp
+
+            @foreach($aktivitasMedia->take(6) as $index => $item)
+                <div class="item item-{{ $index }}">
+                    @if ($item->isVideo())
+                        <video controls style="width:100%; height:100%; object-fit:cover;">
+                            <source src="{{ asset($item->file_path) }}" type="{{ $item->mime_type }}">
+                        </video>
+                    @elseif($item->isImage())
+                        <img src="{{ asset($item->file_path) }}" alt="{{ $item->title ?? 'Aktivitas ' . ($index + 1) }}"
+                             style="width:100%; height:100%; object-fit:cover;">
                     @else
-                        <div class="activity-wrapper">
-                            <div class="placeholder">Slot Kosong</div>
-                        </div>
-                        <div class="activity-content">
-                            <h5>Slot Aktivitas {{ $i + 1 }}</h5>
-                            <p>Tambahkan aktivitas di admin panel</p>
+                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+                                   background:#7cb342; color:#fff; font-weight:bold; font-size:1.2rem;">
+                            Aktivitas {{ $index + 1 }}
                         </div>
                     @endif
                 </div>
-            @endfor
+            @endforeach
+
+            <!-- Fallback jika tidak ada data -->
+            @if($aktivitasMedia->count() == 0)
+                @for($i = 0; $i < 6; $i++)
+                    <div class="item item-{{ $i }}">
+                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+                                   background:#7cb342; color:#fff; font-weight:bold; font-size:1.2rem;">
+                            Aktivitas {{ $i + 1 }}
+                        </div>
+                    </div>
+                @endfor
+            @endif
         </div>
     </section>
 

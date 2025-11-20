@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background: #E8F4F8;
             color: #333;
         }
 
@@ -26,7 +26,7 @@
         /* Sidebar */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            background: #5FB574;
             color: #fff;
             padding: 0;
             position: fixed;
@@ -37,19 +37,31 @@
 
         .sidebar-header {
             padding: 2rem 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
         .sidebar-header h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-square {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .sidebar-header p {
             font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
+            margin-left: 38px;
         }
 
         .sidebar-menu {
@@ -70,13 +82,13 @@
 
         .menu-item:hover {
             background: rgba(255,255,255,0.15);
-            border-left-color: #fff;
+            border-left-color: #F9D56E;
             color: #fff;
         }
 
         .menu-item.active {
             background: rgba(255,255,255,0.2);
-            border-left-color: #fff;
+            border-left-color: #F9D56E;
             color: #fff;
             font-weight: 600;
         }
@@ -92,8 +104,8 @@
             bottom: 0;
             width: 100%;
             padding: 1.5rem;
-            background: rgba(0,0,0,0.2);
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
 
         .user-profile {
@@ -107,12 +119,13 @@
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: #F9D56E;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
+            color: #5FB574;
             border: 2px solid rgba(255,255,255,0.5);
         }
 
@@ -123,15 +136,15 @@
 
         .user-info p {
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.8);
         }
 
         .btn-logout {
-            background: rgba(255,255,255,0.2);
+            background: #FF8A5B;
             color: #fff;
             padding: 0.7rem 1.8rem;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 8px;
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
@@ -141,7 +154,8 @@
         }
 
         .btn-logout:hover {
-            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,138,91,0.4);
         }
 
         /* Main Content */
@@ -159,8 +173,8 @@
         .admin-header {
             background: #fff;
             padding: 1.5rem 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
@@ -173,11 +187,11 @@
         }
 
         .btn {
-            padding: 0.6rem 1.5rem;
+            padding: 0.7rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
@@ -188,32 +202,40 @@
             color: #fff;
         }
 
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
         .btn-primary {
-            background: #667eea;
+            background: #5FB574;
             color: #fff;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .btn-primary:hover {
+            background: #4FA564;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(95,181,116,0.4);
         }
 
         .alert {
             padding: 1rem 1.5rem;
-            border-radius: 5px;
+            border-radius: 12px;
             margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: #FFE8E1;
+            color: #D96F4A;
+            border: 2px solid #FF8A5B;
         }
 
         .upload-form {
             background: #fff;
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
         }
 
         .form-group {
@@ -231,11 +253,12 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.8rem 1rem;
+            border: 2px solid #E8F4F8;
+            border-radius: 10px;
             font-family: inherit;
             font-size: 1rem;
+            transition: all 0.3s;
         }
 
         .form-group textarea {
@@ -247,50 +270,58 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #5FB574;
+            background: #F7FCF9;
         }
 
         .form-help {
             font-size: 0.85rem;
             color: #666;
             margin-top: 0.3rem;
+            display: block;
         }
 
         .error-text {
-            color: #e74c3c;
+            color: #FF8A5B;
             font-size: 0.85rem;
             display: block;
             margin-top: 0.3rem;
+            font-weight: 500;
         }
 
         .file-upload-area {
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 2rem;
+            border: 3px dashed #E8F4F8;
+            border-radius: 15px;
+            padding: 3rem 2rem;
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
+            background: #F7FCF9;
         }
 
         .file-upload-area:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+            border-color: #5FB574;
+            background: #fff;
+            transform: scale(1.01);
         }
 
         .file-upload-area.dragover {
-            border-color: #667eea;
-            background: #f8f9ff;
+            border-color: #5FB574;
+            background: #E8F5EC;
+            transform: scale(1.02);
         }
 
         .file-upload-icon {
-            font-size: 3rem;
-            color: #999;
+            font-size: 3.5rem;
+            color: #5FB574;
             margin-bottom: 1rem;
         }
 
         .file-upload-text {
-            color: #666;
+            color: #555;
             margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         #fileInput {
@@ -298,7 +329,7 @@
         }
 
         .file-preview {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             display: none;
         }
 
@@ -308,9 +339,10 @@
 
         .preview-container {
             max-width: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             margin-top: 1rem;
+            border: 2px solid #E8F4F8;
         }
 
         .preview-container img,
@@ -321,15 +353,21 @@
         }
 
         .file-info {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 5px;
+            background: #F7FCF9;
+            padding: 1.2rem;
+            border-radius: 10px;
             margin-top: 1rem;
+            border: 2px solid #E8F4F8;
         }
 
         .file-info p {
             margin: 0.3rem 0;
             font-size: 0.9rem;
+            color: #555;
+        }
+
+        .file-info strong {
+            color: #5FB574;
         }
 
         .form-actions {
@@ -338,7 +376,7 @@
             justify-content: flex-end;
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid #eee;
+            border-top: 2px solid #E8F4F8;
         }
 
         /* Responsive */
@@ -347,7 +385,7 @@
                 width: 80px;
             }
 
-            .sidebar-header h2,
+            .sidebar-header h2 span:not(.logo-square),
             .sidebar-header p,
             .menu-item span,
             .user-info,
@@ -368,12 +406,22 @@
                 padding: 0;
             }
 
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
             .form-actions {
                 flex-direction: column;
             }
 
             .btn {
                 width: 100%;
+            }
+
+            .file-upload-area {
+                padding: 2rem 1rem;
             }
         }
     </style>
@@ -383,8 +431,8 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2>🏢 Admin Panel</h2>
-                <p>Malaya Land Management</p>
+                <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
+                <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">
@@ -453,7 +501,7 @@
                         <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('fileInput').click()">
                             <div class="file-upload-icon">📁</div>
                             <div class="file-upload-text">Klik atau drag & drop file ke sini</div>
-                            <small class="form-help" id="fileHelp">Pilih tipe media terlebih dahulu</small>
+                            <small class="form-help" id="fileHelp" style="color: #999;">Pilih tipe media terlebih dahulu</small>
                         </div>
                         <input type="file" name="file" id="fileInput" accept="" onchange="handleFileSelect(event)">
                         @error('file')
@@ -489,31 +537,23 @@
                     <div class="form-group">
                         <label for="section">Section *</label>
                         <select name="section" id="section" required onchange="updateSectionInfo()">
-                        <option value="">-- Pilih Section --</option>
-                        <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
-                        <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
-                        <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features (4 slots)</option>
-                        <option value="whylearn" {{ old('section') == 'whylearn' ? 'selected' : '' }}>WhyLearn (2 slots)</option>
-                        <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial (6 slots)</option>
-                        <!-- <option value="other" {{ old('section') == 'other' ? 'selected' : '' }}>Other</option> -->
-                    </select>
+                            <option value="">-- Pilih Section --</option>
+                            <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
+                            <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
+                            <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features (4 slots)</option>
+                            <option value="whylearn" {{ old('section') == 'whylearn' ? 'selected' : '' }}>WhyLearn (2 slots)</option>
+                            <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial (6 slots)</option>
+                        </select>
                         @error('section')
                             <span class="error-text">{{ $message }}</span>
                         @enderror
                         <small class="form-help" id="sectionHelp">Pilih di section mana media ini akan ditampilkan</small>
                     </div>
 
-                    <!-- Order
-                    <div class="form-group">
-                        <label for="order">Urutan (Order)</label>
-                        <input type="number" name="order" id="order" min="0" value="{{ old('order', 0) }}" placeholder="0">
-                        <small class="form-help">Angka lebih kecil akan muncul lebih dulu</small>
-                    </div>-->
-
                     <!-- Form Actions -->
                     <div class="form-actions">
                         <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">Batal</a>
-                        <button type="submit" class="btn btn-primary">Upload Media</button>
+                        <button type="submit" class="btn btn-primary">📤 Upload Media</button>
                     </div>
                 </form>
             </div>
@@ -533,15 +573,22 @@
             if (type === 'image') {
                 fileInput.accept = 'image/jpeg,image/png,image/jpg,image/webp';
                 typeHelp.textContent = 'Format: JPEG, PNG, JPG, WEBP | Max: 5MB';
+                typeHelp.style.color = '#5FB574';
+                typeHelp.style.fontWeight = '500';
                 fileHelp.textContent = 'Klik atau drag & drop gambar ke sini (Max 5MB)';
+                fileHelp.style.color = '#5FB574';
             } else if (type === 'video') {
                 fileInput.accept = 'video/mp4,video/webm,video/ogg';
                 typeHelp.textContent = 'Format: MP4, WEBM, OGG | Max: 50MB';
+                typeHelp.style.color = '#5FB574';
+                typeHelp.style.fontWeight = '500';
                 fileHelp.textContent = 'Klik atau drag & drop video ke sini (Max 50MB)';
+                fileHelp.style.color = '#5FB574';
             } else {
                 fileInput.accept = '';
                 typeHelp.textContent = '';
                 fileHelp.textContent = 'Pilih tipe media terlebih dahulu';
+                fileHelp.style.color = '#999';
             }
         }
 
@@ -623,32 +670,33 @@
         });
 
         function updateSectionInfo() {
-    const section = document.getElementById('section').value;
-    const sectionHelp = document.getElementById('sectionHelp');
+            const section = document.getElementById('section').value;
+            const sectionHelp = document.getElementById('sectionHelp');
 
-    const descriptions = {
-        'hero': '🎯 Hero section - gambar board game utama. Hanya 1 media aktif yang ditampilkan.',
-        'story': '📖 Story section - gambar box di samping cerita. Hanya 1 media aktif yang ditampilkan.',
-        'features': '⭐ Features section. Maksimal 4 slot yang ditampilkan.',
-        'aktivitas': '🎮 Aktivitas & Tutorial section. Maksimal 6 slot yang ditampilkan.',
-        'other': '📁 Media lain yang tidak ditampilkan di landing page.'
-    };
+            const descriptions = {
+                'hero': '🎯 Hero section - gambar board game utama. Hanya 1 media aktif yang ditampilkan.',
+                'story': '📖 Story section - gambar box di samping cerita. Hanya 1 media aktif yang ditampilkan.',
+                'features': '⭐ Features section. Maksimal 4 slot yang ditampilkan.',
+                'whylearn': '💡 WhyLearn section. Maksimal 2 slot yang ditampilkan.',
+                'aktivitas': '🎮 Aktivitas & Tutorial section. Maksimal 6 slot yang ditampilkan.',
+                'other': '📁 Media lain yang tidak ditampilkan di landing page.'
+            };
 
-    if (section && descriptions[section]) {
-        sectionHelp.textContent = descriptions[section];
-        sectionHelp.style.color = '#667eea';
-        sectionHelp.style.fontWeight = '500';
-    } else {
-        sectionHelp.textContent = 'Pilih di section mana media ini akan ditampilkan';
-        sectionHelp.style.color = '#666';
-        sectionHelp.style.fontWeight = 'normal';
-    }
-}
+            if (section && descriptions[section]) {
+                sectionHelp.textContent = descriptions[section];
+                sectionHelp.style.color = '#5FB574';
+                sectionHelp.style.fontWeight = '500';
+            } else {
+                sectionHelp.textContent = 'Pilih di section mana media ini akan ditampilkan';
+                sectionHelp.style.color = '#666';
+                sectionHelp.style.fontWeight = 'normal';
+            }
+        }
 
-// Auto-call saat halaman load
-document.addEventListener('DOMContentLoaded', function() {
-    updateSectionInfo();
-});
+        // Auto-call saat halaman load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSectionInfo();
+        });
     </script>
 </body>
 </html>
