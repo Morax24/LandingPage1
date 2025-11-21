@@ -33,6 +33,8 @@
             height: 100vh;
             overflow-y: auto;
             box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-header {
@@ -144,6 +146,8 @@
             margin-left: 280px;
             flex: 1;
             padding: 2rem;
+            width: calc(100% - 280px);
+            transition: margin-left 0.3s ease;
         }
 
         /* Header */
@@ -156,11 +160,99 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .page-header h1 {
             font-size: 1.8rem;
             color: #333;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #5FB574;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #4FA564;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(95,181,116,0.4);
+        }
+
+        .btn-success {
+            background: #5FB574;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #4FA564;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #FF8A5B;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #E67A4B;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: #F9D56E;
+            color: #333;
+        }
+
+        .btn-warning:hover {
+            background: #E9C55E;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .btn-info:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            border-radius: 8px;
         }
 
         .btn-logout {
@@ -243,6 +335,7 @@
             border-radius: 10px;
             font-size: 0.95rem;
             transition: all 0.3s;
+            min-width: 150px;
         }
 
         .filters select:focus,
@@ -253,48 +346,7 @@
 
         .filters input[type="text"] {
             flex: 1;
-            min-width: 250px;
-        }
-
-        .btn {
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: #5FB574;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background: #4FA564;
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: #5FB574;
-            color: #fff;
-        }
-
-        .btn-danger {
-            background: #FF8A5B;
-            color: #fff;
-        }
-
-        .btn-warning {
-            background: #F9D56E;
-            color: #333;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 200px;
         }
 
         /* Bulk Actions */
@@ -305,17 +357,19 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 1rem;
             display: none;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .bulk-actions.active {
             display: flex;
-            gap: 1rem;
-            align-items: center;
         }
 
         .bulk-actions span {
             font-weight: 600;
             color: #5FB574;
+            margin-right: 1rem;
         }
 
         /* Table */
@@ -329,6 +383,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 800px;
         }
 
         thead {
@@ -357,6 +412,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
+            display: inline-block;
         }
 
         .badge-pending {
@@ -377,12 +433,7 @@
         .action-buttons {
             display: flex;
             gap: 0.5rem;
-        }
-
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            border-radius: 8px;
+            flex-wrap: wrap;
         }
 
         /* Alert Messages */
@@ -399,64 +450,208 @@
             border: 2px solid #5FB574;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
+        .alert-info {
+            background: #E8F4F8;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #5FB574;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Overlay for mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 80px;
-            }
-
-            .sidebar-header h2 span:not(.logo-square),
-            .sidebar-header p,
-            .menu-item span,
-            .user-info,
-            .sidebar-footer form {
-                display: none;
-            }
-
-            .menu-item {
-                justify-content: center;
-                padding: 1.2rem;
-            }
-
+        @media (max-width: 992px) {
             .main-content {
-                margin-left: 80px;
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
             }
 
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .page-header {
+                padding: 1rem;
+                margin-top: 3rem;
+            }
+
+            .filters form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters input[type="text"],
+            .filters select {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-card h3 {
+                font-size: 2rem;
+            }
+
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-actions {
+                justify-content: center;
+            }
+
+            .bulk-actions {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .table-container {
+                border-radius: 10px;
                 overflow-x: auto;
             }
 
-            table {
-                min-width: 800px;
+            .action-buttons {
+                flex-direction: column;
             }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+
+            .page-header {
+                padding: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .filters {
+                padding: 1rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .stat-card {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .stat-card h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Pagination Styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .pagination a, .pagination span {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .pagination a:hover {
+            background: #5FB574;
+            color: white;
+            border-color: #5FB574;
+        }
+
+        .pagination .current {
+            background: #5FB574;
+            color: white;
+            border-color: #5FB574;
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    <div class="overlay" id="overlay"></div>
+
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
                 <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">
+                <!-- TAMBAHKAN LINK KE DASHBOARD -->
+                <a href="{{ route('admin.dashboard') }}" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
                 <a href="{{ route('admin.contacts.index') }}" class="menu-item active">
                     <span class="menu-icon">📧</span>
                     <span>Kelola Pesan</span>
                 </a>
-                <a href="http://127.0.0.1:8000/admin/media" class="menu-item">
+                <a href="{{ route('admin.media.index') }}" class="menu-item">
                     <span class="menu-icon">🖼️</span>
                     <span>Media Library</span>
                 </a>
@@ -481,8 +676,10 @@
         <main class="main-content">
             <div class="page-header">
                 <h1>📧 Kelola Pesan Contact</h1>
-                <div class="user-info">
-                    <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
+                <div class="header-actions">
+                    <!-- TAMBAHKAN BUTTON DASHBOARD -->
+
+                <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
                 </div>
             </div>
 
@@ -532,7 +729,7 @@
                     <input type="text" name="search" placeholder="Cari nama, email, atau pesan..." value="{{ request('search') }}">
 
                     <button type="submit" class="btn btn-primary">Filter</button>
-                    <a href="{{ route('admin.contacts.index') }}" class="btn" style="background: #95a5a6; color: #fff;">Reset</a>
+                    <a href="{{ route('admin.contacts.index') }}" class="btn btn-secondary">Reset</a>
                 </form>
             </div>
 
@@ -597,7 +794,7 @@
                 </table>
 
                 <!-- Pagination -->
-                <div style="padding: 1.5rem; display: flex; justify-content: center;">
+                <div class="pagination">
                     {{ $contacts->links() }}
                 </div>
             </div>
@@ -605,6 +802,19 @@
     </div>
 
     <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
+
         // Select All Checkbox
         document.getElementById('selectAll').addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.contact-checkbox');
@@ -666,6 +876,14 @@
             document.body.appendChild(form);
             form.submit();
         }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>

@@ -33,6 +33,8 @@
             height: 100vh;
             overflow-y: auto;
             box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-header {
@@ -163,6 +165,8 @@
             margin-left: 280px;
             flex: 1;
             padding: 2rem;
+            width: calc(100% - 280px);
+            transition: margin-left 0.3s ease;
         }
 
         /* Header */
@@ -175,6 +179,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .page-header h1 {
@@ -186,6 +192,7 @@
             display: flex;
             gap: 1rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -197,6 +204,7 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
+            text-align: center;
         }
 
         .btn-primary {
@@ -247,6 +255,16 @@
 
         .btn-secondary:hover {
             background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .btn-info:hover {
+            background: #2980b9;
             transform: translateY(-2px);
         }
 
@@ -314,6 +332,7 @@
             border-radius: 10px;
             font-size: 0.95rem;
             transition: all 0.3s;
+            min-width: 150px;
         }
 
         .filters select:focus,
@@ -325,7 +344,7 @@
 
         .filters input[type="text"] {
             flex: 1;
-            min-width: 250px;
+            min-width: 200px;
         }
 
         /* Alert */
@@ -348,51 +367,49 @@
             border: 2px solid #FF8A5B;
         }
 
-        /* Media Grid */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
+        /* Media List */
+        .media-list {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
             margin-top: 2rem;
         }
 
         .media-item {
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            position: relative;
+            display: flex;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            align-items: flex-start;
+            gap: 1rem;
         }
 
-        .media-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        .media-item:last-child {
+            border-bottom: none;
         }
 
         .media-checkbox {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
+            margin-top: 0.5rem;
         }
 
         .media-checkbox input {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
             accent-color: #5FB574;
         }
 
         .media-preview {
-            width: 100%;
-            height: 200px;
+            width: 80px;
+            height: 80px;
             background: #F7FCF9;
+            border-radius: 10px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            border-bottom: 2px solid #E8F4F8;
+            border: 2px solid #E8F4F8;
+            flex-shrink: 0;
         }
 
         .media-preview img {
@@ -408,27 +425,27 @@
         }
 
         .media-preview .icon {
-            font-size: 3rem;
+            font-size: 2rem;
             color: #5FB574;
         }
 
-        .media-info {
-            padding: 1.2rem;
+        .media-details {
+            flex: 1;
+            min-width: 0;
         }
 
         .media-title {
             font-weight: 600;
             margin-bottom: 0.5rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             color: #333;
+            font-size: 1.1rem;
+            word-wrap: break-word;
         }
 
         .media-meta {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #666;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .media-badge {
@@ -438,6 +455,7 @@
             font-size: 0.75rem;
             font-weight: 600;
             margin-right: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .badge-image {
@@ -460,11 +478,16 @@
             color: #D96F4A;
         }
 
+        .media-section {
+            font-weight: 600;
+            color: #5FB574;
+        }
+
         .media-actions {
             display: flex;
             gap: 0.5rem;
-            margin-top: 1rem;
             flex-wrap: wrap;
+            margin-top: 0.5rem;
         }
 
         /* Bulk Actions */
@@ -475,29 +498,47 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             margin-bottom: 1rem;
             display: none;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .bulk-actions.active {
             display: flex;
-            gap: 1rem;
-            align-items: center;
         }
 
         .bulk-actions span {
             font-weight: 600;
             color: #5FB574;
+            margin-right: 1rem;
         }
 
         /* Pagination */
         .pagination {
             display: flex;
-            justify-content: center;
-            gap: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
             padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid #E8F4F8;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .pagination a,
-        .pagination span {
+        .pagination-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .pagination-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .pagination-links a,
+        .pagination-links span {
             padding: 0.7rem 1.2rem;
             border: 2px solid #E8F4F8;
             border-radius: 10px;
@@ -505,24 +546,37 @@
             color: #333;
             font-weight: 500;
             transition: all 0.3s;
+            display: inline-block;
         }
 
-        .pagination a:hover {
+        .pagination-links a:hover {
             background: #5FB574;
             color: #fff;
             border-color: #5FB574;
             transform: translateY(-2px);
         }
 
-        .pagination .active {
+        .pagination-links .active {
             background: #5FB574;
             color: #fff;
             border-color: #5FB574;
         }
 
+        .pagination-links .disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            border-color: #eee;
+        }
+
+        .pagination-links .disabled:hover {
+            background: transparent;
+            color: #ccc;
+            border-color: #eee;
+            transform: none;
+        }
+
         /* Empty State */
         .empty-state {
-            grid-column: 1 / -1;
             text-align: center;
             padding: 3rem;
             color: #999;
@@ -541,71 +595,229 @@
             text-decoration: underline;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #5FB574;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Overlay for mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 80px;
-            }
-
-            .sidebar-header h2 span:not(.logo-square),
-            .sidebar-header p,
-            .menu-item span,
-            .user-info,
-            .sidebar-footer form {
-                display: none;
-            }
-
-            .menu-item {
-                justify-content: center;
-                padding: 1.2rem;
-            }
-
+        @media (max-width: 992px) {
             .main-content {
-                margin-left: 80px;
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .sidebar {
+                transform: translateX(-100%);
             }
 
-            .media-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 1rem;
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .page-header {
+                padding: 1rem;
+                margin-top: 3rem;
             }
 
             .filters form {
                 flex-direction: column;
+                align-items: stretch;
             }
 
             .filters input[type="text"],
             .filters select {
                 width: 100%;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-card h3 {
+                font-size: 2rem;
             }
 
             .page-header {
                 flex-direction: column;
-                gap: 1rem;
                 text-align: center;
+                gap: 1rem;
+            }
+
+            .header-actions {
+                justify-content: center;
+            }
+
+            .bulk-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .media-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .media-preview {
+                width: 100%;
+                height: 200px;
+            }
+
+            .media-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .pagination {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pagination-info {
+                order: 2;
+            }
+
+            .pagination-links {
+                order: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+
+            .page-header {
+                padding: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .filters {
+                padding: 1rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .stat-card {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .stat-card h3 {
+                font-size: 1.8rem;
+            }
+
+            .media-item {
+                padding: 1rem;
+            }
+
+            .media-preview {
+                height: 150px;
+            }
+
+            .media-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .media-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .pagination-links a,
+            .pagination-links span {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-actions .btn {
+                width: 100%;
+            }
+
+            .media-badge {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 0.2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    <div class="overlay" id="overlay"></div>
+
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
                 <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">
+                <a href="{{ route('admin.dashboard') }}" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
                 <a href="{{ route('admin.contacts.index') }}" class="menu-item">
                     <span class="menu-icon">📧</span>
                     <span>Kelola Pesan</span>
@@ -637,6 +849,7 @@
             <div class="page-header">
                 <h1>📁 Media Library</h1>
                 <div class="header-actions">
+                <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
                     <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Upload Media</a>
                 </div>
             </div>
@@ -684,10 +897,11 @@
                     </select>
 
                     <select name="section">
-                        <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
-                        <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
-                        <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features (4 slots)</option>
-                        <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial (6 slots)</option>
+                        <option value="all" {{ request('section') == 'all' ? 'selected' : '' }}>Semua Section</option>
+                        <option value="hero" {{ request('section') == 'hero' ? 'selected' : '' }}>Hero</option>
+                        <option value="story" {{ request('section') == 'story' ? 'selected' : '' }}>Story</option>
+                        <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
+                        <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
                     </select>
 
                     <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
@@ -703,8 +917,8 @@
                 <button class="btn btn-danger btn-sm" onclick="bulkDelete()">Hapus Terpilih</button>
             </div>
 
-            <!-- Media Grid -->
-            <div class="media-grid">
+            <!-- Media List -->
+            <div class="media-list">
                 @forelse($media as $item)
                 <div class="media-item">
                     <div class="media-checkbox">
@@ -713,15 +927,17 @@
 
                     <div class="media-preview">
                         @if($item->isImage())
-                            <img src="{{ $item->file_path }}" alt="{{ $item->title }}">
+                            <img src="{{ $item->file_path }}" alt="{{ $item->title }}" loading="lazy">
                         @elseif($item->isVideo())
                             <video controls>
                                 <source src="{{ $item->file_path }}" type="{{ $item->mime_type }}">
                             </video>
+                        @else
+                            <div class="icon">📄</div>
                         @endif
                     </div>
 
-                    <div class="media-info">
+                    <div class="media-details">
                         <div class="media-title" title="{{ $item->title }}">{{ $item->title }}</div>
 
                         <div class="media-meta">
@@ -764,12 +980,56 @@
 
             <!-- Pagination -->
             <div class="pagination">
-                {{ $media->links() }}
+                <div class="pagination-info">
+                    @if($media->count() > 0)
+                        Showing {{ $media->firstItem() }} to {{ $media->lastItem() }} of {{ $media->total() }} results
+                    @else
+                        Showing 0 results
+                    @endif
+                </div>
+
+                <div class="pagination-links">
+                    {{-- Previous Page Link --}}
+                    @if ($media->onFirstPage())
+                        <span class="disabled">&laquo; Previous</span>
+                    @else
+                        <a href="{{ $media->previousPageUrl() }}" rel="prev">&laquo; Previous</a>
+                    @endif
+
+                    {{-- Pagination Elements --}}
+                    @foreach ($media->getUrlRange(1, $media->lastPage()) as $page => $url)
+                        @if ($page == $media->currentPage())
+                            <span class="active">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($media->hasMorePages())
+                        <a href="{{ $media->nextPageUrl() }}" rel="next">Next &raquo;</a>
+                    @else
+                        <span class="disabled">Next &raquo;</span>
+                    @endif
+                </div>
             </div>
         </main>
     </div>
 
     <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
+
         // Checkbox handling
         document.querySelectorAll('.media-check').forEach(checkbox => {
             checkbox.addEventListener('change', updateBulkActions);
@@ -822,6 +1082,14 @@
             document.body.appendChild(form);
             form.submit();
         }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
