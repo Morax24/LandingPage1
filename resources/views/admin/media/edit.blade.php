@@ -29,6 +29,8 @@
             height: 100vh;
             overflow-y: auto;
             box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-header {
@@ -159,6 +161,8 @@
             margin-left: 280px;
             flex: 1;
             padding: 2rem;
+            width: calc(100% - 280px);
+            transition: margin-left 0.3s ease;
         }
 
         .container {
@@ -175,6 +179,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .admin-header h1 {
@@ -191,6 +197,7 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
+            text-align: center;
         }
 
         .btn-secondary {
@@ -236,6 +243,12 @@
             background: #E8F5EC;
             color: #4FA564;
             border: 2px solid #5FB574;
+        }
+
+        .alert-danger {
+            background: #FFE8E1;
+            color: #D96F4A;
+            border: 2px solid #FF8A5B;
         }
 
         .edit-form {
@@ -364,35 +377,87 @@
             width: 100%;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 80px;
-            }
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #5FB574;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
 
-            .sidebar-header h2 span:not(.logo-square),
-            .sidebar-header p,
-            .menu-item span,
-            .user-info,
-            .sidebar-footer form {
-                display: none;
-            }
+        /* Overlay for mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
 
-            .menu-item {
-                justify-content: center;
-                padding: 1.2rem;
-            }
+        .overlay.active {
+            display: block;
+        }
 
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 992px) {
             .main-content {
-                margin-left: 80px;
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
             }
 
-            .container { padding: 0; }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
 
             .admin-header {
+                padding: 1rem;
+                margin-top: 3rem;
+            }
+
+            .edit-form {
+                padding: 1.5rem;
+            }
+
+            .media-preview {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
                 flex-direction: column;
-                gap: 1rem;
                 text-align: center;
+            }
+
+            .admin-header h1 {
+                font-size: 1.5rem;
             }
 
             .form-actions {
@@ -406,19 +471,123 @@
             .btn {
                 width: 100%;
             }
+
+            .media-preview {
+                padding: 1.2rem;
+            }
+
+            .media-info {
+                padding: 1rem;
+            }
+
+            .edit-form {
+                padding: 1.2rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+
+            .admin-header {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .admin-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .edit-form {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .media-preview {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .media-info {
+                padding: 0.8rem;
+                border-radius: 10px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .media-info p {
+                font-size: 0.85rem;
+            }
+
+            .mobile-menu-toggle {
+                top: 0.5rem;
+                left: 0.5rem;
+                padding: 0.5rem;
+                font-size: 1.3rem;
+            }
+
+            .checkbox-group {
+                align-items: flex-start;
+            }
+
+            .checkbox-group input[type="checkbox"] {
+                margin-top: 0.2rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .admin-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .edit-form {
+                padding: 0.8rem;
+            }
+
+            .media-preview {
+                padding: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .form-help {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    <div class="overlay" id="overlay"></div>
+
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
                 <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">
+                <!-- MENU DASHBOARD DITAMBAHKAN -->
+                <a href="{{ route('admin.dashboard') }}" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
                 <a href="{{ route('admin.contacts.index') }}" class="menu-item">
                     <span class="menu-icon">📧</span>
                     <span>Kelola Pesan</span>
@@ -453,10 +622,16 @@
                     <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">← Kembali</a>
                 </div>
 
-                <!-- Alert -->
+                <!-- Alert Messages -->
                 @if(session('success'))
                 <div class="alert alert-success">
                     ✓ {{ session('success') }}
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    ✗ {{ session('error') }}
                 </div>
                 @endif
 
@@ -465,7 +640,7 @@
                     @if($media->isImage())
                         <img src="{{ $media->url }}" alt="{{ $media->title }}">
                     @elseif($media->isVideo())
-                        <video controls>
+                        <video controls style="width: 100%;">
                             <source src="{{ $media->url }}" type="{{ $media->mime_type }}">
                         </video>
                     @endif
@@ -549,6 +724,27 @@
     </div>
 
     <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            }
+        });
+
         function updateSectionInfo() {
             const section = document.getElementById('section').value;
             const sectionHelp = document.getElementById('sectionHelp');

@@ -8,7 +8,7 @@ use App\Http\Controllers\ForumReplyController;
 use App\Http\Controllers\Admin\ForumReplyController as AdminForumReplyController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\Admin\DashboardController; // TAMBAHKAN INI
+use App\Http\Controllers\Admin\DashboardController;
 
 // ============================================
 // FRONTEND ROUTES (PUBLIC)
@@ -34,9 +34,9 @@ require __DIR__.'/auth.php';
 // ============================================
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Dashboard - redirect ke admin contacts
+    // Dashboard - UBAH INI: redirect ke admin dashboard
     Route::get('/dashboard', function () {
-        return redirect()->route('admin.contacts.index');
+        return redirect()->route('admin.dashboard');
     })->name('dashboard');
 
     // Profile routes
@@ -50,13 +50,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // ============================================
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard - TAMBAHKAN ROUTE INI UNTUK DASHBOARD STATISTIK
+    // Dashboard - INI YANG AKAN DITUJU
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Dashboard redirect (tetap pertahankan yang sudah ada)
-    Route::get('/dashboard-redirect', function () {
-        return redirect()->route('admin.contacts.index');
-    })->name('dashboard.redirect');
+    // Hapus route dashboard-redirect yang tidak perlu
+    // Route::get('/dashboard-redirect', function () {
+    //     return redirect()->route('admin.contacts.index');
+    // })->name('dashboard.redirect');
 
     // Contact Management
     Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts.index');

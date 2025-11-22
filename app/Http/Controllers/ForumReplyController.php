@@ -1,54 +1,61 @@
 <?php
+// app/Http/Controllers/ForumReplyController.php
 
 namespace App\Http\Controllers;
 
 use App\Models\ForumReply;
 use App\Models\Contact;
-use App\Http\Requests\StoreForumReplyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ForumReplyController extends Controller
 {
-    /**
-     * Simpan reply baru
-     */
-    public function store(StoreForumReplyRequest $request)
+    public function store(Request $request)
     {
+        $validated = $request->validate([
+            'contact_id' => 'required|exists:contacts,id',
+            'parent_id' => 'nullable|exists:forum_replies,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string|min:10'
+        ]);
+
         try {
-            ForumReply::create([
-                'contact_id' => $request->contact_id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'message' => $request->message,
-                'status' => 'pending',
+            DB::beginTransaction();
+
+            $reply = ForumReply::create($validated);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Komentar berhasil dikirim dan menunggu persetujuan admin',
+                'data' => $reply
             ]);
 
-            return redirect()
-                ->back()
-                ->with('success', 'Komentar Anda berhasil dikirim dan menunggu persetujuan admin.');
-
         } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', 'Maaf, terjadi kesalahan. Silakan coba lagi.');
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
         }
     }
 
-    /**
-     * Get replies for a contact (AJAX)
-     */
     public function getReplies($contactId)
     {
-        $replies = ForumReply::where('contact_id', $contactId)
-                             ->where('status', 'approved')
-                             ->latest()
-                             ->get();
+        $replies = ForumReply::with(['replies' => function($query) {
+            $query->where('status', 'approved');
+        }])
+        ->where('contact_id', $contactId)
+        ->whereNull('parent_id')
+        ->where('status', 'approved')
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         return response()->json([
             'success' => true,
-            'replies' => $replies,
-            'count' => $replies->count(),
+            'data' => $replies
         ]);
     }
 }
