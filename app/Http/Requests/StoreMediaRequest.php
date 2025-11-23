@@ -25,8 +25,8 @@ class StoreMediaRequest extends FormRequest
                         if (!in_array($value->getMimeType(), ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'])) {
                             $fail('File harus berupa gambar (JPEG, PNG, JPG, WEBP)');
                         }
-                        if ($value->getSize() > 5 * 1024 * 1024) { // 5MB
-                            $fail('Ukuran gambar maksimal 5MB');
+                        if ($value->getSize() > 15 * 1024 * 1024) { // 10MB
+                            $fail('Ukuran gambar maksimal 15MB');
                         }
                     } elseif ($this->type === 'video') {
                         if (!in_array($value->getMimeType(), ['video/mp4', 'video/webm', 'video/ogg'])) {

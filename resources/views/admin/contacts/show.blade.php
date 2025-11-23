@@ -33,6 +33,8 @@
             height: 100vh;
             overflow-y: auto;
             box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-header {
@@ -163,6 +165,8 @@
             margin-left: 280px;
             flex: 1;
             padding: 2rem;
+            width: calc(100% - 280px);
+            transition: margin-left 0.3s ease;
         }
 
         /* Header */
@@ -175,6 +179,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .header h1 {
@@ -191,6 +197,7 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
+            text-align: center;
         }
 
         .btn-back {
@@ -500,57 +507,238 @@
             justify-content: flex-end;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #5FB574;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Overlay for mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1.5fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .header {
+                padding: 1rem;
+                margin-top: 3rem;
+            }
+
             .content-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .action-card {
                 position: static;
             }
+
+            .card {
+                padding: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                width: 80px;
+            .header {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .sidebar-header h2 span:not(.logo-square),
-            .sidebar-header p,
-            .menu-item span,
-            .user-info,
-            .sidebar-footer form {
-                display: none;
+            .header h1 {
+                font-size: 1.5rem;
             }
 
-            .menu-item {
-                justify-content: center;
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
                 padding: 1.2rem;
             }
 
+            .card h2 {
+                font-size: 1.2rem;
+            }
+
+            .info-row .value,
+            .message-box {
+                padding: 0.8rem;
+            }
+
+            .action-buttons {
+                gap: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
             .main-content {
-                margin-left: 80px;
+                padding: 0.5rem;
             }
 
             .header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .card h2 {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.8rem;
+            }
+
+            .info-row {
+                margin-bottom: 1rem;
+            }
+
+            .info-row label {
+                font-size: 0.85rem;
+            }
+
+            .info-row .value,
+            .message-box {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+
+            .badge {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .notes-section textarea {
+                padding: 1rem;
+                min-height: 100px;
+            }
+
+            .meta-section {
+                margin-top: 1.5rem;
+                padding-top: 1.5rem;
+            }
+
+            .mobile-menu-toggle {
+                top: 0.5rem;
+                left: 0.5rem;
+                padding: 0.5rem;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .card {
+                padding: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .info-row .value,
+            .message-box {
+                padding: 0.6rem;
+                font-size: 0.85rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    <div class="overlay" id="overlay"></div>
+
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2><span class="logo-square"></span> <span>WALUYA LAND</span></h2>
                 <p>Admin Panel</p>
             </div>
 
             <nav class="sidebar-menu">
+                <!-- TAMBAHKAN LINK KE DASHBOARD -->
+                <a href="{{ route('admin.dashboard') }}" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
                 <a href="{{ route('admin.contacts.index') }}" class="menu-item active">
                     <span class="menu-icon">📧</span>
                     <span>Kelola Pesan</span>
@@ -727,6 +915,28 @@
     </div>
 
     <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Modal functions
         function openRejectModal() {
             document.getElementById('rejectModal').classList.add('active');
         }
@@ -738,6 +948,13 @@
         // Close modal when clicking outside
         document.getElementById('rejectModal').addEventListener('click', function(e) {
             if (e.target === this) {
+                closeRejectModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
                 closeRejectModal();
             }
         });

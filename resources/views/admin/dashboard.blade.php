@@ -35,6 +35,7 @@
             overflow-y: auto;
             box-shadow: 4px 0 20px rgba(0,0,0,0.1);
             z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-header {
@@ -131,6 +132,14 @@
             border: 2px solid rgba(255,255,255,0.5);
         }
 
+        .user-avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
         .user-info h4 {
             font-size: 1rem;
             margin-bottom: 0.3rem;
@@ -166,6 +175,7 @@
             flex: 1;
             padding: 2rem;
             width: calc(100% - 280px);
+            transition: margin-left 0.3s ease;
         }
 
         /* Header */
@@ -290,6 +300,10 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .stat-card:hover {
@@ -310,12 +324,65 @@
             font-weight: 500;
         }
 
+        /* Warna untuk status */
+        .stat-card.pending {
+            background: #FFF8E1;
+        }
+
+        .stat-card.pending h3 {
+            color: #F9D56E;
+        }
+
+        .stat-card.pending:hover {
+            background: #FFEFC2;
+        }
+
         .stat-card.inactive {
             background: #FFE8E1;
         }
 
         .stat-card.inactive h3 {
             color: #FF8A5B;
+        }
+
+        .stat-card.inactive:hover {
+            background: #FFD1C4;
+        }
+
+        .stat-card.info {
+            background: #E3F2FD;
+        }
+
+        .stat-card.info h3 {
+            color: #2196F3;
+        }
+
+        .stat-card.info:hover {
+            background: #BBDEFB;
+        }
+
+        .stat-card.size {
+            background: #E8F5E8;
+        }
+
+        .stat-card.size h3 {
+            color: #4CAF50;
+        }
+
+        .stat-card.size:hover {
+            background: #C8E6C9;
+        }
+
+        /* Link stat card */
+        .stat-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .stat-link:hover {
+            text-decoration: none;
+            color: inherit;
         }
 
         /* Dashboard Content */
@@ -348,24 +415,41 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
-        .activity-item:last-child {
-            border-bottom: none;
+        .activity-item:hover {
+            background: #F7FCF9;
+            transform: translateX(5px);
         }
 
         .activity-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .activity-thumbnail {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: #E8F4F8;
+            object-fit: cover;
+            border: 2px solid #5FB574;
+            transition: all 0.3s ease;
+        }
+
+        .activity-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            flex-shrink: 0;
+            color: white;
+            font-weight: bold;
         }
 
         .activity-content {
@@ -402,30 +486,80 @@
 
         .recent-list {
             margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .recent-item {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
 
-        .recent-item:last-child {
-            border-bottom: none;
+        .recent-item:hover {
+            background: #F7FCF9;
+            border-color: #5FB574;
+            transform: translateX(5px);
         }
 
         .recent-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: #E8F4F8;
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        .media-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #E8F4F8;
+            transition: all 0.3s ease;
+        }
+
+        .media-placeholder {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #E8F4F8, #5FB574);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .video-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-icon {
+            font-size: 1.5rem;
+            color: white;
+            z-index: 2;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.2);
+            z-index: 1;
         }
 
         .recent-content {
@@ -447,6 +581,17 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        /* Badge untuk tipe media */
+        .media-type-badge {
+            background: #5FB574;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         /* Alert */
@@ -486,107 +631,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .recent-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 1rem;
-            }
-
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .page-header {
-                padding: 1rem;
-                margin-top: 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .stat-card {
-                padding: 1.5rem 1rem;
-            }
-
-            .stat-card h3 {
-                font-size: 2rem;
-            }
-
-            .chart-container,
-            .activity-container,
-            .recent-container {
-                padding: 1.5rem;
-            }
-
-            .chart-wrapper {
-                height: 250px;
-            }
-
-            .header-actions {
-                justify-content: center;
-            }
-
-            .page-header {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-content {
-                padding: 0.5rem;
-            }
-
-            .chart-container,
-            .activity-container,
-            .recent-container {
-                padding: 1rem;
-            }
-
-            .activity-item,
-            .recent-item {
-                padding: 0.8rem 0;
-            }
-
-            .btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .chart-wrapper {
-                height: 200px;
-            }
-        }
-
         /* Dark overlay for mobile */
         .overlay {
             display: none;
@@ -598,9 +642,134 @@
             background: rgba(0,0,0,0.5);
             z-index: 999;
         }
-
         .overlay.active {
             display: block;
+        }
+
+        /* Image fallback handling */
+        .image-fallback {
+            display: none;
+        }
+
+        /* Hover effects untuk gambar */
+        .activity-item:hover .activity-thumbnail {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .recent-item:hover .media-thumbnail {
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(95, 181, 116, 0.4);
+        }
+
+        /* Animation untuk gambar loading */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .media-thumbnail,
+        .activity-thumbnail {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .recent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .page-header {
+                padding: 1rem;
+                margin-top: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .stat-card {
+                padding: 1.5rem 1rem;
+            }
+            .stat-card h3 {
+                font-size: 2rem;
+            }
+            .chart-container, .activity-container, .recent-container {
+                padding: 1.5rem;
+            }
+            .chart-wrapper {
+                height: 250px;
+            }
+            .header-actions {
+                justify-content: center;
+            }
+            .page-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .activity-thumbnail,
+            .activity-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .media-thumbnail,
+            .media-placeholder,
+            .video-thumbnail {
+                width: 50px;
+                height: 50px;
+            }
+
+            .video-icon {
+                font-size: 1.2rem;
+            }
+
+            .activity-item,
+            .recent-item {
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+            .chart-container, .activity-container, .recent-container {
+                padding: 1rem;
+            }
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .chart-wrapper {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -630,17 +799,23 @@
                     <span class="menu-icon">🖼️</span>
                     <span>Media Library</span>
                 </a>
-                <a href="{{ route('admin.forum-replies.index') }}" class="menu-item">
-                    <span class="menu-icon">💬</span>
-                    <span>Balasan Forum</span>
-                </a>
             </nav>
 
             <div class="sidebar-footer">
                 <div class="user-profile">
-                    <div class="user-avatar">AM</div>
+                    @if(isset(Auth::user()->avatar) && Auth::user()->avatar)
+                        <img src="{{ Auth::user()->avatar }}" alt="Avatar" class="user-avatar-img"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="user-avatar image-fallback">
+                            {{ substr(Auth::user()->name, 0, 2) }}
+                        </div>
+                    @else
+                        <div class="user-avatar">
+                            {{ substr(Auth::user()->name, 0, 2) }}
+                        </div>
+                    @endif
                     <div class="user-info">
-                        <h4>Admin Malaya</h4>
+                        <h4>{{ Auth::user()->name ?? 'Admin' }}</h4>
                         <p>Administrator</p>
                     </div>
                 </div>
@@ -656,7 +831,7 @@
             <!-- Header -->
             <div class="page-header">
                 <h1>📊 Dashboard</h1>
-                <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
+                <span>Halo, <strong>{{ Auth::user()->name ?? 'Admin' }}</strong></span>
                 <div class="header-actions">
                     <span class="btn btn-secondary">Last updated: {{ now()->format('d M Y, H:i') }}</span>
                 </div>
@@ -664,52 +839,64 @@
 
             <!-- Alert Messages -->
             @if(session('success'))
-            <div class="alert alert-success">
-                ✓ {{ session('success') }}
-            </div>
+                <div class="alert alert-success">
+                    ✓ {{ session('success') }}
+                </div>
             @endif
 
             @if(session('error'))
-            <div class="alert alert-danger">
-                ✗ {{ session('error') }}
-            </div>
+                <div class="alert alert-danger">
+                    ✗ {{ session('error') }}
+                </div>
             @endif
 
-            <!-- Stats -->
+            <!-- Stats - URUTAN BARU -->
             <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>{{ $stats['total_contacts'] }}</h3>
-                    <p>Total Pesan</p>
-                </div>
-                <div class="stat-card">
-                    <h3>{{ $stats['pending_contacts'] }}</h3>
-                    <p>Pesan Pending</p>
-                </div>
-                <div class="stat-card">
-                    <h3>{{ $stats['total_media'] }}</h3>
-                    <p>Total Media</p>
-                </div>
-                <div class="stat-card">
-                    <h3>{{ number_format($stats['total_media_size'] / 1024 / 1024, 2) }} MB</h3>
+                <!-- Baris 1 -->
+                <div class="stat-card size">
+                    <h3>{{ number_format(($stats['total_media_size'] ?? 0) / 1024 / 1024, 2) }} MB</h3>
                     <p>Total Size Media</p>
                 </div>
-                <!-- Tambahan: Media yang dinonaktifkan -->
-                <div class="stat-card inactive">
-                    <h3>{{ $stats['inactive_media'] ?? 0 }}</h3>
-                    <p>Media Dinonaktifkan</p>
-                </div>
+
                 <div class="stat-card">
-                    <h3>{{ $stats['approved_contacts'] }}</h3>
+                    <h3>{{ $stats['total_contacts'] ?? 0 }}</h3>
+                    <p>Total Pesan</p>
+                </div>
+
+                <div class="stat-card pending">
+                    <h3>{{ $stats['pending_contacts'] ?? 0 }}</h3>
+                    <p>Pesan Pending</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>{{ $stats['approved_contacts'] ?? 0 }}</h3>
                     <p>Pesan Disetujui</p>
                 </div>
+
+                <!-- Baris 2 -->
+                <a href="{{ route('admin.contacts.index', ['status' => 'rejected']) }}" class="stat-link">
+                    <div class="stat-card inactive">
+                        <h3>{{ $stats['rejected_contacts'] ?? 0 }}</h3>
+                        <p>Pesan Ditolak</p>
+                    </div>
+                </a>
+
                 <div class="stat-card">
-                    <h3>{{ $stats['rejected_contacts'] }}</h3>
-                    <p>Pesan Ditolak</p>
+                    <h3>{{ $stats['total_media'] ?? 0 }}</h3>
+                    <p>Total Media</p>
                 </div>
-                <div class="stat-card">
-                    <h3>{{ $stats['pending_replies'] }}</h3>
-                    <p>Balasan Pending</p>
+
+                <div class="stat-card info">
+                    <h3>{{ $stats['active_media'] ?? $stats['total_media'] - $stats['inactive_media'] }}</h3>
+                    <p>Media Aktif</p>
                 </div>
+
+                <a href="{{ route('admin.media.index', ['status' => 'inactive']) }}" class="stat-link">
+                    <div class="stat-card inactive">
+                        <h3>{{ $stats['inactive_media'] ?? 0 }}</h3>
+                        <p>Media Nonaktif</p>
+                    </div>
+                </a>
             </div>
 
             <!-- Dashboard Content -->
@@ -723,38 +910,57 @@
                 </div>
 
                 <!-- Recent Activity -->
-                <div class="activity-container">
-                    <h2 style="margin-bottom: 1.5rem; color: #333;">Aktivitas Terbaru</h2>
-                    <div class="activity-list">
-                        @forelse($recentActivities as $activity)
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                @if($activity['type'] == 'contact')
-                                    📧
-                                @elseif($activity['type'] == 'media')
-                                    🖼️
-                                @elseif($activity['type'] == 'reply')
-                                    💬
-                                @else
-                                    📊
-                                @endif
+<div class="activity-container">
+    <h2 style="margin-bottom: 1.5rem; color: #333;">Aktivitas Terbaru</h2>
+    <div class="activity-list">
+        @forelse($recentActivities ?? [] as $activity)
+            <div class="activity-item">
+                <div class="activity-icon">
+                    @if($activity['type'] == 'contact')
+                        <div class="activity-avatar" style="background: #5FB574;">📧</div>
+                    @elseif($activity['type'] == 'media' && isset($activity['media']))
+                        @if($activity['media']->isImage())
+                            <!-- Tampilkan thumbnail gambar asli -->
+                            <img src="{{ $activity['media']->url }}"
+                                 alt="Thumbnail"
+                                 class="activity-thumbnail"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="activity-avatar image-fallback" style="background: #F9D56E;">🖼️</div>
+                        @elseif($activity['media']->isVideo())
+                            <!-- Tampilkan thumbnail video -->
+                            <div class="video-thumbnail" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <div class="video-icon">🎥</div>
+                                <div class="video-overlay"></div>
                             </div>
-                            <div class="activity-content">
-                                <div class="activity-title">{{ $activity['title'] }}</div>
-                                <div class="activity-time">{{ $activity['time'] }}</div>
-                            </div>
-                        </div>
-                        @empty
-                        <div class="activity-item">
-                            <div class="activity-content">
-                                <div class="activity-title">Belum ada aktivitas</div>
-                                <div class="activity-time">-</div>
-                            </div>
-                        </div>
-                        @endforelse
+                        @else
+                            <div class="activity-avatar" style="background: #3498db;">📁</div>
+                        @endif
+                    @elseif($activity['type'] == 'reply')
+                        <div class="activity-avatar" style="background: #9b59b6;">💬</div>
+                    @else
+                        <div class="activity-avatar" style="background: #95a5a6;">📊</div>
+                    @endif
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">{{ $activity['title'] ?? 'Aktivitas' }}</div>
+                    <div class="activity-time">
+                        {{ $activity['time'] ?? '-' }}
+                        @if(isset($activity['media']))
+                            • {{ $activity['media']->section ?? 'other' }}
+                        @endif
                     </div>
                 </div>
             </div>
+        @empty
+            <div class="activity-item">
+                <div class="activity-content">
+                    <div class="activity-title">Belum ada aktivitas</div>
+                    <div class="activity-time">-</div>
+                </div>
+            </div>
+        @endforelse
+    </div>
+</div>
 
             <!-- Recent Items -->
             <div class="recent-grid">
@@ -762,21 +968,28 @@
                 <div class="recent-container">
                     <h2 style="margin-bottom: 1.5rem; color: #333;">Pesan Terbaru</h2>
                     <div class="recent-list">
-                        @forelse($recentContacts as $contact)
-                        <div class="recent-item">
-                            <div class="recent-icon">📧</div>
-                            <div class="recent-content">
-                                <div class="recent-title">{{ $contact->name }}</div>
-                                <div class="recent-meta">{{ $contact->email }} • {{ $contact->created_at->diffForHumans() }}</div>
+                        @forelse($recentContacts ?? [] as $contact)
+                            <div class="recent-item">
+                                <div class="recent-icon">
+                                    <div class="activity-avatar" style="background: #5FB574;">
+                                        {{ strtoupper(substr($contact->name, 0, 1)) }}
+                                    </div>
+                                </div>
+                                <div class="recent-content">
+                                    <div class="recent-title">{{ $contact->name ?? 'Pengguna' }}</div>
+                                    <div class="recent-meta">
+                                        {{ $contact->email ?? '-' }} •
+                                        {{ $contact->created_at->diffForHumans() }}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                         @empty
-                        <div class="recent-item">
-                            <div class="recent-content">
-                                <div class="recent-title">Belum ada pesan</div>
-                                <div class="recent-meta">-</div>
+                            <div class="recent-item">
+                                <div class="recent-content">
+                                    <div class="recent-title">Belum ada pesan</div>
+                                    <div class="recent-meta">-</div>
+                                </div>
                             </div>
-                        </div>
                         @endforelse
                     </div>
                 </div>
@@ -785,27 +998,40 @@
                 <div class="recent-container">
                     <h2 style="margin-bottom: 1.5rem; color: #333;">Media Terbaru</h2>
                     <div class="recent-list">
-                        @forelse($recentMedia as $media)
-                        <div class="recent-item">
-                            <div class="recent-icon">
-                                @if($media->type == 'image')
-                                    🖼️
-                                @else
-                                    🎥
-                                @endif
+                        @forelse($recentMedia ?? [] as $media)
+                            <div class="recent-item">
+                                <div class="recent-icon">
+                                    @if($media->isImage())
+                                        <img src="{{ $media->url }}"
+                                             alt="{{ $media->title }}"
+                                             class="media-thumbnail"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="media-placeholder image-fallback">
+                                            🖼️
+                                        </div>
+                                    @else
+                                        <div class="video-thumbnail">
+                                            <div class="video-icon">🎥</div>
+                                            <div class="video-overlay"></div>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="recent-content">
+                                    <div class="recent-title">{{ Str::limit($media->title ?? 'Media', 30) }}</div>
+                                    <div class="recent-meta">
+                                        <span class="media-type-badge">{{ $media->type }}</span> •
+                                        {{ $media->section ?? '-' }} •
+                                        {{ $media->created_at->diffForHumans() }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="recent-content">
-                                <div class="recent-title">{{ Str::limit($media->title, 30) }}</div>
-                                <div class="recent-meta">{{ $media->section }} • {{ $media->created_at->diffForHumans() }}</div>
-                            </div>
-                        </div>
                         @empty
-                        <div class="recent-item">
-                            <div class="recent-content">
-                                <div class="recent-title">Belum ada media</div>
-                                <div class="recent-meta">-</div>
+                            <div class="recent-item">
+                                <div class="recent-content">
+                                    <div class="recent-title">Belum ada media</div>
+                                    <div class="recent-meta">-</div>
+                                </div>
                             </div>
-                        </div>
                         @endforelse
                     </div>
                 </div>
@@ -829,52 +1055,55 @@
 
         // Chart.js Implementation
         const ctx = document.getElementById('activityChart').getContext('2d');
-
-        // Data untuk chart (sesuaikan dengan data dari controller)
         const activityChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
-                labels: ['Pesan Disetujui', 'Pesan Ditolak', 'Pesan Pending', 'Balasan Pending'],
-                datasets: [{
-                    label: 'Jumlah',
-                    data: [
-                        {{ $stats['approved_contacts'] }},
-                        {{ $stats['rejected_contacts'] }},
-                        {{ $stats['pending_contacts'] }},
-                        {{ $stats['pending_replies'] }}
-                    ],
-                    backgroundColor: [
-                        '#5FB574',
-                        '#FF8A5B',
-                        '#F9D56E',
-                        '#3498db'
-                    ],
-                    borderColor: [
-                        '#4FA564',
-                        '#E67A4B',
-                        '#E9C55E',
-                        '#2980b9'
-                    ],
-                    borderWidth: 2,
-                    borderRadius: 8,
-                    borderSkipped: false,
-                }]
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                datasets: [
+                    {
+                        label: 'Pesan Masuk',
+                        data: [12, 19, 15, 25, 22, 30, 28, 35, 32, 40, 38, 45],
+                        borderColor: '#5FB574',
+                        backgroundColor: 'rgba(95, 181, 116, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Media Upload',
+                        data: [5, 8, 10, 12, 15, 18, 20, 22, 25, 28, 30, 35],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Pesan Pending',
+                        data: [3, 5, 4, 6, 8, 10, 9, 12, 11, 15, 14, 18],
+                        borderColor: '#F9D56E',
+                        backgroundColor: 'rgba(249, 213, 110, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
+                        position: 'top',
+                        labels: {
+                            font: { size: 12 },
+                            padding: 15
+                        }
                     },
                     tooltip: {
                         backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        titleFont: {
-                            size: 14
-                        },
-                        bodyFont: {
-                            size: 13
-                        },
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 13 },
                         padding: 12,
                         cornerRadius: 8
                     }
@@ -886,19 +1115,15 @@
                             color: 'rgba(0, 0, 0, 0.1)'
                         },
                         ticks: {
-                            font: {
-                                size: 12
-                            }
+                            font: { size: 12 }
                         }
                     },
                     x: {
                         grid: {
-                            display: false
+                            color: 'rgba(0, 0, 0, 0.05)'
                         },
                         ticks: {
-                            font: {
-                                size: 11
-                            }
+                            font: { size: 11 }
                         }
                     }
                 },
@@ -909,12 +1134,53 @@
             }
         });
 
-        // Simple auto-refresh every 5 minutes
+        // Enhanced image handling dengan loading state
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+
+            images.forEach(img => {
+                // Tambah loading state
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const fallback = this.nextElementSibling;
+                    if (fallback && (fallback.classList.contains('image-fallback') ||
+                                    fallback.classList.contains('media-placeholder') ||
+                                    fallback.classList.contains('activity-avatar'))) {
+                        fallback.style.display = 'flex';
+                        fallback.style.opacity = '1';
+                    }
+                });
+            });
+
+            // Preload images untuk smooth experience
+            function preloadImages() {
+                const imageUrls = [];
+                document.querySelectorAll('img').forEach(img => {
+                    if (img.src) imageUrls.push(img.src);
+                });
+
+                imageUrls.forEach(url => {
+                    const img = new Image();
+                    img.src = url;
+                });
+            }
+
+            preloadImages();
+        });
+
+        // Auto-refresh every 5 minutes
         setTimeout(() => {
             window.location.reload();
         }, 300000);
 
-        // Handle window resize for better responsive behavior
+        // Handle window resize
         window.addEventListener('resize', function() {
             activityChart.resize();
         });

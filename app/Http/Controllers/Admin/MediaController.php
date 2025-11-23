@@ -11,10 +11,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Repository\UploadRepository;
 
-
 class MediaController extends Controller
 {
-
     protected $upload;
 
     public function __construct()
@@ -28,6 +26,15 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         $query = Media::with('uploader')->ordered();
+
+        // Filter by status - TAMBAHKAN FILTER INI
+        if ($request->has('status') && $request->status != 'all') {
+            if ($request->status == 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->status == 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
 
         // Filter by type
         if ($request->has('type') && $request->type != 'all') {
@@ -50,12 +57,14 @@ class MediaController extends Controller
 
         $media = $query->paginate(12);
 
-        // Stats
+        // Stats - PERBAIKI STATISTIK DENGAN DATA AKTIF/NONAKTIF
         $stats = [
             'total' => Media::count(),
             'images' => Media::images()->count(),
             'videos' => Media::videos()->count(),
             'total_size' => Media::sum('file_size'),
+            'active' => Media::where('is_active', true)->count(),
+            'inactive' => Media::where('is_active', false)->count(),
         ];
 
         return view('admin.media.index', compact('media', 'stats'));
@@ -78,15 +87,9 @@ class MediaController extends Controller
             $file = $request->file('file');
             $mimeType = $file->getMimeType();
             $fileSize = $file->getSize();
-            // $this->upload->save($request->file('foto_cover'));
 
-            // Generate unique filename
-            // $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
-
-            // Store file
-            // $path = $file->storeAs('media/' . $request->type . 's', $filename, 'public');
-            $path =  $this->upload->save($file);
-            // return $path;
+            // Store file using UploadRepository
+            $path = $this->upload->save($file);
             $filename = Str::after($path, 'media/');
 
             // Create media record
@@ -132,7 +135,7 @@ class MediaController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'section' => 'required|in:features,aktivitas,hero,story,other',
+            'section' => 'required|in:features,aktivitas,hero,story,other,whylearn',
             'order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
         ]);
@@ -160,10 +163,9 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
 
         // Delete file from storage
-        // if (Storage::disk('public')->exists($media->file_path)) {
-        //     Storage::disk('public')->delete($media->file_path);
-        // }
-        
+        if (Storage::disk('public')->exists($media->file_path)) {
+            Storage::disk('public')->delete($media->file_path);
+        }
 
         $media->delete();
 
@@ -173,7 +175,7 @@ class MediaController extends Controller
     }
 
     /**
-     * Bulk delete
+     * Bulk delete media
      */
     public function bulkDelete(Request $request)
     {
@@ -182,18 +184,77 @@ class MediaController extends Controller
             'ids.*' => 'exists:media,id'
         ]);
 
-        $media = Media::whereIn('id', $request->ids)->get();
+        $mediaItems = Media::whereIn('id', $request->ids)->get();
+        $deletedCount = 0;
 
-        foreach ($media as $item) {
-            if (Storage::disk('public')->exists($item->file_path)) {
-                Storage::disk('public')->delete($item->file_path);
+        foreach ($mediaItems as $media) {
+            // Delete file from storage
+            if (Storage::disk('public')->exists($media->file_path)) {
+                Storage::disk('public')->delete($media->file_path);
             }
-            $item->delete();
+
+            $media->delete();
+            $deletedCount++;
         }
 
         return redirect()
-            ->back()
-            ->with('success', count($request->ids) . ' media berhasil dihapus.');
+            ->route('admin.media.index')
+            ->with('success', $deletedCount . ' media berhasil dihapus');
+    }
+
+    /**
+     * Bulk toggle active status
+     */
+    public function bulkToggleActive(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:media,id',
+            'is_active' => 'required|boolean'
+        ]);
+
+        $updatedCount = Media::whereIn('id', $request->ids)
+            ->update(['is_active' => $request->is_active]);
+
+        $status = $request->is_active ? 'diaktifkan' : 'dinonaktifkan';
+
+        return redirect()
+            ->route('admin.media.index')
+            ->with('success', $updatedCount . ' media berhasil ' . $status);
+    }
+
+    /**
+     * Bulk activate media
+     */
+    public function bulkActivate(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:media,id'
+        ]);
+
+        Media::whereIn('id', $request->ids)->update(['is_active' => true]);
+
+        return redirect()
+            ->route('admin.media.index')
+            ->with('success', count($request->ids) . ' media berhasil diaktifkan');
+    }
+
+    /**
+     * Bulk deactivate media
+     */
+    public function bulkDeactivate(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:media,id'
+        ]);
+
+        Media::whereIn('id', $request->ids)->update(['is_active' => false]);
+
+        return redirect()
+            ->route('admin.media.index')
+            ->with('success', count($request->ids) . ' media berhasil dinonaktifkan');
     }
 
     /**
@@ -204,8 +265,10 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
         $media->update(['is_active' => !$media->is_active]);
 
+        $status = $media->is_active ? 'diaktifkan' : 'dinonaktifkan';
+
         return redirect()
             ->back()
-            ->with('success', 'Status media berhasil diubah!');
+            ->with('success', 'Media berhasil ' . $status);
     }
 }

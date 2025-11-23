@@ -36,20 +36,47 @@ class Media extends Model
         return $this->belongsTo(User::class, 'uploaded_by');
     }
 
-    // Get full URL
+    // Get full URL - FIXED VERSION
     public function getUrlAttribute()
     {
+        // Jika file_path sudah berupa URL lengkap
+        if (strpos($this->file_path, 'http') === 0) {
+            return $this->file_path;
+        }
+
+        // Jika file_path adalah path relatif dengan "media/" prefix
+        if (strpos($this->file_path, 'media/') === 0) {
+            // Coba akses melalui storage public
+            if (Storage::disk('public')->exists($this->file_path)) {
+                return Storage::disk('public')->url($this->file_path);
+            }
+
+            // Fallback: direct URL ke public path
+            return asset($this->file_path);
+        }
+
+        // Default: gunakan storage URL
         return Storage::url($this->file_path);
+    }
+
+    // Get media URL dengan fallback yang lebih baik
+    public function getMediaUrl()
+    {
+        return $this->url;
     }
 
     // Get file size in human readable format
     public function getFileSizeFormattedAttribute()
     {
         $bytes = $this->file_size;
-        $units = ['B', 'KB', 'MB', 'GB'];
+        if ($bytes == 0) return '0 B';
 
-        for ($i = 0; $bytes > 1024; $i++) {
+        $units = ['B', 'KB', 'MB', 'GB'];
+        $i = 0;
+
+        while ($bytes >= 1024 && $i < count($units) - 1) {
             $bytes /= 1024;
+            $i++;
         }
 
         return round($bytes, 2) . ' ' . $units[$i];
@@ -99,7 +126,8 @@ class Media extends Model
         parent::boot();
 
         static::deleting(function ($media) {
-            if (Storage::exists($media->file_path)) {
+            // Hapus file dari storage jika path tidak berupa URL eksternal
+            if (strpos($media->file_path, 'http') !== 0 && Storage::exists($media->file_path)) {
                 Storage::delete($media->file_path);
             }
         });

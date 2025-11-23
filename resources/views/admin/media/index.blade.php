@@ -274,6 +274,46 @@
             border-radius: 8px;
         }
 
+        /* Status Tabs */
+        .status-tabs {
+            display: flex;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .status-tab {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .status-tab:hover {
+            background: #f8f9fa;
+        }
+
+        .status-tab.active {
+            background: #5FB574;
+            color: #fff;
+            border-bottom-color: #F9D56E;
+        }
+
+        .status-tab-count {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
         /* Stats */
         .stats-grid {
             display: grid;
@@ -665,6 +705,10 @@
                 width: 100%;
                 min-width: auto;
             }
+
+            .status-tabs {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 768px) {
@@ -849,7 +893,7 @@
             <div class="page-header">
                 <h1>📁 Media Library</h1>
                 <div class="header-actions">
-                <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
+                    <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
                     <a href="{{ route('admin.media.create') }}" class="btn btn-primary">+ Upload Media</a>
                 </div>
             </div>
@@ -887,9 +931,27 @@
                 </div>
             </div>
 
+            <!-- Status Tabs -->
+            <div class="status-tabs">
+                <div class="status-tab {{ request('status', 'all') == 'all' ? 'active' : '' }}" onclick="changeStatus('all')">
+                    Semua Media
+                    <span class="status-tab-count">{{ $stats['total'] }}</span>
+                </div>
+                <div class="status-tab {{ request('status') == 'active' ? 'active' : '' }}" onclick="changeStatus('active')">
+                    Aktif
+                    <span class="status-tab-count">{{ $stats['active'] ?? 0 }}</span>
+                </div>
+                <div class="status-tab {{ request('status') == 'inactive' ? 'active' : '' }}" onclick="changeStatus('inactive')">
+                    Nonaktif
+                    <span class="status-tab-count">{{ $stats['inactive'] ?? 0 }}</span>
+                </div>
+            </div>
+
             <!-- Filters -->
             <div class="filters">
-                <form method="GET" action="{{ route('admin.media.index') }}">
+                <form method="GET" action="{{ route('admin.media.index') }}" id="filterForm">
+                    <input type="hidden" name="status" id="statusInput" value="{{ request('status', 'all') }}">
+
                     <select name="type">
                         <option value="all" {{ request('type') == 'all' ? 'selected' : '' }}>Semua Type</option>
                         <option value="image" {{ request('type') == 'image' ? 'selected' : '' }}>Image</option>
@@ -902,11 +964,12 @@
                         <option value="story" {{ request('section') == 'story' ? 'selected' : '' }}>Story</option>
                         <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
                         <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
+                        <option value="whylearn" {{ request('section') == 'whylearn' ? 'selected' : '' }}>Why Learn</option>
                     </select>
 
                     <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
 
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <button type="submit" class="btn btn-primary">Cari</button>
                     <a href="{{ route('admin.media.index') }}" class="btn btn-secondary">Reset</a>
                 </form>
             </div>
@@ -914,7 +977,11 @@
             <!-- Bulk Actions -->
             <div class="bulk-actions" id="bulkActions">
                 <span id="selectedCount">0 dipilih</span>
-                <button class="btn btn-danger btn-sm" onclick="bulkDelete()">Hapus Terpilih</button>
+                <button class="btn btn-secondary btn-sm" id="selectAllBtn" onclick="toggleSelectAll()">Pilih Semua</button>
+                <button class="btn btn-danger btn-sm" onclick="bulkDelete()">Hapus</button>
+                <button class="btn btn-warning btn-sm" onclick="bulkToggleActive(false)">Nonaktifkan</button>
+                <button class="btn btn-success btn-sm" onclick="bulkToggleActive(true)">Aktifkan</button>
+                <button class="btn btn-secondary btn-sm" onclick="cancelBulkActions()">Batal</button>
             </div>
 
             <!-- Media List -->
@@ -973,7 +1040,13 @@
                 </div>
                 @empty
                 <div class="empty-state">
-                    Belum ada media. <a href="{{ route('admin.media.create') }}">Upload sekarang</a>
+                    @if(request('status') == 'active')
+                        Tidak ada media aktif.
+                    @elseif(request('status') == 'inactive')
+                        Tidak ada media nonaktif.
+                    @else
+                        Belum ada media. <a href="{{ route('admin.media.create') }}">Upload sekarang</a>
+                    @endif
                 </div>
                 @endforelse
             </div>
@@ -1030,7 +1103,14 @@
         mobileMenuToggle.addEventListener('click', toggleMobileMenu);
         overlay.addEventListener('click', toggleMobileMenu);
 
+        // Status tabs functionality
+        function changeStatus(status) {
+            document.getElementById('statusInput').value = status;
+            document.getElementById('filterForm').submit();
+        }
+
         // Checkbox handling
+        let allSelected = false;
         document.querySelectorAll('.media-check').forEach(checkbox => {
             checkbox.addEventListener('change', updateBulkActions);
         });
@@ -1039,13 +1119,43 @@
             const checked = document.querySelectorAll('.media-check:checked');
             const bulkActions = document.getElementById('bulkActions');
             const selectedCount = document.getElementById('selectedCount');
+            const selectAllBtn = document.getElementById('selectAllBtn');
 
             if (checked.length > 0) {
                 bulkActions.classList.add('active');
                 selectedCount.textContent = checked.length + ' dipilih';
+
+                // Update teks tombol Pilih Semua
+                if (checked.length === document.querySelectorAll('.media-check').length) {
+                    selectAllBtn.textContent = 'Batal Pilih Semua';
+                    allSelected = true;
+                } else {
+                    selectAllBtn.textContent = 'Pilih Semua';
+                    allSelected = false;
+                }
             } else {
                 bulkActions.classList.remove('active');
+                selectAllBtn.textContent = 'Pilih Semua';
+                allSelected = false;
             }
+        }
+
+        function toggleSelectAll() {
+            const checkboxes = document.querySelectorAll('.media-check');
+
+            if (allSelected) {
+                // Batal pilih semua
+                checkboxes.forEach(cb => cb.checked = false);
+                allSelected = false;
+                document.getElementById('selectAllBtn').textContent = 'Pilih Semua';
+            } else {
+                // Pilih semua
+                checkboxes.forEach(cb => cb.checked = true);
+                allSelected = true;
+                document.getElementById('selectAllBtn').textContent = 'Batal Pilih Semua';
+            }
+
+            updateBulkActions();
         }
 
         function bulkDelete() {
@@ -1081,6 +1191,58 @@
 
             document.body.appendChild(form);
             form.submit();
+        }
+
+        function bulkToggleActive(isActive) {
+            const checked = Array.from(document.querySelectorAll('.media-check:checked'));
+            const ids = checked.map(cb => cb.value);
+
+            if (ids.length === 0) {
+                alert('Pilih minimal satu media');
+                return;
+            }
+
+            const action = isActive ? 'mengaktifkan' : 'menonaktifkan';
+            if (!confirm(`Yakin ingin ${action} ${ids.length} media?`)) {
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route("admin.media.bulk-toggle-active") }}';
+
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = '{{ csrf_token() }}';
+            form.appendChild(csrfToken);
+
+            const statusInput = document.createElement('input');
+            statusInput.type = 'hidden';
+            statusInput.name = 'is_active';
+            statusInput.value = isActive ? '1' : '0';
+            form.appendChild(statusInput);
+
+            ids.forEach(id => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'ids[]';
+                input.value = id;
+                form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function cancelBulkActions() {
+            // Reset semua checkbox
+            document.querySelectorAll('.media-check').forEach(cb => cb.checked = false);
+            // Sembunyikan bulk actions
+            document.getElementById('bulkActions').classList.remove('active');
+            // Reset status
+            allSelected = false;
+            document.getElementById('selectAllBtn').textContent = 'Pilih Semua';
         }
 
         // Handle window resize

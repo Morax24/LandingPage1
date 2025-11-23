@@ -288,6 +288,9 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             text-align: center;
             transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-card:hover {
@@ -310,6 +313,32 @@
             color: #666;
             font-size: 0.9rem;
             font-weight: 500;
+        }
+
+        /* Tambahan style untuk stat card yang bisa diklik */
+        .stat-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .stat-link:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .stat-card .click-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.7rem;
+            color: #999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover .click-hint {
+            opacity: 1;
         }
 
         /* Filters */
@@ -372,7 +401,7 @@
             margin-right: 1rem;
         }
 
-        /* Table */
+        /* Table - PERBAIKAN BAGIAN INI */
         .table-container {
             background: #fff;
             border-radius: 15px;
@@ -401,10 +430,13 @@
         td {
             padding: 1rem;
             border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
         }
 
-        tr:hover {
+        /* PERBAIKAN: Efek hover yang aman - tidak membuat teks hilang */
+        tr:hover td {
             background: #F7FCF9;
+            color: #333;
         }
 
         .badge {
@@ -418,16 +450,19 @@
         .badge-pending {
             background: #FFF4E6;
             color: #C29239;
+            border: 1px solid #FFE4C2;
         }
 
         .badge-approved {
             background: #E8F5EC;
             color: #4FA564;
+            border: 1px solid #D4EDDA;
         }
 
         .badge-rejected {
             background: #FFE8E1;
             color: #D96F4A;
+            border: 1px solid #FFD1C4;
         }
 
         .action-buttons {
@@ -677,9 +712,7 @@
             <div class="page-header">
                 <h1>📧 Kelola Pesan Contact</h1>
                 <div class="header-actions">
-                    <!-- TAMBAHKAN BUTTON DASHBOARD -->
-
-                <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
+                    <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
                 </div>
             </div>
 
@@ -696,24 +729,43 @@
             </div>
             @endif
 
-            <!-- Stats Cards -->
+            <!-- Stats Cards dengan LINK -->
             <div class="stats-grid">
-                <div class="stat-card total">
-                    <h3>{{ $stats['total'] }}</h3>
-                    <p>Total Pesan</p>
-                </div>
-                <div class="stat-card pending">
-                    <h3>{{ $stats['pending'] }}</h3>
-                    <p>Menunggu Review</p>
-                </div>
-                <div class="stat-card approved">
-                    <h3>{{ $stats['approved'] }}</h3>
-                    <p>Disetujui</p>
-                </div>
-                <div class="stat-card rejected">
-                    <h3>{{ $stats['rejected'] }}</h3>
-                    <p>Ditolak</p>
-                </div>
+                <!-- Total Pesan -->
+                <a href="{{ route('admin.contacts.index') }}" class="stat-link">
+                    <div class="stat-card total">
+                        <h3>{{ $stats['total'] }}</h3>
+                        <p>Total Pesan</p>
+                        <div class="click-hint">Klik untuk lihat semua</div>
+                    </div>
+                </a>
+
+                <!-- Menunggu Review -->
+                <a href="{{ route('admin.contacts.index', ['status' => 'pending']) }}" class="stat-link">
+                    <div class="stat-card pending">
+                        <h3>{{ $stats['pending'] }}</h3>
+                        <p>Menunggu Review</p>
+                        <div class="click-hint">Klik untuk lihat</div>
+                    </div>
+                </a>
+
+                <!-- Disetujui -->
+                <a href="{{ route('admin.contacts.index', ['status' => 'approved']) }}" class="stat-link">
+                    <div class="stat-card approved">
+                        <h3>{{ $stats['approved'] }}</h3>
+                        <p>Disetujui</p>
+                        <div class="click-hint">Klik untuk lihat</div>
+                    </div>
+                </a>
+
+                <!-- Ditolak -->
+                <a href="{{ route('admin.contacts.index', ['status' => 'rejected']) }}" class="stat-link">
+                    <div class="stat-card rejected">
+                        <h3>{{ $stats['rejected'] }}</h3>
+                        <p>Ditolak</p>
+                        <div class="click-hint">Klik untuk lihat</div>
+                    </div>
+                </a>
             </div>
 
             <!-- Filters -->
@@ -728,7 +780,7 @@
 
                     <input type="text" name="search" placeholder="Cari nama, email, atau pesan..." value="{{ request('search') }}">
 
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <button type="submit" class="btn btn-primary">Cari</button>
                     <a href="{{ route('admin.contacts.index') }}" class="btn btn-secondary">Reset</a>
                 </form>
             </div>
@@ -779,7 +831,19 @@
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-sm">Setujui</button>
                                     </form>
+                                    <!-- TAMBAHKAN TOMBOL TOLAK DI SINI -->
+                                    <form action="{{ route('admin.contacts.reject', $contact->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Yakin ingin menolak pesan ini?')">Tolak</button>
+                                    </form>
                                     @endif
+
+                                    <!-- Tombol Hapus untuk semua status -->
+                                    <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pesan ini?')">Hapus</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -883,6 +947,28 @@
                 sidebar.classList.remove('mobile-open');
                 overlay.classList.remove('active');
             }
+        });
+
+        // Konfirmasi untuk aksi Setujui dan Tolak
+        document.addEventListener('DOMContentLoaded', function() {
+            const approveForms = document.querySelectorAll('form[action*="approve"]');
+            const rejectForms = document.querySelectorAll('form[action*="reject"]');
+
+            approveForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    if (!confirm('Yakin ingin menyetujui pesan ini?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            rejectForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    if (!confirm('Yakin ingin menolak pesan ini?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
         });
     </script>
 </body>

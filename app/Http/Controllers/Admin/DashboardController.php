@@ -9,6 +9,7 @@ use App\Models\ForumReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -20,22 +21,23 @@ class DashboardController extends Controller
         $approvedContacts = Contact::where('status', 'approved')->count();
         $rejectedContacts = Contact::where('status', 'rejected')->count();
 
-        // Statistik Media - PERBAIKAN: gunakan file_size bukan size
+        // Statistik Media
         $totalMedia = Media::count();
         $totalMediaSize = Media::sum('file_size');
-        $inactiveMedia = Media::where('is_active', 0)->count(); // PERBAIKAN: 0 bukan false
+        $activeMedia = Media::where('is_active', 1)->count();
+        $inactiveMedia = Media::where('is_active', 0)->count();
 
         // Statistik Balasan Forum
         $pendingReplies = ForumReply::where('status', 'pending')->count();
 
-        // Aktivitas Terbaru
+        // Aktivitas Terbaru - PERBAIKI: Kirim objek media lengkap
         $recentActivities = $this->getRecentActivities();
 
         // Kontak Terbaru
         $recentContacts = Contact::latest()->take(5)->get();
 
         // Media Terbaru
-        $recentMedia = Media::latest()->take(5)->get();
+        $recentMedia = Media::with('uploader')->latest()->take(6)->get();
 
         $stats = [
             'total_contacts' => $totalContacts,
@@ -44,7 +46,8 @@ class DashboardController extends Controller
             'rejected_contacts' => $rejectedContacts,
             'total_media' => $totalMedia,
             'total_media_size' => $totalMediaSize,
-            'inactive_media' => $inactiveMedia, // PASTIKAN INI ADA
+            'active_media' => $activeMedia,
+            'inactive_media' => $inactiveMedia,
             'pending_replies' => $pendingReplies,
         ];
 
@@ -61,17 +64,19 @@ class DashboardController extends Controller
             $activities[] = [
                 'type' => 'contact',
                 'title' => 'Pesan baru dari ' . $contact->name,
-                'time' => $contact->created_at->diffForHumans()
+                'time' => $contact->created_at->diffForHumans(),
+                'contact' => $contact // Kirim objek contact
             ];
         }
 
-        // Ambil media terbaru
+        // Ambil media terbaru - PERBAIKI: Kirim objek media lengkap
         $recentMedia = Media::latest()->take(2)->get();
         foreach ($recentMedia as $media) {
             $activities[] = [
                 'type' => 'media',
-                'title' => 'Media diupload: ' . Str::limit($media->title, 20),
-                'time' => $media->created_at->diffForHumans()
+                'title' => ($media->isImage() ? 'Gambar diupload: ' : 'Video diupload: ') . Str::limit($media->title, 25),
+                'time' => $media->created_at->diffForHumans(),
+                'media' => $media // KIRIM OBJEK MEDIA LENGKAP, bukan hanya thumbnail
             ];
         }
 
@@ -81,33 +86,120 @@ class DashboardController extends Controller
             $activities[] = [
                 'type' => 'reply',
                 'title' => 'Balasan forum baru',
-                'time' => $reply->created_at->diffForHumans()
+                'time' => $reply->created_at->diffForHumans(),
+                'reply' => $reply
             ];
         }
 
         // Urutkan berdasarkan waktu (yang terbaru pertama)
         usort($activities, function($a, $b) {
-            return strtotime($b['time']) - strtotime($a['time']);
+            $timeA = $this->getActivityTime($a);
+            $timeB = $this->getActivityTime($b);
+            return $timeB <=> $timeA;
         });
 
-        // Ambil hanya 5 aktivitas terbaru
         return array_slice($activities, 0, 5);
     }
 
-    // Untuk debugging - tambahkan method ini
+    /**
+     * Helper untuk mendapatkan waktu dari aktivitas
+     */
+    private function getActivityTime($activity)
+    {
+        switch ($activity['type']) {
+            case 'contact':
+                return $activity['contact']->created_at;
+            case 'media':
+                return $activity['media']->created_at;
+            case 'reply':
+                return $activity['reply']->created_at;
+            default:
+                return now();
+        }
+    }
+
+    /**
+     * Get corrected file path for display
+     */
+    private function getCorrectedFilePath($filePath)
+    {
+        if (!$filePath) return null;
+
+        // Remove base URL if present
+        $cleanedPath = str_replace('http://127.0.0.1:8000/', '', $filePath);
+        $cleanedPath = str_replace('http://localhost:8000/', '', $filePath);
+        $cleanedPath = str_replace('https://', '', $cleanedPath);
+
+        return $cleanedPath;
+    }
+
+    /**
+     * Check if file actually exists
+     */
+    private function checkFileExists($filePath)
+    {
+        if (!$filePath) return false;
+
+        $cleanedPath = $this->getCorrectedFilePath($filePath);
+
+        // Check in storage
+        $storagePath = storage_path('app/public/' . $cleanedPath);
+        if (file_exists($storagePath)) {
+            return true;
+        }
+
+        // Check in public storage
+        $publicPath = public_path('storage/' . $cleanedPath);
+        if (file_exists($publicPath)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Debug method untuk mengecek data
     public function debug()
     {
-        $totalMedia = Media::count();
-        $inactiveMedia = Media::where('is_active', 0)->count();
-        $activeMedia = Media::where('is_active', 1)->count();
+        $recentActivities = $this->getRecentActivities();
 
-        $allMedia = Media::select('id', 'title', 'is_active')->get();
+        $debugData = [
+            'recent_activities' => [],
+            'media_debug' => []
+        ];
 
-        return response()->json([
-            'total_media' => $totalMedia,
-            'inactive_media' => $inactiveMedia,
-            'active_media' => $activeMedia,
-            'all_media' => $allMedia
-        ]);
+        foreach($recentActivities as $activity) {
+            if ($activity['type'] == 'media' && isset($activity['media'])) {
+                $media = $activity['media'];
+                $debugData['recent_activities'][] = [
+                    'type' => 'media',
+                    'title' => $activity['title'],
+                    'media_id' => $media->id,
+                    'media_title' => $media->title,
+                    'media_type' => $media->type,
+                    'file_path' => $media->file_path,
+                    'url' => $media->url,
+                    'is_image' => $media->isImage(),
+                    'is_video' => $media->isVideo()
+                ];
+            } else {
+                $debugData['recent_activities'][] = $activity;
+            }
+        }
+
+        // Debug semua media
+        $allMedia = Media::select('id', 'title', 'file_path', 'type', 'is_active')->get();
+        foreach($allMedia as $media) {
+            $debugData['media_debug'][] = [
+                'id' => $media->id,
+                'title' => $media->title,
+                'type' => $media->type,
+                'file_path' => $media->file_path,
+                'url' => $media->url,
+                'is_image' => $media->isImage(),
+                'is_video' => $media->isVideo()
+            ];
+        }
+
+        return response()->json($debugData);
     }
 }

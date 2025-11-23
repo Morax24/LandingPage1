@@ -8,7 +8,7 @@ use App\Http\Controllers\ForumReplyController;
 use App\Http\Controllers\Admin\ForumReplyController as AdminForumReplyController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\Admin\DashboardController; // TAMBAHKAN INI
+use App\Http\Controllers\Admin\DashboardController;
 
 // ============================================
 // FRONTEND ROUTES (PUBLIC)
@@ -73,15 +73,22 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('/contacts/bulk-reject', [AdminContactController::class, 'bulkReject'])->name('contacts.bulk-reject');
     Route::post('/contacts/bulk-delete', [AdminContactController::class, 'bulkDelete'])->name('contacts.bulk-delete');
 
-    // Media Management
-    Route::get('/media', [MediaController::class, 'index'])->name('media.index');
-    Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
-    Route::post('/media', [MediaController::class, 'store'])->name('media.store');
-    Route::get('/media/{id}/edit', [MediaController::class, 'edit'])->name('media.edit');
-    Route::put('/media/{id}', [MediaController::class, 'update'])->name('media.update');
-    Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
-    Route::post('/media/bulk-delete', [MediaController::class, 'bulkDelete'])->name('media.bulk-delete');
-    Route::post('/media/{id}/toggle-active', [MediaController::class, 'toggleActive'])->name('media.toggle-active');
+    // Media Management - PERBAIKI BAGIAN INI
+    Route::prefix('media')->name('media.')->group(function () {
+        Route::get('/', [MediaController::class, 'index'])->name('index');
+        Route::get('/create', [MediaController::class, 'create'])->name('create');
+        Route::post('/', [MediaController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [MediaController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [MediaController::class, 'update'])->name('update');
+        Route::delete('/{id}', [MediaController::class, 'destroy'])->name('destroy');
+        Route::post('/{id}/toggle-active', [MediaController::class, 'toggleActive'])->name('toggle-active');
+
+        // Bulk Actions - TAMBAHKAN RUTE INI
+        Route::post('/bulk-delete', [MediaController::class, 'bulkDelete'])->name('bulk-delete');
+        Route::post('/bulk-toggle-active', [MediaController::class, 'bulkToggleActive'])->name('bulk-toggle-active');
+        Route::post('/bulk-activate', [MediaController::class, 'bulkActivate'])->name('bulk-activate');
+        Route::post('/bulk-deactivate', [MediaController::class, 'bulkDeactivate'])->name('bulk-deactivate');
+    });
 
     // Forum Replies Management
     Route::get('/forum-replies', [AdminForumReplyController::class, 'index'])->name('forum-replies.index');
