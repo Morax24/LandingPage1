@@ -283,7 +283,7 @@
             border-radius: 8px;
         }
 
-        /* Stats */
+        /* Stats dengan Icon */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -311,8 +311,14 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.12);
         }
 
-        .stat-card h3 {
+        .stat-icon {
             font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stat-card h3 {
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
             color: #5FB574;
             font-weight: 700;
@@ -324,53 +330,77 @@
             font-weight: 500;
         }
 
-        /* Warna untuk status */
-        .stat-card.pending {
-            background: #FFF8E1;
-        }
-
-        .stat-card.pending h3 {
-            color: #F9D56E;
-        }
-
-        .stat-card.pending:hover {
-            background: #FFEFC2;
-        }
-
-        .stat-card.inactive {
-            background: #FFE8E1;
-        }
-
-        .stat-card.inactive h3 {
-            color: #FF8A5B;
-        }
-
-        .stat-card.inactive:hover {
-            background: #FFD1C4;
-        }
-
-        .stat-card.info {
-            background: #E3F2FD;
-        }
-
-        .stat-card.info h3 {
-            color: #2196F3;
-        }
-
-        .stat-card.info:hover {
-            background: #BBDEFB;
-        }
-
+        /* Warna untuk status cards */
         .stat-card.size {
-            background: #E8F5E8;
+            background: linear-gradient(135deg, #E8F5E8, #C8E6C9);
+            border-left: 4px solid #4CAF50;
         }
 
         .stat-card.size h3 {
-            color: #4CAF50;
+            color: #2E7D32;
         }
 
-        .stat-card.size:hover {
-            background: #C8E6C9;
+        .stat-card.contacts {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            border-left: 4px solid #2196F3;
+        }
+
+        .stat-card.contacts h3 {
+            color: #1565C0;
+        }
+
+        .stat-card.pending {
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+            border-left: 4px solid #FFC107;
+        }
+
+        .stat-card.pending h3 {
+            color: #FF8F00;
+        }
+
+        .stat-card.approved {
+            background: linear-gradient(135deg, #E8F5E8, #C8E6C9);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .stat-card.approved h3 {
+            color: #2E7D32;
+        }
+
+        .stat-card.rejected {
+            background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+            border-left: 4px solid #F44336;
+        }
+
+        .stat-card.rejected h3 {
+            color: #C62828;
+        }
+
+        .stat-card.media {
+            background: linear-gradient(135deg, #F3E5F5, #E1BEE7);
+            border-left: 4px solid #9C27B0;
+        }
+
+        .stat-card.media h3 {
+            color: #7B1FA2;
+        }
+
+        .stat-card.active {
+            background: linear-gradient(135deg, #E8F5E8, #C8E6C9);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .stat-card.active h3 {
+            color: #2E7D32;
+        }
+
+        .stat-card.inactive {
+            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+            border-left: 4px solid #FF9800;
+        }
+
+        .stat-card.inactive h3 {
+            color: #EF6C00;
         }
 
         /* Link stat card */
@@ -673,6 +703,37 @@
             animation: fadeIn 0.5s ease;
         }
 
+        /* Video thumbnail untuk activity */
+        .activity-item .video-thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #3498db;
+        }
+
+        .activity-item .video-icon {
+            font-size: 1.2rem;
+            color: white;
+            z-index: 2;
+        }
+
+        .activity-item .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 1;
+            border-radius: 50%;
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .stats-grid {
@@ -716,6 +777,9 @@
                 padding: 1.5rem 1rem;
             }
             .stat-card h3 {
+                font-size: 2rem;
+            }
+            .stat-icon {
                 font-size: 2rem;
             }
             .chart-container, .activity-container, .recent-container {
@@ -850,49 +914,57 @@
                 </div>
             @endif
 
-            <!-- Stats - URUTAN BARU -->
+            <!-- Stats dengan Icon yang Bagus -->
             <div class="stats-grid">
                 <!-- Baris 1 -->
                 <div class="stat-card size">
+                    <span class="stat-icon">💾</span>
                     <h3>{{ number_format(($stats['total_media_size'] ?? 0) / 1024 / 1024, 2) }} MB</h3>
                     <p>Total Size Media</p>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card contacts">
+                    <span class="stat-icon">📨</span>
                     <h3>{{ $stats['total_contacts'] ?? 0 }}</h3>
                     <p>Total Pesan</p>
                 </div>
 
                 <div class="stat-card pending">
+                    <span class="stat-icon">⏳</span>
                     <h3>{{ $stats['pending_contacts'] ?? 0 }}</h3>
                     <p>Pesan Pending</p>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card approved">
+                    <span class="stat-icon">✅</span>
                     <h3>{{ $stats['approved_contacts'] ?? 0 }}</h3>
                     <p>Pesan Disetujui</p>
                 </div>
 
                 <!-- Baris 2 -->
                 <a href="{{ route('admin.contacts.index', ['status' => 'rejected']) }}" class="stat-link">
-                    <div class="stat-card inactive">
+                    <div class="stat-card rejected">
+                        <span class="stat-icon">❌</span>
                         <h3>{{ $stats['rejected_contacts'] ?? 0 }}</h3>
                         <p>Pesan Ditolak</p>
                     </div>
                 </a>
 
-                <div class="stat-card">
+                <div class="stat-card media">
+                    <span class="stat-icon">🖼️</span>
                     <h3>{{ $stats['total_media'] ?? 0 }}</h3>
                     <p>Total Media</p>
                 </div>
 
-                <div class="stat-card info">
-                    <h3>{{ $stats['active_media'] ?? $stats['total_media'] - $stats['inactive_media'] }}</h3>
+                <div class="stat-card active">
+                    <span class="stat-icon">🟢</span>
+                    <h3>{{ $stats['active_media'] ?? 0 }}</h3>
                     <p>Media Aktif</p>
                 </div>
 
                 <a href="{{ route('admin.media.index', ['status' => 'inactive']) }}" class="stat-link">
                     <div class="stat-card inactive">
+                        <span class="stat-icon">🔴</span>
                         <h3>{{ $stats['inactive_media'] ?? 0 }}</h3>
                         <p>Media Nonaktif</p>
                     </div>
@@ -903,70 +975,71 @@
             <div class="dashboard-grid">
                 <!-- Chart/Graph Section -->
                 <div class="chart-container">
-                    <h2 style="margin-bottom: 1.5rem; color: #333;">Statistik Aktivitas</h2>
+                    <h2 style="margin-bottom: 1.5rem; color: #333;">📈 Statistik Aktivitas</h2>
                     <div class="chart-wrapper">
                         <canvas id="activityChart"></canvas>
                     </div>
                 </div>
 
                 <!-- Recent Activity -->
-<div class="activity-container">
-    <h2 style="margin-bottom: 1.5rem; color: #333;">Aktivitas Terbaru</h2>
-    <div class="activity-list">
-        @forelse($recentActivities ?? [] as $activity)
-            <div class="activity-item">
-                <div class="activity-icon">
-                    @if($activity['type'] == 'contact')
-                        <div class="activity-avatar" style="background: #5FB574;">📧</div>
-                    @elseif($activity['type'] == 'media' && isset($activity['media']))
-                        @if($activity['media']->isImage())
-                            <!-- Tampilkan thumbnail gambar asli -->
-                            <img src="{{ $activity['media']->url }}"
-                                 alt="Thumbnail"
-                                 class="activity-thumbnail"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="activity-avatar image-fallback" style="background: #F9D56E;">🖼️</div>
-                        @elseif($activity['media']->isVideo())
-                            <!-- Tampilkan thumbnail video -->
-                            <div class="video-thumbnail" style="width: 50px; height: 50px; border-radius: 50%;">
-                                <div class="video-icon">🎥</div>
-                                <div class="video-overlay"></div>
+                <div class="activity-container">
+                    <h2 style="margin-bottom: 1.5rem; color: #333;">🔄 Aktivitas Terbaru</h2>
+                    <div class="activity-list">
+                        @forelse($recentActivities ?? [] as $activity)
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    @if($activity['type'] == 'contact')
+                                        <div class="activity-avatar" style="background: #5FB574;">📧</div>
+                                    @elseif($activity['type'] == 'media' && isset($activity['media']))
+                                        @if($activity['media']->isImage())
+                                            <!-- Tampilkan thumbnail gambar asli -->
+                                            <img src="{{ $activity['media']->url }}"
+                                                 alt="Thumbnail"
+                                                 class="activity-thumbnail"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            <div class="activity-avatar image-fallback" style="background: #F9D56E;">🖼️</div>
+                                        @elseif($activity['media']->isVideo())
+                                            <!-- Tampilkan thumbnail video -->
+                                            <div class="video-thumbnail" style="width: 50px; height: 50px; border-radius: 50%;">
+                                                <div class="video-icon">🎥</div>
+                                                <div class="video-overlay"></div>
+                                            </div>
+                                        @else
+                                            <div class="activity-avatar" style="background: #3498db;">📁</div>
+                                        @endif
+                                    @elseif($activity['type'] == 'reply')
+                                        <div class="activity-avatar" style="background: #9b59b6;">💬</div>
+                                    @else
+                                        <div class="activity-avatar" style="background: #95a5a6;">📊</div>
+                                    @endif
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">{{ $activity['title'] ?? 'Aktivitas' }}</div>
+                                    <div class="activity-time">
+                                        {{ $activity['time'] ?? '-' }}
+                                        @if(isset($activity['media']))
+                                            • {{ $activity['media']->section ?? 'other' }}
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-                        @else
-                            <div class="activity-avatar" style="background: #3498db;">📁</div>
-                        @endif
-                    @elseif($activity['type'] == 'reply')
-                        <div class="activity-avatar" style="background: #9b59b6;">💬</div>
-                    @else
-                        <div class="activity-avatar" style="background: #95a5a6;">📊</div>
-                    @endif
-                </div>
-                <div class="activity-content">
-                    <div class="activity-title">{{ $activity['title'] ?? 'Aktivitas' }}</div>
-                    <div class="activity-time">
-                        {{ $activity['time'] ?? '-' }}
-                        @if(isset($activity['media']))
-                            • {{ $activity['media']->section ?? 'other' }}
-                        @endif
+                        @empty
+                            <div class="activity-item">
+                                <div class="activity-content">
+                                    <div class="activity-title">Belum ada aktivitas</div>
+                                    <div class="activity-time">-</div>
+                                </div>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
-        @empty
-            <div class="activity-item">
-                <div class="activity-content">
-                    <div class="activity-title">Belum ada aktivitas</div>
-                    <div class="activity-time">-</div>
-                </div>
-            </div>
-        @endforelse
-    </div>
-</div>
 
             <!-- Recent Items -->
             <div class="recent-grid">
                 <!-- Recent Messages -->
                 <div class="recent-container">
-                    <h2 style="margin-bottom: 1.5rem; color: #333;">Pesan Terbaru</h2>
+                    <h2 style="margin-bottom: 1.5rem; color: #333;">📩 Pesan Terbaru</h2>
                     <div class="recent-list">
                         @forelse($recentContacts ?? [] as $contact)
                             <div class="recent-item">
@@ -996,7 +1069,7 @@
 
                 <!-- Recent Media -->
                 <div class="recent-container">
-                    <h2 style="margin-bottom: 1.5rem; color: #333;">Media Terbaru</h2>
+                    <h2 style="margin-bottom: 1.5rem; color: #333;">🖼️ Media Terbaru</h2>
                     <div class="recent-list">
                         @forelse($recentMedia ?? [] as $media)
                             <div class="recent-item">
