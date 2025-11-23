@@ -678,10 +678,8 @@
                 <h1>📧 Kelola Pesan Contact</h1>
                 <div class="header-actions">
                     <!-- TAMBAHKAN BUTTON DASHBOARD -->
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
-                        📊 Dashboard
-                    </a>
-                    <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
+
+                <span>Halo, <strong>{{ Auth::user()->name }}</strong></span>
                 </div>
             </div>
 
@@ -781,19 +779,7 @@
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-sm">Setujui</button>
                                     </form>
-                                    <!-- TAMBAHKAN TOMBOL TOLAK DI SINI -->
-                                    <form action="{{ route('admin.contacts.reject', $contact->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Yakin ingin menolak pesan ini?')">Tolak</button>
-                                    </form>
                                     @endif
-
-                                    <!-- Tombol Hapus untuk semua status -->
-                                    <form action="{{ route('admin.contacts.destroy', $contact->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pesan ini?')">Hapus</button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -897,28 +883,6 @@
                 sidebar.classList.remove('mobile-open');
                 overlay.classList.remove('active');
             }
-        });
-
-        // Konfirmasi untuk aksi Setujui dan Tolak
-        document.addEventListener('DOMContentLoaded', function() {
-            const approveForms = document.querySelectorAll('form[action*="approve"]');
-            const rejectForms = document.querySelectorAll('form[action*="reject"]');
-
-            approveForms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    if (!confirm('Yakin ingin menyetujui pesan ini?')) {
-                        e.preventDefault();
-                    }
-                });
-            });
-
-            rejectForms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    if (!confirm('Yakin ingin menolak pesan ini?')) {
-                        e.preventDefault();
-                    }
-                });
-            });
         });
     </script>
 </body>

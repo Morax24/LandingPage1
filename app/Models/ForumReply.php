@@ -2,59 +2,58 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ForumReply extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'contact_id',
-        'parent_id',
         'name',
         'email',
         'message',
         'status',
         'approved_at',
-        'approved_by'
+        'approved_by',
     ];
 
-    // Relasi ke contact
-    public function contact(): BelongsTo
+    protected $casts = [
+        'approved_at' => 'datetime',
+    ];
+
+    // Relasi ke Contact (parent comment)
+    public function contact()
     {
         return $this->belongsTo(Contact::class);
     }
 
-    // Relasi ke parent reply (untuk nested comments)
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(ForumReply::class, 'parent_id');
-    }
-
-    // Relasi ke child replies
-    public function replies(): HasMany
-    {
-        return $this->hasMany(ForumReply::class, 'parent_id')->where('status', 'approved');
-    }
-
-    // Relasi ke user yang approve
-    public function approver(): BelongsTo
+    // Relasi ke User (admin yang approve)
+    public function approver()
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
 
-    // Scope untuk reply utama (bukan balasan)
-    public function scopeMainReplies($query)
+    // Scope untuk approved replies
+    public function scopeApproved($query)
     {
-        return $query->whereNull('parent_id');
+        return $query->where('status', 'approved');
     }
 
-    public function isApproved(): bool
+    // Scope untuk pending replies
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    // Check status
+    public function isApproved()
     {
         return $this->status === 'approved';
     }
 
-    public function isPending(): bool
+    public function isPending()
     {
         return $this->status === 'pending';
     }

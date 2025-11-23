@@ -630,6 +630,10 @@
                     <span class="menu-icon">🖼️</span>
                     <span>Media Library</span>
                 </a>
+                <a href="{{ route('admin.forum-replies.index') }}" class="menu-item">
+                    <span class="menu-icon">💬</span>
+                    <span>Balasan Forum</span>
+                </a>
             </nav>
 
             <div class="sidebar-footer">
