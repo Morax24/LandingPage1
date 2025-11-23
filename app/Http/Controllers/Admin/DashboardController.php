@@ -30,7 +30,7 @@ class DashboardController extends Controller
         // Statistik Balasan Forum
         $pendingReplies = ForumReply::where('status', 'pending')->count();
 
-        // Aktivitas Terbaru - PERBAIKI: Kirim objek media lengkap
+        // Aktivitas Terbaru
         $recentActivities = $this->getRecentActivities();
 
         // Kontak Terbaru
@@ -65,18 +65,20 @@ class DashboardController extends Controller
                 'type' => 'contact',
                 'title' => 'Pesan baru dari ' . $contact->name,
                 'time' => $contact->created_at->diffForHumans(),
-                'contact' => $contact // Kirim objek contact
+                'contact' => $contact,
+                'link' => route('admin.contacts.show', $contact->id)
             ];
         }
 
-        // Ambil media terbaru - PERBAIKI: Kirim objek media lengkap
+        // Ambil media terbaru
         $recentMedia = Media::latest()->take(2)->get();
         foreach ($recentMedia as $media) {
             $activities[] = [
                 'type' => 'media',
                 'title' => ($media->isImage() ? 'Gambar diupload: ' : 'Video diupload: ') . Str::limit($media->title, 25),
                 'time' => $media->created_at->diffForHumans(),
-                'media' => $media // KIRIM OBJEK MEDIA LENGKAP, bukan hanya thumbnail
+                'media' => $media,
+                'link' => route('admin.media.index')
             ];
         }
 
@@ -87,7 +89,8 @@ class DashboardController extends Controller
                 'type' => 'reply',
                 'title' => 'Balasan forum baru',
                 'time' => $reply->created_at->diffForHumans(),
-                'reply' => $reply
+                'reply' => $reply,
+                'link' => route('admin.forum-replies.index')
             ];
         }
 
@@ -179,7 +182,8 @@ class DashboardController extends Controller
                     'file_path' => $media->file_path,
                     'url' => $media->url,
                     'is_image' => $media->isImage(),
-                    'is_video' => $media->isVideo()
+                    'is_video' => $media->isVideo(),
+                    'link' => $activity['link']
                 ];
             } else {
                 $debugData['recent_activities'][] = $activity;
