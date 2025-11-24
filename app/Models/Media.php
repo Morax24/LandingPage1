@@ -30,6 +30,20 @@ class Media extends Model
         'order' => 'integer',
     ];
 
+    // TAMBAHKAN METHOD INI - Available sections termasuk products
+    public static function getSections()
+    {
+        return [
+            'hero' => 'Hero Section',
+            'story' => 'Story Section',
+            'features' => 'Features Section',
+            'whylearn' => 'Why Learn Section',
+            'aktivitas' => 'Aktivitas Section',
+            'products' => 'Products Section', // TAMBAHKAN INI
+            'other' => 'Other'
+        ];
+    }
+
     // Relasi ke User
     public function uploader()
     {

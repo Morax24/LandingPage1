@@ -25,7 +25,7 @@ class StoreMediaRequest extends FormRequest
                         if (!in_array($value->getMimeType(), ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'])) {
                             $fail('File harus berupa gambar (JPEG, PNG, JPG, WEBP)');
                         }
-                        if ($value->getSize() > 15 * 1024 * 1024) { // 10MB
+                        if ($value->getSize() > 15 * 1024 * 1024) { // 15MB
                             $fail('Ukuran gambar maksimal 15MB');
                         }
                     } elseif ($this->type === 'video') {
@@ -38,7 +38,7 @@ class StoreMediaRequest extends FormRequest
                     }
                 },
             ],
-            'section' => 'required|in:features,aktivitas,hero,story,whylearn,other',
+            'section' => 'required|in:features,aktivitas,hero,story,whylearn,products,other', // TAMBAHKAN 'products' DI SINI
             'order' => 'nullable|integer|min:0',
         ];
     }

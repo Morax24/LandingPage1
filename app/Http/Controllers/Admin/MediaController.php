@@ -27,7 +27,7 @@ class MediaController extends Controller
     {
         $query = Media::with('uploader')->ordered();
 
-        // Filter by status - TAMBAHKAN FILTER INI
+        // Filter by status
         if ($request->has('status') && $request->status != 'all') {
             if ($request->status == 'active') {
                 $query->where('is_active', true);
@@ -57,7 +57,7 @@ class MediaController extends Controller
 
         $media = $query->paginate(12);
 
-        // Stats - PERBAIKI STATISTIK DENGAN DATA AKTIF/NONAKTIF
+        // Stats
         $stats = [
             'total' => Media::count(),
             'images' => Media::images()->count(),
@@ -75,7 +75,17 @@ class MediaController extends Controller
      */
     public function create()
     {
-        return view('admin.media.create');
+        $sections = [
+            'hero' => 'Hero Section',
+            'story' => 'Story Section',
+            'features' => 'Features Section',
+            'whylearn' => 'Why Learn Section',
+            'aktivitas' => 'Aktivitas Section',
+            'products' => 'Products Section', // TAMBAHKAN INI
+            'other' => 'Other'
+        ];
+
+        return view('admin.media.create', compact('sections'));
     }
 
     /**
@@ -124,7 +134,17 @@ class MediaController extends Controller
     public function edit($id)
     {
         $media = Media::findOrFail($id);
-        return view('admin.media.edit', compact('media'));
+        $sections = [
+            'hero' => 'Hero Section',
+            'story' => 'Story Section',
+            'features' => 'Features Section',
+            'whylearn' => 'Why Learn Section',
+            'aktivitas' => 'Aktivitas Section',
+            'products' => 'Products Section', // TAMBAHKAN INI
+            'other' => 'Other'
+        ];
+
+        return view('admin.media.edit', compact('media', 'sections'));
     }
 
     /**
@@ -135,7 +155,7 @@ class MediaController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'section' => 'required|in:features,aktivitas,hero,story,other,whylearn',
+            'section' => 'required|in:features,aktivitas,hero,story,other,whylearn,products', // TAMBAHKAN 'products'
             'order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
         ]);

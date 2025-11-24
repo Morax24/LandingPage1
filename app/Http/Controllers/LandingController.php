@@ -54,6 +54,13 @@ class LandingController extends Controller
             ->take(6)
             ->get();
 
+        // TAMBAHKAN INI - Ambil gambar produk
+        $productImages = Media::where('section', 'products')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->take(2)
+            ->get();
+
         $testimonials = Contact::where('status', 'approved')
             ->latest()
             ->get();
@@ -72,6 +79,7 @@ class LandingController extends Controller
             'whyLearnMedias',
             'featuresMedia',
             'aktivitasMedia',
+            'productImages', // TAMBAHKAN INI
             'testimonials',
             'stats'
         ));

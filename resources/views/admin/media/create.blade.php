@@ -710,13 +710,14 @@
                     <div class="form-group">
                         <label for="section">Section *</label>
                         <select name="section" id="section" required onchange="updateSectionInfo()">
-                            <option value="">-- Pilih Section --</option>
-                            <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Hero (Board Game Image)</option>
-                            <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Story (Background Box)</option>
-                            <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Features (4 slots)</option>
-                            <option value="whylearn" {{ old('section') == 'whylearn' ? 'selected' : '' }}>WhyLearn (2 slots)</option>
-                            <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial (6 slots)</option>
-                        </select>
+    <option value="">-- Pilih Section --</option>
+    <option value="hero" {{ old('section') == 'hero' ? 'selected' : '' }}>Intro</option>
+    <option value="story" {{ old('section') == 'story' ? 'selected' : '' }}>Background</option>
+    <option value="features" {{ old('section') == 'features' ? 'selected' : '' }}>Fitur 3</option>
+    <option value="whylearn" {{ old('section') == 'whylearn' ? 'selected' : '' }}>Fitur Unggulan</option>
+    <option value="aktivitas" {{ old('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
+    <option value="products" {{ old('section') == 'products' ? 'selected' : '' }}>Products</option> <!-- TAMBAHKAN INI -->
+</select>
                         @error('section')
                             <span class="error-text">{{ $message }}</span>
                         @enderror
@@ -864,28 +865,29 @@
         });
 
         function updateSectionInfo() {
-            const section = document.getElementById('section').value;
-            const sectionHelp = document.getElementById('sectionHelp');
+    const section = document.getElementById('section').value;
+    const sectionHelp = document.getElementById('sectionHelp');
 
-            const descriptions = {
-                'hero': '🎯 Hero section - gambar board game utama. Hanya 1 media aktif yang ditampilkan.',
-                'story': '📖 Story section - gambar box di samping cerita. Hanya 1 media aktif yang ditampilkan.',
-                'features': '⭐ Features section. Maksimal 4 slot yang ditampilkan.',
-                'whylearn': '💡 WhyLearn section. Maksimal 2 slot yang ditampilkan.',
-                'aktivitas': '🎮 Aktivitas & Tutorial section. Maksimal 6 slot yang ditampilkan.',
-                'other': '📁 Media lain yang tidak ditampilkan di landing page.'
-            };
+    const descriptions = {
+        'hero': '🎯 Hero section - gambar board game utama. Hanya 1 media aktif yang ditampilkan.',
+        'story': '📖 Story section - gambar box di samping cerita. Hanya 1 media aktif yang ditampilkan.',
+        'features': '⭐ Features section. Maksimal 4 slot yang ditampilkan.',
+        'whylearn': '💡 WhyLearn section. Maksimal 2 slot yang ditampilkan.',
+        'aktivitas': '🎮 Aktivitas & Tutorial section. Maksimal 6 slot yang ditampilkan.',
+        'products': '📦 Product Images - gambar untuk bagian produk/pricing. Maksimal 2 slot yang ditampilkan.', // TAMBAHKAN INI
+        'other': '📁 Media lain yang tidak ditampilkan di landing page.'
+    };
 
-            if (section && descriptions[section]) {
-                sectionHelp.textContent = descriptions[section];
-                sectionHelp.style.color = '#5FB574';
-                sectionHelp.style.fontWeight = '500';
-            } else {
-                sectionHelp.textContent = 'Pilih di section mana media ini akan ditampilkan';
-                sectionHelp.style.color = '#666';
-                sectionHelp.style.fontWeight = 'normal';
-            }
-        }
+    if (section && descriptions[section]) {
+        sectionHelp.textContent = descriptions[section];
+        sectionHelp.style.color = '#5FB574';
+        sectionHelp.style.fontWeight = '500';
+    } else {
+        sectionHelp.textContent = 'Pilih di section mana media ini akan ditampilkan';
+        sectionHelp.style.color = '#666';
+        sectionHelp.style.fontWeight = 'normal';
+    }
+}
 
         // Auto-call saat halaman load
         document.addEventListener('DOMContentLoaded', function() {

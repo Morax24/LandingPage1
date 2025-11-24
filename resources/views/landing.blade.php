@@ -23,6 +23,39 @@
             overflow-x: hidden;
         }
 
+        /* PERBAIKAN UNTUK GAMBAR - UKURAN ASLI */
+        .image-original {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-image-original {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            display: block;
+        }
+
+        .product-image-original {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            display: block;
+        }
+
+        .grid-image-original {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .feature-image-original {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         img,
         video {
             max-width: 100%;
@@ -207,13 +240,6 @@
             overflow: hidden;
         }
 
-        .board-placeholder img,
-        .board-placeholder video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
         /* STATS SECTION */
         .stats {
             display: grid;
@@ -280,13 +306,6 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-        }
-
-        .story-image img,
-        .story-image video {
-            width: 100%;
-            height: auto;
-            display: block;
         }
 
         .story-content h2 {
@@ -370,19 +389,11 @@
 
         .why-learn-media {
             background: #f0f0f0;
-            height: 300px;
             border-radius: 10px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-
-        .why-learn-media img,
-        .why-learn-media video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .why-learn-content h2 {
@@ -478,17 +489,9 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            min-height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .feature-media-box img,
-        .feature-media-box video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .feature-text-box {
@@ -523,10 +526,6 @@
             .feature-row:nth-child(even) .feature-text-box {
                 order: 1;
             }
-
-            .feature-media-box {
-                min-height: 400px;
-            }
         }
 
         /* NEW GRID LAYOUT FOR AKTIVITAS */
@@ -552,13 +551,6 @@
         .item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .item img,
-        .item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .mobile-only {
@@ -599,10 +591,10 @@
             grid-row: 5 / span 2;
         }
 
-        /* PRICING SECTION */
+        /* PERBAIKAN PRICING SECTION */
         .pricing-section {
             padding: 4rem 5%;
-            background: #fff;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
         .pricing-badge {
@@ -625,21 +617,27 @@
         .pricing-card {
             border-radius: 15px;
             padding: 2.5rem;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .pricing-card:first-child {
-            background: #7cb342;
+            background: linear-gradient(135deg, #7cb342 0%, #689f38 100%);
             color: #fff;
         }
 
         .pricing-card:last-child {
-            background: #bfbfbf;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             color: #333;
+            border: 2px solid #e9ecef;
         }
 
         .pricing-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .pricing-card h3 {
@@ -648,9 +646,10 @@
         }
 
         .pricing-card .price {
-            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
             font-weight: bold;
-            margin-bottom: 1rem;
+            margin: 1rem 0;
+            color: inherit;
         }
 
         .pricing-card p {
@@ -660,16 +659,43 @@
         .pricing-card ul {
             list-style: none;
             margin: 1.5rem 0;
+            flex-grow: 1;
         }
 
         .pricing-card ul li {
             padding: 0.5rem 0;
             font-size: clamp(0.85rem, 2vw, 0.95rem);
+            position: relative;
+            padding-left: 1.5rem;
         }
 
-        .pricing-card ul li::before {
-            content: "• ";
-            margin-right: 0.5rem;
+        .pricing-card:first-child ul li::before {
+            content: "✓ ";
+            position: absolute;
+            left: 0;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .pricing-card:last-child ul li::before {
+            content: "✓ ";
+            position: absolute;
+            left: 0;
+            color: #7cb342;
+            font-weight: bold;
+        }
+
+        /* Container untuk gambar produk */
+        .product-image-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            min-height: 200px;
         }
 
         /* TESTIMONIAL SECTION */
@@ -1095,10 +1121,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .why-learn-media {
-                height: 250px;
-            }
-
             .feature-card,
             .skill-card {
                 padding: 1.5rem;
@@ -1106,6 +1128,11 @@
 
             .pricing-card {
                 padding: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .pricing-card:hover {
+                transform: translateY(-5px);
             }
 
             .faq-item {
@@ -1123,7 +1150,7 @@
             /* Grid responsive untuk mobile */
             .grid {
                 grid-template-columns: 1fr;
-                grid-template-rows: repeat(6, 300px);
+                grid-template-rows: repeat(6, auto);
                 gap: 12px;
             }
 
@@ -1262,11 +1289,6 @@
                 padding: 1.5rem;
             }
 
-            /* Grid mobile lebih kecil */
-            .grid {
-                grid-template-rows: repeat(6, 250px);
-            }
-
             /* Mobile Layout - Tampil di bawah 768px */
             .faq-contact-mobile {
                 display: block;
@@ -1312,14 +1334,14 @@
                 @endphp
                 @if ($heroMedia)
                     @if ($heroMedia->isImage())
-                        <img src="{{ asset($heroMedia->file_path) }}" alt="{{ $heroMedia->title ?? 'Board Game' }}">
+                        <img src="{{ asset($heroMedia->file_path) }}" alt="{{ $heroMedia->title ?? 'Board Game' }}" class="hero-image-original">
                     @elseif($heroMedia->isVideo())
-                        <video controls autoplay muted loop>
+                        <video controls autoplay muted loop class="hero-image-original">
                             <source src="{{ asset($heroMedia->file_path) }}" type="{{ $heroMedia->mime_type }}">
                         </video>
                     @endif
                 @else
-                    <img src="https://via.placeholder.com/800x600/7cb342/ffffff?text=Board+Game" alt="Board Game">
+                    <img src="https://via.placeholder.com/800x600/7cb342/ffffff?text=Board+Game" alt="Board Game" class="hero-image-original">
                 @endif
             </div>
         </div>
@@ -1350,14 +1372,14 @@
                 @php $storyMedia = $storyMedia ?? null; @endphp
                 @if ($storyMedia)
                     @if ($storyMedia->isImage())
-                        <img src="{{ asset($storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}">
+                        <img src="{{ asset($storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}" class="image-original">
                     @elseif($storyMedia->isVideo())
-                        <video controls>
+                        <video controls class="image-original">
                             <source src="{{ asset($storyMedia->file_path) }}" type="{{ $storyMedia->mime_type }}">
                         </video>
                     @endif
                 @else
-                    <img src="https://via.placeholder.com/350x350/d4f1f4/333333?text=Story+Image" alt="Story">
+                    <img src="https://via.placeholder.com/350x350/d4f1f4/333333?text=Story+Image" alt="Story" class="image-original">
                 @endif
             </div>
             <div class="story-content">
@@ -1395,9 +1417,9 @@
                 <div class="why-learn-grid">
                     <div class="why-learn-media">
                         @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}">
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}" class="image-original">
                         @elseif($media->isVideo())
-                            <video controls>
+                            <video controls class="image-original">
                                 <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
                             </video>
                         @endif
@@ -1428,9 +1450,9 @@
                     </div>
                     <div class="why-learn-media">
                         @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Skills' }}">
+                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Skills' }}" class="image-original">
                         @elseif($media->isVideo())
-                            <video controls>
+                            <video controls class="image-original">
                                 <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
                             </video>
                         @endif
@@ -1454,11 +1476,11 @@
                 <div class="feature-row">
                     <div class="feature-media-box">
                         @if ($item->isVideo())
-                            <video controls style="width:100%; height:100%; object-fit:cover;">
+                            <video controls class="feature-image-original">
                                 <source src="{{ asset($item->file_path) }}" type="{{ $item->mime_type }}">
                             </video>
                         @elseif($item->isImage())
-                            <img src="{{ asset($item->file_path) }}" alt="{{ $item->title }}" style="width:100%; height:100%; object-fit:cover;">
+                            <img src="{{ asset($item->file_path) }}" alt="{{ $item->title }}" class="feature-image-original">
                         @else
                             <div class="placeholder">Feature {{ $index + 1 }}</div>
                         @endif
@@ -1531,12 +1553,11 @@
             @foreach($aktivitasMedia->take(6) as $index => $item)
                 <div class="item item-{{ $index }}">
                     @if ($item->isVideo())
-                        <video controls style="width:100%; height:100%; object-fit:cover;">
+                        <video controls class="grid-image-original">
                             <source src="{{ asset($item->file_path) }}" type="{{ $item->mime_type }}">
                         </video>
                     @elseif($item->isImage())
-                        <img src="{{ asset($item->file_path) }}" alt="{{ $item->title ?? 'Aktivitas ' . ($index + 1) }}"
-                             style="width:100%; height:100%; object-fit:cover;">
+                        <img src="{{ asset($item->file_path) }}" alt="{{ $item->title ?? 'Aktivitas ' . ($index + 1) }}" class="grid-image-original">
                     @else
                         <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;
                                    background:#7cb342; color:#fff; font-weight:bold; font-size:1.2rem;">
@@ -1564,28 +1585,77 @@
         <span class="pricing-badge">Product</span>
         <h2 class="section-title">Main Sekaligus Belajar, Semua Dimulai dari Sini!</h2>
         <p class="section-subtitle">Tingkatkan pemahaman kewirausahaan lewat board game yang seru dan interaktif</p>
+
         <div class="pricing-grid">
+            <!-- Product Card 1 -->
             <div class="pricing-card">
+                <div class="product-image-container">
+                    @php
+                        $productImage1 = $productImages[0] ?? null;
+                    @endphp
+                    @if ($productImage1)
+                        <img src="{{ asset($productImage1->file_path) }}"
+                             alt="{{ $productImage1->title ?? 'Waluya Land' }}"
+                             class="product-image-original"
+                             onerror="this.src='https://via.placeholder.com/800x600/7cb342/ffffff?text=Waluya+Land'">
+                    @else
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #999;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎲</div>
+                                <p>Waluya Land</p>
+                            </div>
+                        </div>
+                    @endif
+                </div>
                 <h3>Waluya Land</h3>
-                <p class="price">Rp 300.000</p>
-                <p>Produk yang baru dapatkan belajar seperti:</p>
+                <div class="price">Rp 300.000</div>
+                <p style="margin-bottom: 1rem;">Produk yang kamu dapatkan berisi:</p>
                 <ul>
-                    <li>1 set produk waluya land</li>
+                    <li>1 set produk waluya land lengkap</li>
                     <li>1 kupon potongan harga</li>
+                    <li>Buku panduan bermain</li>
+                    <li>Akses tutorial online</li>
                 </ul>
                 <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
-                    class="btn-primary" target="_blank">Dapatkan Sekarang</a>
+                   class="btn-primary"
+                   style="display: block; text-align: center; margin-top: 1.5rem;"
+                   target="_blank">Dapatkan Sekarang</a>
             </div>
+
+            <!-- Product Card 2 -->
             <div class="pricing-card">
-                <h3>Waluya Land</h3>
-                <p class="price">Rp 300.000</p>
-                <p>Produk yang baru dapatkan belajar seperti:</p>
+                <div class="product-image-container">
+                    @php
+                        $productImage2 = $productImages[1] ?? null;
+                    @endphp
+                    @if ($productImage2)
+                        <img src="{{ asset($productImage2->file_path) }}"
+                             alt="{{ $productImage2->title ?? 'Waluya Land Premium' }}"
+                             class="product-image-original"
+                             onerror="this.src='https://via.placeholder.com/800x600/bfbfbf/333333?text=Waluya+Land+Premium'">
+                    @else
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #666;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">⭐</div>
+                                <p>Coming Soon</p>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <h3>Waluya Land Premium</h3>
+                <div class="price">Rp 450.000</div>
+                <p style="margin-bottom: 1rem;">Produk premium dengan fitur tambahan:</p>
                 <ul>
-                    <li>1 set produk waluya land</li>
-                    <li>1 kupon potongan harga</li>
+                    <li>1 set produk waluya land premium</li>
+                    <li>Kupon potongan harga 15%</li>
+                    <li>Buku panduan lengkap</li>
+                    <li>Akses workshop online</li>
+                    <li>Konsultasi gratis</li>
                 </ul>
-                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land!"
-                    class="btn-primary" target="_blank">Dapatkan Sekarang</a>
+                <a href="https://wa.me/628986908167?text=Halo%20saya%20tertarik%20dengan%20produk%20Waluya%20Land%20Premium!"
+                   class="btn-primary"
+                   style="display: block; text-align: center; margin-top: 1.5rem; background: #666;"
+                   target="_blank">Pre-Order Sekarang</a>
             </div>
         </div>
     </section>
@@ -1944,7 +2014,31 @@
             }
         });
 
+        // Handle broken images
         document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    // Replace broken images with placeholder
+                    if (this.classList.contains('product-image-original')) {
+                        this.src = 'https://via.placeholder.com/800x600/7cb342/ffffff?text=Waluya+Land';
+                    } else {
+                        this.src = 'https://via.placeholder.com/800x600/d4f1f4/333333?text=Image+Not+Found';
+                    }
+                });
+            });
+
+            // Force image reload if they fail to load
+            setTimeout(() => {
+                images.forEach(img => {
+                    if (!img.complete || img.naturalHeight === 0) {
+                        const originalSrc = img.src;
+                        img.src = '';
+                        img.src = originalSrc;
+                    }
+                });
+            }, 1000);
+
             @if (session('success'))
                 showModal('success', 'Pesan Terkirim!', '{{ session('success') }}');
             @endif
