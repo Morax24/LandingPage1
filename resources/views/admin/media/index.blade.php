@@ -960,11 +960,11 @@
 
                     <select name="section">
                         <option value="all" {{ request('section') == 'all' ? 'selected' : '' }}>Semua Section</option>
-                        <option value="hero" {{ request('section') == 'hero' ? 'selected' : '' }}>Hero</option>
-                        <option value="story" {{ request('section') == 'story' ? 'selected' : '' }}>Story</option>
-                        <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Features</option>
-                        <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas</option>
-                        <option value="whylearn" {{ request('section') == 'whylearn' ? 'selected' : '' }}>Why Learn</option>
+                        <option value="hero" {{ request('section') == 'hero' ? 'selected' : '' }}>Intro</option>
+                        <option value="story" {{ request('section') == 'story' ? 'selected' : '' }}>Background</option>
+                        <option value="features" {{ request('section') == 'features' ? 'selected' : '' }}>Fitur 3</option>
+                        <option value="whylearn" {{ request('section') == 'whylearn' ? 'selected' : '' }}>Fitur Unggulan</option>
+                        <option value="aktivitas" {{ request('section') == 'aktivitas' ? 'selected' : '' }}>Aktivitas & Tutorial</option>
                     </select>
 
                     <input type="text" name="search" placeholder="Cari media..." value="{{ request('search') }}">
