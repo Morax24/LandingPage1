@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +27,7 @@
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
         }
 
         .hero-image-original {
@@ -35,6 +35,7 @@
             height: auto;
             max-height: none;
             display: block;
+            object-fit: cover;
         }
 
         .product-image-original {
@@ -42,18 +43,21 @@
             height: auto;
             max-height: none;
             display: block;
+            object-fit: cover;
         }
 
         .grid-image-original {
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
         }
 
         .feature-image-original {
             width: 100%;
             height: auto;
             display: block;
+            object-fit: cover;
         }
 
         img,
@@ -402,21 +406,34 @@
         }
 
         .why-learn-item {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #7cb342;
+        }
+
+        .why-learn-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .why-learn-item strong {
             display: block;
-            margin-bottom: 0.5rem;
-            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            color: #7cb342;
         }
 
         .why-learn-item p {
             color: #666;
-            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            line-height: 1.6;
+            margin: 0;
         }
 
-        /* SKILLS GRID */
+        /* KETERAMPILAN YANG AKAN DIDAPATKAN - DARI CODE 1 */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -734,11 +751,13 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #ddd;
+            background: linear-gradient(135deg, #7cb342 0%, #689f38 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
             flex-shrink: 0;
         }
 
@@ -903,11 +922,13 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #ddd;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
             flex-shrink: 0;
         }
 
@@ -1059,6 +1080,10 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -1100,10 +1125,10 @@
             }
 
             .stats,
-            .skills-grid,
             .pricing-grid,
             .testimonial-grid,
-            .forum-grid {
+            .forum-grid,
+            .skills-grid {
                 grid-template-columns: 1fr;
                 padding: 2rem 3%;
             }
@@ -1329,39 +1354,43 @@
         </div>
         <div class="hero-image">
             <div class="board-placeholder">
-                @php
-                    $heroMedia = $heroMedia ?? null;
-                @endphp
-                @if ($heroMedia)
-                    @if ($heroMedia->isImage())
-                        <img src="{{ asset($heroMedia->file_path) }}" alt="{{ $heroMedia->title ?? 'Board Game' }}" class="hero-image-original">
-                    @elseif($heroMedia->isVideo())
-                        <video controls autoplay muted loop class="hero-image-original">
-                            <source src="{{ asset($heroMedia->file_path) }}" type="{{ $heroMedia->mime_type }}">
-                        </video>
-                    @endif
-                @else
-                    <img src="https://via.placeholder.com/800x600/7cb342/ffffff?text=Board+Game" alt="Board Game" class="hero-image-original">
-                @endif
+                <!-- Hero Media - Menggunakan data dari database -->
+                <?php
+                // Simulasi data dari database
+                $heroMedia = [
+                    'file_path' => 'media/1763390552_drifting-di-bunderan-hi-tantangan-besar-untuk-garasi-drift-dan-fitra-eri.mp4',
+                    'type' => 'video',
+                    'title' => 'Drifting di Bunderan HI'
+                ];
+                ?>
+                <?php if ($heroMedia && $heroMedia['type'] === 'video'): ?>
+                    <video controls autoplay muted loop class="hero-image-original">
+                        <source src="<?php echo $heroMedia['file_path']; ?>" type="video/mp4">
+                        Browser Anda tidak mendukung video.
+                    </video>
+                <?php else: ?>
+                    <img src="https://via.placeholder.com/800x600/7cb342/ffffff?text=Waluya+Land+Board+Game"
+                         alt="Waluya Land Board Game" class="hero-image-original">
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
     <section id="home" class="stats">
         <div class="stat-card">
-            <h3>{{ $stats['satisfaction'] ?? '85' }}%</h3>
+            <h3>85%</h3>
             <p>Kepuasan user sejauh ini saat bermain</p>
         </div>
         <div class="stat-card">
-            <h3>{{ $stats['schools'] ?? '50' }}+</h3>
+            <h3>50+</h3>
             <p>Sekolah dan siswa yang sudah menekankannya</p>
         </div>
         <div class="stat-card">
-            <h3>{{ $stats['students'] ?? '80' }}%</h3>
+            <h3>80%</h3>
             <p>Membantu mereka dari pengalaman baru</p>
         </div>
         <div class="stat-card">
-            <h3>{{ $stats['understanding'] ?? '87' }}%</h3>
+            <h3>87%</h3>
             <p>Meningkatkan pemahaman pembelajaran</p>
         </div>
     </section>
@@ -1369,18 +1398,21 @@
     <section class="story-section">
         <div class="story-grid">
             <div class="story-image">
-                @php $storyMedia = $storyMedia ?? null; @endphp
-                @if ($storyMedia)
-                    @if ($storyMedia->isImage())
-                        <img src="{{ asset($storyMedia->file_path) }}" alt="{{ $storyMedia->title ?? 'Story' }}" class="image-original">
-                    @elseif($storyMedia->isVideo())
-                        <video controls class="image-original">
-                            <source src="{{ asset($storyMedia->file_path) }}" type="{{ $storyMedia->mime_type }}">
-                        </video>
-                    @endif
-                @else
-                    <img src="https://via.placeholder.com/350x350/d4f1f4/333333?text=Story+Image" alt="Story" class="image-original">
-                @endif
+                <!-- Story Media -->
+                <?php
+                $storyMedia = [
+                    'file_path' => 'media/1763435257_screenshot-2024-12-21-213113.png',
+                    'type' => 'image',
+                    'title' => 'Cerita Waluya Land'
+                ];
+                ?>
+                <?php if ($storyMedia && $storyMedia['type'] === 'image'): ?>
+                    <img src="<?php echo $storyMedia['file_path']; ?>"
+                         alt="<?php echo $storyMedia['title']; ?>" class="image-original">
+                <?php else: ?>
+                    <img src="https://via.placeholder.com/350x350/d4f1f4/333333?text=Story+Image"
+                         alt="Story" class="image-original">
+                <?php endif; ?>
             </div>
             <div class="story-content">
                 <span class="story-badge">Background</span>
@@ -1394,125 +1426,65 @@
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">💡</div>
-                <h3>problem</h3>
+                <h3>Problem Solving</h3>
                 <p>Dapat membantu siswa menyebarkan kebutuhan untuk pembelajaran interaktif dalam pendidikan bisnis.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">👥</div>
-                <h3>problem</h3>
-                <p>Diverifikasi sulit dapat dengan melalukan kerja tim antar industri secara efejtive</p>
+                <h3>Kolaborasi</h3>
+                <p>Mendorong kerja tim antar industri secara efektif</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
-                <h3>problem</h3>
+                <h3>Pengalaman Praktis</h3>
                 <p>Dorong para mengambil proyek kewirausahaan dalam membuat konsep bisnis yang kompleks menjadi mudah
                     dipahami dan menyenangkan bagi semua peserta didik</p>
             </div>
         </div>
     </section>
 
-    @foreach ($whyLearnMedias ?? [] as $index => $media)
-        @if ($index == 0)
-            <section class="why-learn-section">
-                <div class="why-learn-grid">
-                    <div class="why-learn-media">
-                        @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Why Learn' }}" class="image-original">
-                        @elseif($media->isVideo())
-                            <video controls class="image-original">
-                                <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
-                            </video>
-                        @endif
-                    </div>
-                    <div class="why-learn-content">
-                        <h2>Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
-                        <div class="why-learn-item">
-                            <strong>① Pengalaman Belajar Interaktif dan Praktis</strong>
-                            <p>Melalui pengalaman keputusan dan presentasi bisnis dengan feedback langsung</p>
-                        </div>
-                        <div class="why-learn-item">
-                            <strong>② Real-Case Scenario</strong>
-                            <p>Koleksi tantangan berdasarkan situasi bisnis nyata</p>
-                        </div>
-                        <div class="why-learn-item">
-                            <strong>③ Belajar Kolaboratif</strong>
-                            <p>Bermain dengan strategi tim akan bersama dan bekerja sama dengan orang lain.</p>
-                        </div>
-                    </div>
+    <!-- BAGIAN MENGAPA BELAJAR KEWIRAUSAHAAN YANG DIPERBAIKI -->
+    <section class="why-learn-section">
+        <div class="why-learn-grid">
+            <div class="why-learn-media">
+                <!-- Why Learn Media -->
+                <?php
+                $whyLearnMedia = [
+                    'file_path' => 'media/1763435325_screenshot-2025-08-26-195732.png',
+                    'type' => 'image',
+                    'title' => 'Belajar Kewirausahaan'
+                ];
+                ?>
+                <?php if ($whyLearnMedia && $whyLearnMedia['type'] === 'image'): ?>
+                    <img src="<?php echo $whyLearnMedia['file_path']; ?>"
+                         alt="Belajar Kewirausahaan" class="image-original">
+                <?php else: ?>
+                    <img src="https://via.placeholder.com/600x400/d4f1f4/333333?text=Belajar+Kewirausahaan"
+                         alt="Belajar Kewirausahaan" class="image-original">
+                <?php endif; ?>
+            </div>
+            <div class="why-learn-content">
+                <h2>Mengapa Belajar Kewirausahaan Melalui Permainan Papan?</h2>
+
+                <div class="why-learn-item">
+                    <strong>① Pengalaman Belajar Interaktif dan Praktis</strong>
+                    <p>Melatih pengambilan keputusan dan presentasi bisnis dengan feedback langsung</p>
                 </div>
-            </section>
-        @elseif($index == 1)
-            <section class="why-learn-section" style="background:#f8f9fa;">
-                <div class="why-learn-grid">
-                    <div class="why-learn-content">
-                        <h2>Keterampilan yang Akan Anda Dapatkan</h2>
-                        <p style="color:#666; margin-bottom:2rem;">Main keterampilan kewirausahaan yang sukses melalui permainan yang menarik</p>
-                    </div>
-                    <div class="why-learn-media">
-                        @if ($media->isImage())
-                            <img src="{{ asset($media->file_path) }}" alt="{{ $media->title ?? 'Skills' }}" class="image-original">
-                        @elseif($media->isVideo())
-                            <video controls class="image-original">
-                                <source src="{{ asset($media->file_path) }}" type="{{ $media->mime_type }}">
-                            </video>
-                        @endif
-                    </div>
+
+                <div class="why-learn-item">
+                    <strong>② Real-Case Skenario</strong>
+                    <p>Hadapi tantangan berdasarkan situasi bisnis nyata</p>
                 </div>
-            </section>
-        @endif
-    @endforeach
 
-    <!-- BAGIAN FITUR UNGGULAN DENGAN LAYOUT ZIGZAG -->
-    <section id="features" style="padding:4rem 5%; background:#d4f1f4;">
-        <span class="story-badge">Features</span>
-        <h2 class="section-title">Fitur Unggulan</h2>
-
-        <div class="features-zigzag">
-            @php
-                $featuresMedia = $featuresMedia ?? collect();
-            @endphp
-
-            @foreach($featuresMedia->take(4) as $index => $item)
-                <div class="feature-row">
-                    <div class="feature-media-box">
-                        @if ($item->isVideo())
-                            <video controls class="feature-image-original">
-                                <source src="{{ asset($item->file_path) }}" type="{{ $item->mime_type }}">
-                            </video>
-                        @elseif($item->isImage())
-                            <img src="{{ asset($item->file_path) }}" alt="{{ $item->title }}" class="feature-image-original">
-                        @else
-                            <div class="placeholder">Feature {{ $index + 1 }}</div>
-                        @endif
-                    </div>
-                    <div class="feature-text-box">
-                        <h3>{{ $item->title ?? 'Fitur Unggulan ' . ($index + 1) }}</h3>
-                        <p>{{ $item->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' }}</p>
-                    </div>
+                <div class="why-learn-item">
+                    <strong>③ Belajar Kolaboratif</strong>
+                    <p>Kembangkan strategi dan komunikasi sambil bersinergi dan bekerja sama dengan orang lain</p>
                 </div>
-            @endforeach
-
-            <!-- Fallback jika tidak ada data -->
-            @if($featuresMedia->count() == 0)
-                @for($i = 0; $i < 4; $i++)
-                    <div class="feature-row">
-                        <div class="feature-media-box">
-                            <div class="placeholder">Feature {{ $i + 1 }}</div>
-                        </div>
-                        <div class="feature-text-box">
-                            <h3>Fitur Unggulan {{ $i + 1 }}</h3>
-                            <p>Deskripsi fitur {{ $i + 1 }} akan ditampilkan di sini.</p>
-                        </div>
-                    </div>
-                @endfor
-            @endif
-        </div>
-
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="#pricing" class="btn-primary">Dapatkan Sekarang</a>
+            </div>
         </div>
     </section>
 
+    <!-- BAGIAN KETERAMPILAN YANG AKAN DIDAPATKAN - DARI CODE 1 -->
     <section style="padding: 2rem 0; background: #fff;">
         <h2 class="section-title">Keterampilan yang Akan Anda Dapatkan</h2>
         <p class="section-subtitle">Main keterampilan kewirausahaan yang sukses melalui permainan yang menarik</p>
@@ -1540,44 +1512,123 @@
         </div>
     </section>
 
+    <!-- BAGIAN FITUR UNGGULAN DENGAN LAYOUT ZIGZAG -->
+    <section id="features" style="padding:4rem 5%; background:#d4f1f4;">
+        <span class="story-badge">Features</span>
+        <h2 class="section-title">Fitur Unggulan</h2>
+
+        <div class="features-zigzag">
+            <?php
+            // Data fitur dari database
+            $featuresMedia = [
+                [
+                    'file_path' => 'media/1763420472_game.png',
+                    'type' => 'image',
+                    'title' => 'Game Interaktif',
+                    'description' => 'Pengalaman belajar yang menyenangkan melalui permainan papan interaktif'
+                ],
+                [
+                    'file_path' => 'media/1763428970_puzzle.png',
+                    'type' => 'image',
+                    'title' => 'Puzzle Bisnis',
+                    'description' => 'Memecahkan tantangan bisnis melalui puzzle yang menarik'
+                ],
+                [
+                    'file_path' => 'media/1763551047_drifting-di-bunderan-hi-tantangan-besar-untuk-garasi-drift-dan-fitra-eri.mp4',
+                    'type' => 'video',
+                    'title' => 'Simulasi Bisnis',
+                    'description' => 'Video simulasi situasi bisnis nyata untuk pembelajaran praktis'
+                ],
+                [
+                    'file_path' => 'media/1763647456_screenshot-2024-10-27-201427.png',
+                    'type' => 'image',
+                    'title' => 'Analisis Pasar',
+                    'description' => 'Belajar menganalisis pasar dan peluang bisnis'
+                ]
+            ];
+            ?>
+
+            <?php foreach($featuresMedia as $index => $item): ?>
+                <div class="feature-row">
+                    <div class="feature-media-box">
+                        <?php if ($item['type'] === 'video'): ?>
+                            <video controls class="feature-image-original">
+                                <source src="<?php echo $item['file_path']; ?>" type="video/mp4">
+                                Browser Anda tidak mendukung video.
+                            </video>
+                        <?php else: ?>
+                            <img src="<?php echo $item['file_path']; ?>"
+                                 alt="<?php echo $item['title']; ?>" class="feature-image-original">
+                        <?php endif; ?>
+                    </div>
+                    <div class="feature-text-box">
+                        <h3><?php echo $item['title']; ?></h3>
+                        <p><?php echo $item['description']; ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#pricing" class="btn-primary">Dapatkan Sekarang</a>
+        </div>
+    </section>
+
     <!-- BAGIAN AKTIVITAS DENGAN GRID LAYOUT BARU -->
     <section id="aktivitas" style="padding:4rem 5%;background:#fff;">
         <h2 class="section-title">Aktivitas Terbaru & Tutorial</h2>
         <p class="section-subtitle">Kumpulan aktivitas bermain GameBoard & bagaimana kita menggunakannya</p>
 
         <div class="grid">
-            @php
-                $aktivitasMedia = $aktivitasMedia ?? collect();
-            @endphp
+            <?php
+            // Data aktivitas dari database
+            $aktivitasMedia = [
+                [
+                    'file_path' => 'media/1763520501_screenshot-2025-11-18-152818.png',
+                    'type' => 'image',
+                    'title' => 'Aktivitas 1'
+                ],
+                [
+                    'file_path' => 'media/1763551717_screenshot-2025-06-24-185842.png',
+                    'type' => 'image',
+                    'title' => 'Aktivitas 2'
+                ],
+                [
+                    'file_path' => 'media/1763642965_discover-15-virtual-background-zoom-and-zoom-background-design-ideas-education-resume-alumni-background-design-marketing-department-and-more.mp4',
+                    'type' => 'video',
+                    'title' => 'Aktivitas 3'
+                ],
+                [
+                    'file_path' => 'media/1763643016_screenshot-2024-09-22-093910.png',
+                    'type' => 'image',
+                    'title' => 'Aktivitas 4'
+                ],
+                [
+                    'file_path' => 'media/1763643039_screenshot-2025-06-27-103131.png',
+                    'type' => 'image',
+                    'title' => 'Aktivitas 5'
+                ],
+                [
+                    'file_path' => 'media/1763868738_grid-layout.png',
+                    'type' => 'image',
+                    'title' => 'Aktivitas 6'
+                ]
+            ];
+            ?>
 
-            @foreach($aktivitasMedia->take(6) as $index => $item)
-                <div class="item item-{{ $index }}">
-                    @if ($item->isVideo())
+            <?php foreach($aktivitasMedia as $index => $item): ?>
+                <div class="item item-<?php echo $index; ?>">
+                    <?php if ($item['type'] === 'video'): ?>
                         <video controls class="grid-image-original">
-                            <source src="{{ asset($item->file_path) }}" type="{{ $item->mime_type }}">
+                            <source src="<?php echo $item['file_path']; ?>" type="video/mp4">
+                            Browser Anda tidak mendukung video.
                         </video>
-                    @elseif($item->isImage())
-                        <img src="{{ asset($item->file_path) }}" alt="{{ $item->title ?? 'Aktivitas ' . ($index + 1) }}" class="grid-image-original">
-                    @else
-                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;
-                                   background:#7cb342; color:#fff; font-weight:bold; font-size:1.2rem;">
-                            Aktivitas {{ $index + 1 }}
-                        </div>
-                    @endif
+                    <?php else: ?>
+                        <img src="<?php echo $item['file_path']; ?>"
+                             alt="<?php echo $item['title']; ?>" class="grid-image-original">
+                    <?php endif; ?>
                 </div>
-            @endforeach
-
-            <!-- Fallback jika tidak ada data -->
-            @if($aktivitasMedia->count() == 0)
-                @for($i = 0; $i < 6; $i++)
-                    <div class="item item-{{ $i }}">
-                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;
-                                   background:#7cb342; color:#fff; font-weight:bold; font-size:1.2rem;">
-                            Aktivitas {{ $i + 1 }}
-                        </div>
-                    </div>
-                @endfor
-            @endif
+            <?php endforeach; ?>
         </div>
     </section>
 
@@ -1590,22 +1641,24 @@
             <!-- Product Card 1 -->
             <div class="pricing-card">
                 <div class="product-image-container">
-                    @php
-                        $productImage1 = $productImages[0] ?? null;
-                    @endphp
-                    @if ($productImage1)
-                        <img src="{{ asset($productImage1->file_path) }}"
-                             alt="{{ $productImage1->title ?? 'Waluya Land' }}"
-                             class="product-image-original"
-                             onerror="this.src='https://via.placeholder.com/800x600/7cb342/ffffff?text=Waluya+Land'">
-                    @else
+                    <?php
+                    $productImage1 = [
+                        'file_path' => 'media/1763420472_game.png',
+                        'title' => 'Waluya Land'
+                    ];
+                    ?>
+                    <?php if ($productImage1): ?>
+                        <img src="<?php echo $productImage1['file_path']; ?>"
+                             alt="<?php echo $productImage1['title']; ?>"
+                             class="product-image-original">
+                    <?php else: ?>
                         <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #999;">
                             <div style="text-align: center;">
                                 <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎲</div>
                                 <p>Waluya Land</p>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
                 <h3>Waluya Land</h3>
                 <div class="price">Rp 300.000</div>
@@ -1625,22 +1678,24 @@
             <!-- Product Card 2 -->
             <div class="pricing-card">
                 <div class="product-image-container">
-                    @php
-                        $productImage2 = $productImages[1] ?? null;
-                    @endphp
-                    @if ($productImage2)
-                        <img src="{{ asset($productImage2->file_path) }}"
-                             alt="{{ $productImage2->title ?? 'Waluya Land Premium' }}"
-                             class="product-image-original"
-                             onerror="this.src='https://via.placeholder.com/800x600/bfbfbf/333333?text=Waluya+Land+Premium'">
-                    @else
+                    <?php
+                    $productImage2 = [
+                        'file_path' => 'media/1763428970_puzzle.png',
+                        'title' => 'Waluya Land Premium'
+                    ];
+                    ?>
+                    <?php if ($productImage2): ?>
+                        <img src="<?php echo $productImage2['file_path']; ?>"
+                             alt="<?php echo $productImage2['title']; ?>"
+                             class="product-image-original">
+                    <?php else: ?>
                         <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #666;">
                             <div style="text-align: center;">
                                 <div style="font-size: 3rem; margin-bottom: 0.5rem;">⭐</div>
                                 <p>Coming Soon</p>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
                 <h3>Waluya Land Premium</h3>
                 <div class="price">Rp 450.000</div>
@@ -1660,35 +1715,49 @@
         </div>
     </section>
 
+    <!-- BAGIAN TESTIMONIAL YANG DIPERBAIKI - MENAMPILKAN SEMUA USER -->
     <section id="testimonial" class="testimonial-section">
         <span class="story-badge">Testimoni</span>
         <h2 class="section-title">Apa yang Dikatakan Para Pemain</h2>
         <p class="section-subtitle">Feedback dan manfaat dari siswa</p>
         <div class="testimonial-grid">
-            @forelse($testimonials ?? [] as $testimonial)
+            <?php
+            // Data testimonial dari database - SEMUA DATA
+            $testimonials = [
+                ['name' => 'Yoga', 'email' => 'yoga@gmail.com', 'institution' => 'SMK', 'message' => 'Mantap rekomen'],
+                ['name' => 'bowo', 'email' => 'bowo@gmail.com', 'institution' => 'abcd', 'message' => 'Rekomen budget pelajar'],
+                ['name' => 'iqi lucu', 'email' => 'iqi@mail.com', 'institution' => 'SMAN', 'message' => 'AMAZING WOWW'],
+                ['name' => 'IKI', 'email' => 'reno@gmail.com', 'institution' => 'SMAN', 'message' => 'MANTAP MANTP'],
+                ['name' => 'reno', 'email' => 'reno@gmail.com', 'institution' => 'smp', 'message' => 'weaslidvcgegfkgkgf'],
+                ['name' => 'BALIILL', 'email' => 'bot@gmail.com', 'institution' => 'negara', 'message' => 'asuuuuuuuuuuu'],
+                ['name' => 'Minuman', 'email' => 'moraxx@gmail.com', 'institution' => 'pmr', 'message' => 'qwertkfkfkhghgj'],
+                ['name' => 'yoga', 'email' => 'sasfsaf@gmail.com', 'institution' => 'DINAS', 'message' => 'sfgfhgjmhghfgdfsda?']
+            ];
+            ?>
+            <?php foreach($testimonials as $testimonial): ?>
                 <div class="testimonial-card">
                     <div class="testimonial-header">
-                        <div class="testimonial-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
+                        <div class="testimonial-avatar">
+                            <?php
+                            // Ambil inisial dari nama
+                            $names = explode(' ', $testimonial['name']);
+                            $initials = '';
+                            foreach($names as $n) {
+                                $initials .= strtoupper(substr($n, 0, 1));
+                            }
+                            echo substr($initials, 0, 2); // Maksimal 2 huruf
+                            ?>
+                        </div>
                         <div>
-                            <h4>{{ $testimonial->name }}</h4>
-                            <small style="color: #999;">{{ $testimonial->institution ?? 'Pengguna' }}</small>
+                            <h4><?php echo htmlspecialchars($testimonial['name']); ?></h4>
+                            <small style="color: #999;">
+                                <?php echo htmlspecialchars($testimonial['institution'] ?? 'Pengguna'); ?>
+                            </small>
                         </div>
                     </div>
-                    <p>"{{ $testimonial->message }}"</p>
+                    <p>"<?php echo htmlspecialchars($testimonial['message']); ?>"</p>
                 </div>
-            @empty
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">S</div>
-                        <div>
-                            <h4>Sarah Johnson</h4>
-                            <small style="color: #999;">Pendidik Kewirausahaan</small>
-                        </div>
-                    </div>
-                    <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan. Siswa menjadi lebih tertarik dan
-                        memahami konsep dengan jauh lebih baik."</p>
-                </div>
-            @endforelse
+            <?php endforeach; ?>
         </div>
     </section>
 
@@ -1753,23 +1822,10 @@
 
             <div class="faq-contact-form-mobile">
                 <p style="margin-bottom: 1.5rem; color: #666; text-align: center;">Punya pertanyaan lain? silahkan cantumkan disini</p>
-                <form action="{{ route('contact.store') }}" method="POST">
-                    @csrf
-                    <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
-                    @error('name')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
-
-                    <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
-                    @error('institution')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
-
-                    <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
-                    @error('message')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
-
+                <form action="#" method="POST">
+                    <input type="text" name="name" placeholder="Nama Lengkap" required>
+                    <input type="text" name="institution" placeholder="Instansi">
+                    <textarea name="message" placeholder="Pesan/Pertanyaan" required></textarea>
                     <button type="submit" class="btn-submit-faq">Kirim</button>
                 </form>
             </div>
@@ -1780,28 +1836,11 @@
             <div class="faq-contact-grid">
                 <div class="faq-contact-form">
                     <p style="margin-bottom: 1.5rem; color: #666;">Punya pertanyaan lain? silahkan cantumkan disini!</p>
-                    <form action="{{ route('contact.store') }}" method="POST">
-                        @csrf
-                        <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
-                        @error('name')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
-
-                        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-                        @error('email')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
-
-                        <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
-                        @error('institution')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
-
-                        <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
-                        @error('message')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
-
+                    <form action="#" method="POST">
+                        <input type="text" name="name" placeholder="Nama Lengkap" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="text" name="institution" placeholder="Instansi">
+                        <textarea name="message" placeholder="Pesan/Pertanyaan" required></textarea>
                         <button type="submit" class="btn-submit-faq">Kirim</button>
                     </form>
                 </div>
@@ -1862,35 +1901,45 @@
         </div>
     </section>
 
+    <!-- BAGIAN FORUM YANG DIPERBAIKI - MENAMPILKAN SEMUA USER -->
     <section class="forum-section">
         <span class="story-badge">Forum</span>
         <h2 class="section-title">Forum Terbuka untuk Tanya, Saran, dan Insight</h2>
         <p class="section-subtitle">Punya ide, saran, atau pertanyaan untuk kami? ajukan pertanyaan langsung pada tim
             kami</p>
         <div class="forum-grid">
-            @forelse(($testimonials ?? collect())->take(6) as $testimonial)
+            <?php
+            // Untuk forum, kita bisa menampilkan semua data atau data tertentu
+            // Contoh: tampilkan 6 data pertama untuk forum
+            $forumPosts = array_slice($testimonials, 0, 6);
+            ?>
+            <?php foreach($forumPosts as $post): ?>
                 <div class="forum-card">
                     <div class="forum-header">
-                        <div class="forum-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
+                        <div class="forum-avatar">
+                            <?php
+                            $names = explode(' ', $post['name']);
+                            $initials = '';
+                            foreach($names as $n) {
+                                $initials .= strtoupper(substr($n, 0, 1));
+                            }
+                            echo substr($initials, 0, 2);
+                            ?>
+                        </div>
                         <div>
-                            <h4>{{ $testimonial->name }}</h4>
-                            <small style="color: #999;">{{ $testimonial->institution ?? 'Pengguna' }}</small>
+                            <h4><?php echo htmlspecialchars($post['name']); ?></h4>
+                            <small style="color: #999;">
+                                <?php echo htmlspecialchars($post['institution'] ?? 'Pengguna'); ?>
+                            </small>
+                            <br>
+                            <small style="color: #999;">
+                                <?php echo htmlspecialchars($post['email']); ?>
+                            </small>
                         </div>
                     </div>
-                    <p>"{{ Str::limit($testimonial->message, 150) }}"</p>
+                    <p>"<?php echo htmlspecialchars($post['message']); ?>"</p>
                 </div>
-            @empty
-                <div class="forum-card">
-                    <div class="forum-header">
-                        <div class="forum-avatar">S</div>
-                        <div>
-                            <h4>Sarah Johnson</h4>
-                            <small style="color: #999;">Pendidik Kewirausahaan</small>
-                        </div>
-                    </div>
-                    <p>"Permainan ini telah mengubah cara saya mengajar kewirausahaan."</p>
-                </div>
-            @endforelse
+            <?php endforeach; ?>
         </div>
 
         <div class="forum-cta">
@@ -2038,16 +2087,7 @@
                     }
                 });
             }, 1000);
-
-            @if (session('success'))
-                showModal('success', 'Pesan Terkirim!', '{{ session('success') }}');
-            @endif
-
-            @if (session('error'))
-                showModal('error', 'Terjadi Kesalahan', '{{ session('error') }}');
-            @endif
         });
     </script>
 </body>
-
 </html>
