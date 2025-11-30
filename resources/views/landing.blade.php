@@ -1822,10 +1822,23 @@
 
             <div class="faq-contact-form-mobile">
                 <p style="margin-bottom: 1.5rem; color: #666; text-align: center;">Punya pertanyaan lain? silahkan cantumkan disini</p>
-                <form action="#" method="POST">
-                    <input type="text" name="name" placeholder="Nama Lengkap" required>
-                    <input type="text" name="institution" placeholder="Instansi">
-                    <textarea name="message" placeholder="Pesan/Pertanyaan" required></textarea>
+                <form action="{{ route('contact.store') }}" method="POST">
+                    @csrf
+                    <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
+                    @error('name')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
+                    <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
+                    @error('institution')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
+                    <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
+                    @error('message')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
                     <button type="submit" class="btn-submit-faq">Kirim</button>
                 </form>
             </div>
@@ -1836,11 +1849,28 @@
             <div class="faq-contact-grid">
                 <div class="faq-contact-form">
                     <p style="margin-bottom: 1.5rem; color: #666;">Punya pertanyaan lain? silahkan cantumkan disini!</p>
-                    <form action="#" method="POST">
-                        <input type="text" name="name" placeholder="Nama Lengkap" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="text" name="institution" placeholder="Instansi">
-                        <textarea name="message" placeholder="Pesan/Pertanyaan" required></textarea>
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
+                        @error('name')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <input type="text" name="institution" placeholder="Instansi" value="{{ old('institution') }}">
+                        @error('institution')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
+                        <textarea name="message" placeholder="Pesan/Pertanyaan" required>{{ old('message') }}</textarea>
+                        @error('message')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
+
                         <button type="submit" class="btn-submit-faq">Kirim</button>
                     </form>
                 </div>
